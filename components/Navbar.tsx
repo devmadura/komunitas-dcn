@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import handleClick from "@/lib/url-redirect"
+import { handleClick } from "@/lib/url-redirect";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
