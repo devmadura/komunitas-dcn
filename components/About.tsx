@@ -19,7 +19,7 @@ export default function About() {
       icon: Heart,
       title: "Nilai Kami",
       description:
-        "Kolaborasi, pembelajaran berkelanjutan, dan pertumbuhan bersama",
+        "Kolaborasi, pembelajaran berkelanjutan, dan pertumbuhan bersama dan dapat kelas gratis dari dicoding indonesia Gen AI Engginer",
     },
   ];
 
@@ -40,10 +40,11 @@ export default function About() {
                 </span>
               </h3>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                DCN Unira adalah komunitas mahasiswa yang fokus pada
-                pengembangan skill programming dan teknologi. Kami menyediakan
-                wadah bagi mahasiswa untuk belajar, berbagi pengetahuan, dan
-                berkembang bersama dalam dunia teknologi informasi.
+                DCN Unira adalah komunitas mahasiswa yang di support langsung
+                dicoding indonesia yang fokus pada pengembangan skill
+                programming dan teknologi. Kami menyediakan wadah bagi mahasiswa
+                untuk belajar, berbagi pengetahuan, dan berkembang bersama dalam
+                dunia teknologi informasi.
               </p>
             </div>
 
@@ -78,7 +79,7 @@ export default function About() {
           <div className="relative animate-scale-in">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src={"/logo500x500.png"}
+                src={"/about.jpg"}
                 width={500}
                 height={500}
                 alt="DCN Unira Community"

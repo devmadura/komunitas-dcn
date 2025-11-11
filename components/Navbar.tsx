@@ -1,8 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -60,7 +61,9 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="glass" size="sm">
-              Gabung Sekarang
+              <Link href="https://pendaftaran.dcnunira.dev" target="_blank">
+                Gabung Sekarang
+              </Link>
             </Button>
           </div>
 
@@ -92,8 +95,10 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="px-4 pt-2">
-                <Button variant="hero" className="w-full">
-                  Gabung Sekarang
+                <Button variant="glass" className="w-full">
+                  <Link href="https://pendaftaran.dcnunira.dev" target="_blank">
+                    Gabung Sekarang
+                  </Link>
                 </Button>
               </div>
             </div>

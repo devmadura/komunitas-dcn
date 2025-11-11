@@ -96,29 +96,6 @@
   }
 }
 
-/* Manual Dark Mode with .dark class */
-.dark {
-  --color-background: 222 47% 11%;
-  --color-foreground: 210 40% 98%;
-  --color-card: 222 47% 11%;
-  --color-card-foreground: 210 40% 98%;
-  --color-popover: 222 47% 11%;
-  --color-popover-foreground: 210 40% 98%;
-  --color-muted: 217 33% 17%;
-  --color-muted-foreground: 215 20% 65%;
-  --color-border: 217 33% 17%;
-  --color-input: 217 33% 17%;
-  --color-destructive: 0 63% 31%;
-
-  --color-sidebar: 240 5.9% 10%;
-  --color-sidebar-foreground: 240 4.8% 95.9%;
-  --color-sidebar-primary: 224.3 76.3% 48%;
-  --color-sidebar-primary-foreground: 0 0% 100%;
-  --color-sidebar-accent: 240 3.7% 15.9%;
-  --color-sidebar-accent-foreground: 240 4.8% 95.9%;
-  --color-sidebar-border: 240 3.7% 15.9%;
-}
-
 /* Keyframe Animations */
 @keyframes accordion-down {
   from {
@@ -172,6 +149,29 @@
 }
 
 /* Base Styles */
+/* Manual Dark Mode with .dark class */
+/* .dark {
+  --color-background: 222 47% 11%;
+  --color-foreground: 210 40% 98%;
+  --color-card: 222 47% 11%;
+  --color-card-foreground: 210 40% 98%;
+  --color-popover: 222 47% 11%;
+  --color-popover-foreground: 210 40% 98%;
+  --color-muted: 217 33% 17%;
+  --color-muted-foreground: 215 20% 65%;
+  --color-border: 217 33% 17%;
+  --color-input: 217 33% 17%;
+  --color-destructive: 0 63% 31%;
+
+  --color-sidebar: 240 5.9% 10%;
+  --color-sidebar-foreground: 240 4.8% 95.9%;
+  --color-sidebar-primary: 224.3 76.3% 48%;
+  --color-sidebar-primary-foreground: 0 0% 100%;
+  --color-sidebar-accent: 240 3.7% 15.9%;
+  --color-sidebar-accent-foreground: 240 4.8% 95.9%;
+  --color-sidebar-border: 240 3.7% 15.9%;
+} */
+
 * {
   border-color: hsl(var(--color-border));
 }
@@ -181,27 +181,6 @@ body {
   color: hsl(var(--color-foreground));
   font-feature-settings: "rlig" 1, "calt" 1;
   text-rendering: optimizeLegibility;
-}
-
-/* Utility Classes */
-.animate-accordion-down {
-  animation: var(--animate-accordion-down);
-}
-
-.animate-accordion-up {
-  animation: var(--animate-accordion-up);
-}
-
-.animate-fade-in {
-  animation: var(--animate-fade-in);
-}
-
-.animate-slide-up {
-  animation: var(--animate-slide-up);
-}
-
-.animate-scale-in {
-  animation: var(--animate-scale-in);
 }
 
 /* Container Utilities */
