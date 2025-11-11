@@ -2,6 +2,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import handleClick from "@/lib/url-redirect"
 
 export default function Hero() {
   return (
@@ -59,7 +60,7 @@ export default function Hero() {
               size="lg"
               className="bg-white text-blue-600 hover:bg-white/90 shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all px-8"
             >
-              <Link href="http://pendaftaran.dcnunira.dev" target="_blank" rel="noopener noreferrer">
+              <Link href="#" onClick={handleClick}>
                 Gabung Sekarang
               </Link>
               <ArrowRight className="ml-2 w-5 h-5" />

@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import handleClick from "@/lib/url-redirect"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +62,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="glass" size="sm">
-              <Link href="http://pendaftaran.dcnunira.dev" target="_blank" rel="noopener noreferrer">
+              <Link href="#" onClick={handleClick}>
                 Gabung Sekarang
               </Link>
             </Button>
@@ -96,7 +97,7 @@ export default function Navbar() {
               ))}
               <div className="px-4 pt-2">
                 <Button variant="glass" className="w-full">
-                  <Link href="http://pendaftaran.dcnunira.dev" target="_blank" rel="noopener noreferrer">
+                  <Link href="#" onClick={handleClick}>
                     Gabung Sekarang
                   </Link>
                 </Button>
