@@ -61,7 +61,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="glass" size="sm">
-              <Link href="https://pendaftaran.dcnunira.dev" target="_blank">
+              <Link href="http://pendaftaran.dcnunira.dev" target="_blank" rel="noopener noreferrer">
                 Gabung Sekarang
               </Link>
             </Button>
@@ -96,7 +96,7 @@ export default function Navbar() {
               ))}
               <div className="px-4 pt-2">
                 <Button variant="glass" className="w-full">
-                  <Link href="https://pendaftaran.dcnunira.dev" target="_blank">
+                  <Link href="http://pendaftaran.dcnunira.dev" target="_blank" rel="noopener noreferrer">
                     Gabung Sekarang
                   </Link>
                 </Button>
