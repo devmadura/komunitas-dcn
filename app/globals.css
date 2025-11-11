@@ -1,26 +1,220 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Colors */
+  --color-border: 220 13% 91%;
+  --color-input: 220 13% 91%;
+  --color-ring: 217 91% 60%;
+  --color-background: 0 0% 100%;
+  --color-foreground: 222.2 84% 4.9%;
+
+  --color-primary: 217 91% 60%;
+  --color-primary-foreground: 0 0% 100%;
+
+  --color-secondary: 263 70% 60%;
+  --color-secondary-foreground: 0 0% 100%;
+
+  --color-destructive: 0 84.2% 60.2%;
+  --color-destructive-foreground: 0 0% 100%;
+
+  --color-muted: 220 14% 96%;
+  --color-muted-foreground: 220 9% 46%;
+
+  --color-accent: 280 80% 65%;
+  --color-accent-foreground: 0 0% 100%;
+
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 222.2 84% 4.9%;
+
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 222.2 84% 4.9%;
+
+  /* DCN Custom Colors */
+  --color-dcn-blue: 217 91% 60%;
+  --color-dcn-purple: 263 70% 60%;
+  --color-dcn-pink: 330 81% 60%;
+
+  /* Sidebar Colors */
+  --color-sidebar: 0 0% 98%;
+  --color-sidebar-foreground: 240 5.3% 26.1%;
+  --color-sidebar-primary: 240 5.9% 10%;
+  --color-sidebar-primary-foreground: 0 0% 98%;
+  --color-sidebar-accent: 240 4.8% 95.9%;
+  --color-sidebar-accent-foreground: 240 5.9% 10%;
+  --color-sidebar-border: 220 13% 91%;
+  --color-sidebar-ring: 217.2 91.2% 59.8%;
+
+  /* Border Radius */
+  --radius: 0.75rem;
+  --radius-lg: 0.75rem;
+  --radius-md: calc(0.75rem - 2px);
+  --radius-sm: calc(0.75rem - 4px);
+
+  /* Container */
+  --container-center: true;
+  --container-padding: 2rem;
+  --container-max-width-2xl: 1400px;
+
+  /* Breakpoints (optional, Tailwind v4 has defaults) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1400px;
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-fade-in: fade-in 0.5s ease-out;
+  --animate-slide-up: slide-up 0.6s ease-out;
+  --animate-scale-in: scale-in 0.4s ease-out;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @theme {
+    --color-background: 222 47% 11%;
+    --color-foreground: 210 40% 98%;
+    --color-card: 222 47% 11%;
+    --color-card-foreground: 210 40% 98%;
+    --color-popover: 222 47% 11%;
+    --color-popover-foreground: 210 40% 98%;
+    --color-muted: 217 33% 17%;
+    --color-muted-foreground: 215 20% 65%;
+    --color-border: 217 33% 17%;
+    --color-input: 217 33% 17%;
+    --color-destructive: 0 63% 31%;
+
+    --color-sidebar: 240 5.9% 10%;
+    --color-sidebar-foreground: 240 4.8% 95.9%;
+    --color-sidebar-primary: 224.3 76.3% 48%;
+    --color-sidebar-primary-foreground: 0 0% 100%;
+    --color-sidebar-accent: 240 3.7% 15.9%;
+    --color-sidebar-accent-foreground: 240 4.8% 95.9%;
+    --color-sidebar-border: 240 3.7% 15.9%;
   }
 }
 
+/* Manual Dark Mode with .dark class */
+.dark {
+  --color-background: 222 47% 11%;
+  --color-foreground: 210 40% 98%;
+  --color-card: 222 47% 11%;
+  --color-card-foreground: 210 40% 98%;
+  --color-popover: 222 47% 11%;
+  --color-popover-foreground: 210 40% 98%;
+  --color-muted: 217 33% 17%;
+  --color-muted-foreground: 215 20% 65%;
+  --color-border: 217 33% 17%;
+  --color-input: 217 33% 17%;
+  --color-destructive: 0 63% 31%;
+
+  --color-sidebar: 240 5.9% 10%;
+  --color-sidebar-foreground: 240 4.8% 95.9%;
+  --color-sidebar-primary: 224.3 76.3% 48%;
+  --color-sidebar-primary-foreground: 0 0% 100%;
+  --color-sidebar-accent: 240 3.7% 15.9%;
+  --color-sidebar-accent-foreground: 240 4.8% 95.9%;
+  --color-sidebar-border: 240 3.7% 15.9%;
+}
+
+/* Keyframe Animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Base Styles */
+* {
+  border-color: hsl(var(--color-border));
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Utility Classes */
+.animate-accordion-down {
+  animation: var(--animate-accordion-down);
+}
+
+.animate-accordion-up {
+  animation: var(--animate-accordion-up);
+}
+
+.animate-fade-in {
+  animation: var(--animate-fade-in);
+}
+
+.animate-slide-up {
+  animation: var(--animate-slide-up);
+}
+
+.animate-scale-in {
+  animation: var(--animate-scale-in);
+}
+
+/* Container Utilities */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: var(--container-max-width-2xl);
+  }
 }
