@@ -4,25 +4,25 @@ export default function Stats() {
   const statistics = [
     {
       icon: Users,
-      value: "150+",
+      value: "13+",
       label: "Member Aktif",
       color: "from-primary to-dcn-blue",
     },
     {
       icon: Calendar,
-      value: "25+",
+      value: "0",
       label: "Events Dilaksanakan",
       color: "from-secondary to-dcn-purple",
     },
     {
       icon: Award,
-      value: "100+",
+      value: "1+",
       label: "Sertifikat Diraih",
       color: "from-accent to-dcn-pink",
     },
     {
       icon: TrendingUp,
-      value: "85%",
+      value: "100%",
       label: "Tingkat Partisipasi",
       color: "from-dcn-blue to-secondary",
     },
