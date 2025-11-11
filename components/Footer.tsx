@@ -100,11 +100,11 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start space-x-3 text-sm text-background/70">
                 <Mail className="w-5 h-5 shrink-0 text-primary mt-0.5" />
-                <span>dcnunira@gmail.com</span>
+                <span>info@dcnunira.dev</span>
               </li>
               <li className="flex items-start space-x-3 text-sm text-background/70">
                 <Phone className="w-5 h-5 shrink-0 text-secondary mt-0.5" />
-                <span>+62 812-3456-7890</span>
+                <span>+62</span>
               </li>
               <li className="flex items-start space-x-3 text-sm text-background/70">
                 <MapPin className="w-5 h-5 shrink-0 text-accent mt-0.5" />
