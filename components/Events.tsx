@@ -1,6 +1,6 @@
 import { Calendar, MapPin, Clock } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
-import { Button } from "./ui/button";
+// import { Button } from "./ui/button";
 import Image from "next/image";
 
 export default function Events() {
@@ -13,39 +13,38 @@ export default function Events() {
     image: string;
     color: string;
   };
-  const events: eventType[] = [];
-  //   const events = [
-  //     {
-  //       title: "Web Development Bootcamp",
-  //       date: "15 Desember 2024",
-  //       time: "09:00 - 16:00 WIB",
-  //       location: "Lab Komputer Unira",
-  //       type: "Workshop",
-  //       image:
-  //         "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
-  //       color: "from-primary to-dcn-blue",
-  //     },
-  //     {
-  //       title: "Tech Talk: Career in Tech",
-  //       date: "20 Desember 2024",
-  //       time: "14:00 - 16:00 WIB",
-  //       location: "Aula Unira",
-  //       type: "Seminar",
-  //       image:
-  //         "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
-  //       color: "from-secondary to-dcn-purple",
-  //     },
-  //     {
-  //       title: "Hackathon DCN 2024",
-  //       date: "5-7 Januari 2025",
-  //       time: "Full Day",
-  //       location: "Kampus Unira",
-  //       type: "Competition",
-  //       image:
-  //         "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
-  //       color: "from-accent to-dcn-pink",
-  //     },
-  //   ];
+  const events: eventType[] = [
+    {
+      title: "Onbording and talk show Gen AI",
+      date: "15 November 2025",
+      time: "09:00 - selesai WIB",
+      location: "Lab Jaringan Unira",
+      type: "Onboarding",
+      image:
+        "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+      color: "from-secondary to-dcn-purple",
+    },
+    // {
+    //   title: "Web Development Bootcamp",
+    //   date: "15 Desember 2024",
+    //   time: "09:00 - 16:00 WIB",
+    //   location: "Lab Komputer Unira",
+    //   type: "Workshop",
+    //   image:
+    //     "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+    //   color: "from-primary to-dcn-blue",
+    // },
+    // {
+    //   title: "Hackathon DCN 2024",
+    //   date: "5-7 Januari 2025",
+    //   time: "Full Day",
+    //   location: "Kampus Unira",
+    //   type: "Competition",
+    //   image:
+    //     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&q=80",
+    //   color: "from-accent to-dcn-pink",
+    // },
+  ];
 
   return (
     <section id="events" className="py-20 md:py-32 bg-background">
@@ -55,11 +54,9 @@ export default function Events() {
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
             Events Mendatang
           </h2>
-          <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
+          <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-5">
             Jangan Lewatkan
-            <span className="block mt-2 bg-linear-to-r from-primary to-secondary bg-clip-text">
-              Event Seru Kami
-            </span>
+            <span className="block mt-2 text-red">Event Seru Kami</span>
           </h3>
           <p className="text-lg text-muted-foreground">
             Ikuti berbagai event menarik untuk mengembangkan skill dan
@@ -122,12 +119,16 @@ export default function Events() {
               </CardContent>
 
               <CardFooter>
-                <Button
+                <p className="italic text-sm">
+                  <span className="text-red-500 font-bold">*</span> diharapkan
+                  jangan telat
+                </p>
+                {/* <Button
                   variant="outline"
                   className="w-full group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all"
                 >
                   Daftar Sekarang
-                </Button>
+                </Button> */}
               </CardFooter>
             </Card>
           ))}

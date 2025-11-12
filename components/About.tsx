@@ -35,7 +35,7 @@ export default function About() {
               </h2>
               <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
                 Dicoding Community Network
-                <span className="block mt-2 bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <span className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent py-2">
                   Universitas Madura
                 </span>
               </h3>

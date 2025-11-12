@@ -8,7 +8,6 @@ import {
   Linkedin,
   Code2,
 } from "lucide-react";
-import { Button } from "./ui/button";
 import Link from "next/link";
 
 export default function Footer() {
@@ -101,7 +100,9 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start space-x-3 text-sm text-background/70">
                 <Mail className="w-5 h-5 shrink-0 text-primary mt-0.5" />
-                <span>info@dcnunira.dev</span>
+                <span>
+                  <Link href="mailto:info@dcnunira.dev">info@dcnunira.dev</Link>
+                </span>
               </li>
               <li className="flex items-start space-x-3 text-sm text-background/70">
                 <Phone className="w-5 h-5 shrink-0 text-secondary mt-0.5" />
@@ -117,13 +118,13 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <h3 className="font-semibold text-lg mb-4">Support by: </h3>
-            <Button
-              size="lg"
-              className="hover:bg-white text-blue-600"
-              onClick={() => window.open("https://codverse.site", "_blank")}
+            <Link
+              href="https://codverse.site"
+              className="hover:text-blue-500"
+              target="_blank"
             >
               CodVerse
-            </Button>
+            </Link>
           </div>
         </div>
 

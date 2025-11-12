@@ -26,7 +26,7 @@ export default function Hero() {
       <div className="container mx-auto px-4 z-10 relative">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full border border-white/20 mb-6 animate-fade-in">
+          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full  mb-6 animate-fade-in">
             <Sparkles className="w-4 h-4 text-accent" />
             <span className="text-sm text-white font-medium">
               DCN Universitas Madura
@@ -43,7 +43,7 @@ export default function Hero() {
 
           {/* Tagline */}
           <p
-            className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-slide-up"
+            className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-slide-up text-shadow-sm"
             style={{ animationDelay: "0.1s" }}
           >
             Belajar, Berbagi, dan Berkembang bersama komunitas developer terbaik

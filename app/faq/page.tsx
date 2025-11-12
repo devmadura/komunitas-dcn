@@ -18,8 +18,8 @@ const FAQS = [
     a: "Tidak. Program ini 100% gratis",
   },
   {
-    id: "apa-itu-kontributor",
-    q: "apa-itu-kontributor?",
+    id: "apa-itu-contributor",
+    q: "Apa itu Contributor?",
     a: "Community Contributor adalah anggota aktif dalam komunitas yang mengikuti kegiatan, diskusi, dan belajar bersama melalui program Dicoding Community Network.",
   },
   {
@@ -39,7 +39,7 @@ export default function FAQPage() {
     <main className="mx-auto max-w-5xl px-6 py-16 mt-16">
       <header className="mb-8">
         <FAQTitle />
-        <p className="text-neutral-600 max-w-3xl">
+        <p className="text-neutral-400 max-w-3xl">
           Kumpulan jawaban cepat untuk membantu Anda memahami proyek Komunitas
           DCN.
         </p>

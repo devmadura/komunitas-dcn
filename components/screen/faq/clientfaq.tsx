@@ -79,10 +79,12 @@ export default function FAQClient({ faqs }: { faqs: FAQ[] }) {
           );
         })}
 
-        <div className="text-sm text-neutral-600 mt-4">
+        <div className="text-sm text-neutral-400 mt-4">
           <p>
             Tidak menemukan jawaban? email di :{" "}
-            <span className="text-sky-600">info@dcnunira.dev</span>
+            <span className="text-sky-600">
+              <a href="mailto:info@dcnunira.dev">info@dcnunira.dev</a>
+            </span>
           </p>
         </div>
       </section>
