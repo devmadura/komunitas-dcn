@@ -9,6 +9,7 @@ import {
   Code2,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function Footer() {
   const socialLinks = [
@@ -26,7 +27,7 @@ export default function Footer() {
   ];
 
   const quickLinks = [
-    { name: "Beranda", href: "#home" },
+    { name: "Beranda", href: "/" },
     { name: "Tentang", href: "#about" },
     { name: "Program", href: "#programs" },
     { name: "Events", href: "#events" },
@@ -133,12 +134,24 @@ export default function Footer() {
               &copy; 2025 Dicoding Community Network Unira. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm text-background/70">
-              <a href="#" className="hover:text-background transition-colors">
+              <Link
+                className="hover:text-background transition-colors"
+                href="/faq"
+              >
+                FAQ
+              </Link>
+              <Link
+                href="#"
+                className="hover:text-background transition-colors"
+              >
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-background transition-colors">
+              </Link>
+              <Link
+                href="#"
+                className="hover:text-background transition-colors"
+              >
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>

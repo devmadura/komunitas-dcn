@@ -4,7 +4,6 @@ import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { handleClick } from "@/lib/url-redirect";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   const menuItems = [
-    { name: "Beranda", href: "#home" },
+    { name: "Beranda", href: "/" },
     { name: "Tentang", href: "#about" },
     { name: "Program", href: "#programs" },
     { name: "Events", href: "#events" },
@@ -37,14 +36,14 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center space-x-2 group">
+          <Link href="/" className="flex items-center space-x-2 group">
             <Image
               src="/logo500x350.png"
               alt="DCN Unira Logo"
               width={100}
               height={100}
             />
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-1">
@@ -62,7 +61,11 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button variant="glass" size="sm">
-              <Link href="#" onClick={handleClick}>
+              <Link
+                href="https://pendaftaran.dcnunira.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Gabung Sekarang
               </Link>
             </Button>
@@ -97,7 +100,11 @@ export default function Navbar() {
               ))}
               <div className="px-4 pt-2">
                 <Button variant="glass" className="w-full">
-                  <Link href="#" onClick={handleClick}>
+                  <Link
+                    href="https://pendaftaran.dcnunira.dev"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Gabung Sekarang
                   </Link>
                 </Button>

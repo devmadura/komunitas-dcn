@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Dicoding Community Network Universitas Madura",
@@ -15,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TooltipProvider>{children}</TooltipProvider>
+        <TooltipProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </TooltipProvider>
       </body>
     </html>
   );

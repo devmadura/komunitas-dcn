@@ -1,9 +1,7 @@
-"use client";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { handleClick } from "@/lib/url-redirect";
 
 export default function Hero() {
   return (
@@ -38,8 +36,8 @@ export default function Hero() {
           {/* Main Heading */}
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-slide-up">
             Bergabung dengan
-            <span className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent">
-              DCN Unira
+            <span className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent animate-bounce text-shadow-2xs">
+              DCN UNIRA
             </span>
           </h1>
 
@@ -61,7 +59,11 @@ export default function Hero() {
               size="lg"
               className="bg-white text-blue-600 hover:bg-white/90 shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all px-8"
             >
-              <Link href="#" onClick={handleClick}>
+              <Link
+                href="https://pendaftaran.dcnunira.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Gabung Sekarang
               </Link>
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -71,14 +73,14 @@ export default function Hero() {
               variant="glass"
               className="text-white border-white/30 hover:bg-white/20"
             >
-              Pelajari Lebih Lanjut
+              <Link href="/faq">Pelajari Lebih Lanjut</Link>
             </Button>
           </div>
         </div>
       </div>
       <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce mt-4">
-        <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-white/50 rounded-full animate-pulse" />
+        <div className="w-6 h-10 rounded-full border-2 border-white flex items-start justify-center p-2">
+          <div className="w-1 h-3 bg-white rounded-full animate-pulse" />
         </div>
       </div>
     </section>

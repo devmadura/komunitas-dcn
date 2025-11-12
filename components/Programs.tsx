@@ -1,10 +1,10 @@
 import {
   GraduationCap,
   Users2,
-  Trophy,
-  Code,
-  Laptop,
-  BookOpen,
+  // Trophy,
+  // Code,
+  // Laptop,
+  // BookOpen,
 } from "lucide-react";
 import {
   Card,
