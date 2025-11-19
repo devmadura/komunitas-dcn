@@ -8,12 +8,17 @@ export default function proxy(req: NextRequest) {
   const url = req.nextUrl.clone();
   const { pathname } = url;
 
+  if (pathname.startsWith("/maintenance")) {
+    return NextResponse.next();
+  }
+
+  if (pathname.startsWith("/_next")) {
+    return NextResponse.next();
+  }
+
   if (
-    pathname.startsWith("/maintenance") ||
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/favicon") ||
-    pathname === "/robots.txt" ||
-    pathname === "/sitemap.xml"
+    pathname === "/favicon.ico" ||
+    pathname.match(/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|woff2?|ttf|otf)$/)
   ) {
     return NextResponse.next();
   }
