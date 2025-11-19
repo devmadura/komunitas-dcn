@@ -2,8 +2,9 @@ import FAQClient from "@/components/screen/faq/clientfaq";
 import FAQTitle from "@/components/screen/faq/faqtitle";
 
 export const metadata = {
-  title: "FAQ — Komunitas DCN",
-  description: "Pertanyaan yang sering ditanyakan seputar Komunitas DCN",
+  title: "FAQ — Komunitas DCN UNIRA",
+  description:
+    "Pertanyaan yang sering ditanyakan seputar Komunitas DCN Universitas Madura",
 };
 
 const FAQS = [
@@ -32,6 +33,11 @@ const FAQS = [
     q: "Bagaimana cara menjadi Community Contributor?",
     a: "Kamu bisa bergabung melalui Community Builder di kampus/sekolahmu, atau mencari komunitas terdekat yang sudah aktif di Dicoding Community Network.",
   },
+  {
+    id: "apa-unira",
+    q: "Apa itu UNIRA?",
+    a: "Universitas Madura (UNIRA) adalah sebuah perguruan tinggi swasta yang terletak di Pamekasan, Madura, Indonesia. Didirikan pada tahun 1967, UNIRA menawarkan berbagai program studi salah satunya di bidang informatika fakultas teknik",
+  },
 ];
 
 export default function FAQPage() {
@@ -40,8 +46,8 @@ export default function FAQPage() {
       <header className="mb-8">
         <FAQTitle />
         <p className="text-neutral-400 max-w-3xl">
-          Kumpulan jawaban cepat untuk membantu Anda memahami proyek Komunitas
-          DCN.
+          Kumpulan jawaban cepat untuk membantu Anda memahami Komunitas DCN
+          Universitas Madura.
         </p>
       </header>
 

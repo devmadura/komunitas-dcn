@@ -8,6 +8,7 @@ import {
   Linkedin,
   Code2,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -33,10 +34,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer
-      id="contact"
-      className="relative bg-linear-to-br from-foreground to-foreground/95 text-background pt-20 pb-8 overflow-hidden"
-    >
+    <footer className="relative bg-linear-to-br from-foreground to-foreground/95 text-background pt-20 pb-8 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-linear(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
@@ -117,13 +115,21 @@ export default function Footer() {
 
           {/* Newsletter */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Support by: </h3>
+            <h3 className="font-semibold text-lg mb-4">
+              This Website supported by
+            </h3>
             <Link
               href="https://codverse.site"
               className="hover:text-blue-500"
               target="_blank"
             >
-              CodVerse
+              <Image
+                src="/support/codverse.jpg"
+                alt="Codverse"
+                width={50}
+                height={50}
+                className="rounded-lg"
+              />
             </Link>
           </div>
         </div>

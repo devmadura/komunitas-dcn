@@ -44,7 +44,7 @@ export default function About() {
                 dicoding indonesia yang fokus pada pengembangan skill
                 programming dan teknologi. Kami menyediakan wadah bagi mahasiswa
                 untuk belajar, berbagi pengetahuan, dan berkembang bersama dalam
-                dunia teknologi informasi.
+                dunia teknologi.
               </p>
             </div>
 
