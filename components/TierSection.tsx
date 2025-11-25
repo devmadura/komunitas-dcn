@@ -1,8 +1,8 @@
-// components/TierSection.tsx
 "use client";
 
 import { useEffect, useState } from "react";
 import { Trophy, Star, Award, Medal } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Kontributor {
   id: string;
@@ -48,18 +48,18 @@ export default function TierSection() {
     }
   };
 
-  //   const getTierColor = (tier: string) => {
-  //     switch (tier) {
-  //       case "Gold":
-  //         return "from-yellow-400 to-yellow-600";
-  //       case "Silver":
-  //         return "from-gray-300 to-gray-500";
-  //       case "Bronze":
-  //         return "from-amber-600 to-amber-800";
-  //       default:
-  //         return "from-slate-300 to-slate-500";
-  //     }
-  //   };
+  const getTierColor = (tier: string) => {
+    switch (tier) {
+      case "Gold":
+        return "from-yellow-400 to-yellow-600";
+      case "Silver":
+        return "from-gray-300 to-gray-500";
+      case "Bronze":
+        return "from-amber-600 to-amber-800";
+      default:
+        return "from-indigo-500 to-indigo-700";
+    }
+  };
 
   if (loading) {
     return (
@@ -99,7 +99,9 @@ export default function TierSection() {
                   <div className="w-16 h-16 bg-linear-to-br from-gray-300 to-gray-500 rounded-full mx-auto flex items-center justify-center text-white font-bold text-2xl mb-4">
                     2
                   </div>
-                  <div className="mb-4">{getTierIcon(leaderboard[1].tier)}</div>
+                  <div className="mb-4 flex justify-center">
+                    {getTierIcon(leaderboard[1].tier)}
+                  </div>
                   <h3 className="font-bold text-lg text-gray-900 mb-1">
                     {leaderboard[1].nama}
                   </h3>
@@ -124,7 +126,9 @@ export default function TierSection() {
                   <div className="w-20 h-20 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-full mx-auto flex items-center justify-center text-white font-bold text-3xl mb-4 animate-pulse">
                     1
                   </div>
-                  <div className="text-5xl mb-4">👑</div>
+                  <div className="text-5xl mb-4 flex justify-center">
+                    {getTierIcon(leaderboard[0].tier)}
+                  </div>
                   <h3 className="font-bold text-xl text-gray-900 mb-1">
                     {leaderboard[0].nama}
                   </h3>
@@ -149,7 +153,9 @@ export default function TierSection() {
                   <div className="w-16 h-16 bg-linear-to-br from-amber-600 to-amber-800 rounded-full mx-auto flex items-center justify-center text-white font-bold text-2xl mb-4">
                     3
                   </div>
-                  <div className="mb-4">{getTierIcon(leaderboard[2].tier)}</div>
+                  <div className="mb-4 flex justify-center">
+                    {getTierIcon(leaderboard[2].tier)}
+                  </div>
                   <h3 className="font-bold text-lg text-gray-900 mb-1">
                     {leaderboard[2].nama}
                   </h3>
@@ -183,7 +189,12 @@ export default function TierSection() {
                     className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                   >
                     <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-linear-to-br from-indigo-500 to-indigo-700 rounded-full flex items-center justify-center text-white font-bold">
+                      <div
+                        className={cn(
+                          "w-10 h-10 rounded-full flex items-center justify-center text-white font-bold bg-linear-to-br",
+                          getTierColor(contributor.tier)
+                        )}
+                      >
                         {contributor.rank}
                       </div>
                       {getTierIcon(contributor.tier)}
