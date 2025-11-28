@@ -40,9 +40,13 @@ export async function POST(request: Request) {
     ...item,
   }));
 
+  // Upsert: update jika sudah ada, insert jika belum
   const { data, error } = await supabase
     .from("absensi")
-    .insert(absensiRecords)
+    .upsert(absensiRecords, {
+      onConflict: "pertemuan_id,kontributor_id",
+      ignoreDuplicates: false,
+    })
     .select();
 
   if (error) {
