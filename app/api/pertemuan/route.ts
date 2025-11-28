@@ -1,7 +1,20 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const shouldCount = searchParams.get("count");
+  if (shouldCount === "true") {
+    const { count, error } = await supabase
+      .from("pertemuan")
+      .select("*", { count: "exact", head: true });
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ total: count });
+  }
+
   const { data, error } = await supabase
     .from("pertemuan")
     .select("*")

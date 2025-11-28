@@ -1,22 +1,81 @@
+"use client";
+import { useEffect, useState } from "react";
 import { Users, Calendar, Award, TrendingUp } from "lucide-react";
+import {
+  getKontributorCount,
+  getPertemuanCount,
+} from "@/lib/services/serviceAll";
 
 export default function Stats() {
+  interface Stat {
+    totalKontributor: number;
+    totalPertemuan: number;
+  }
+  const [totalCount, setTotalCount] = useState<Stat>({
+    totalKontributor: 0,
+    totalPertemuan: 0,
+  });
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [countPertemuan, countKontributor] = await Promise.all([
+          getPertemuanCount(),
+          getKontributorCount(),
+        ]);
+
+        setTotalCount({
+          totalKontributor: countKontributor,
+          totalPertemuan: countPertemuan,
+        });
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Terjadi kesalahan yang tidak diketahui.");
+          // console.error("Caught an unknown error:", err);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading)
+    return (
+      <section className="py-20 bg-linear-to-br bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+            <p className="mt-4 text-gray-300">Loading data</p>
+          </div>
+        </div>
+      </section>
+    );
+
+  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
+
   const statistics = [
     {
       icon: Users,
-      value: "24+",
+      value: `${totalCount.totalKontributor}+`,
       label: "Member Aktif",
       color: "from-primary to-dcn-blue",
     },
     {
       icon: Calendar,
-      value: "1",
+      value: `${totalCount.totalPertemuan}+`,
       label: "Events Dilaksanakan",
       color: "from-secondary to-dcn-purple",
     },
     {
       icon: Award,
-      value: "6+",
+      value: "11+",
       label: "Sertifikat Diraih",
       color: "from-accent to-dcn-pink",
     },

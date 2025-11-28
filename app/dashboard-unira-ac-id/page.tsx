@@ -11,7 +11,7 @@ import {
   Award,
 } from "lucide-react";
 import { exportAbsensiToPDF } from "@/lib/exportPDF";
-import { Absensi, Kontributor, Pertemuan } from "@/lib/supabase";
+import {  Kontributor, Pertemuan } from "@/lib/supabase";
 
 // FIX 1: Buat tipe baru untuk data form absensi agar lebih spesifik
 // dan tidak bertabrakan dengan tipe `Absensi` dari database.
