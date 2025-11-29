@@ -37,3 +37,45 @@ export interface AbsensiWithDetails extends Absensi {
   kontributor: Kontributor;
   pertemuan: Pertemuan;
 }
+
+// Quiz Types
+export interface Quiz {
+  id: string;
+  judul: string;
+  deskripsi: string | null;
+  created_at: string;
+}
+
+export interface QuizQuestion {
+  id: string;
+  quiz_id: string;
+  pertanyaan: string;
+  opsi_a: string;
+  opsi_b: string;
+  opsi_c: string;
+  opsi_d: string;
+  jawaban_benar: "A" | "B" | "C" | "D";
+  urutan: number;
+}
+
+export interface QuizSession {
+  id: string;
+  quiz_id: string;
+  token: string;
+  expires_at: string;
+  created_at: string;
+}
+
+export interface QuizSubmission {
+  id: string;
+  session_id: string;
+  nama_peserta: string;
+  jawaban: Record<string, string>;
+  skor: number;
+  total_soal: number;
+  submitted_at: string;
+}
+
+export interface QuizWithQuestions extends Quiz {
+  quiz_questions: QuizQuestion[];
+}

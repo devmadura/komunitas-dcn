@@ -5,3 +5,7 @@ export { default as LeaderboardTab } from "./LeaderboardTab";
 export { default as AbsensiTab } from "./AbsensiTab";
 export { default as PertemuanForm } from "./PertemuanForm";
 export { default as AbsensiForm } from "./AbsensiForm";
+export { default as QuizTab } from "./QuizTab";
+export { default as QuizForm } from "./QuizForm";
+export { default as QuizLinkGenerator } from "./QuizLinkGenerator";
+export { default as QuizDetail } from "./QuizDetail";

@@ -9,6 +9,7 @@ import {
   DashboardStats,
   AbsensiTab,
   LeaderboardTab,
+  QuizTab,
 } from "@/components/dashboard";
 
 export default function DashboardPage() {
@@ -99,6 +100,8 @@ export default function DashboardPage() {
         {activeTab === "leaderboard" && (
           <LeaderboardTab kontributor={kontributor} />
         )}
+
+        {activeTab === "quiz" && <QuizTab onDataChanged={fetchData} />}
       </div>
     </div>
   );

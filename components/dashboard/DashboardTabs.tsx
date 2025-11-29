@@ -13,6 +13,7 @@ export default function DashboardTabs({
     { id: "dashboard", label: "Dashboard" },
     { id: "absensi", label: "Absensi" },
     { id: "leaderboard", label: "Leaderboard" },
+    { id: "quiz", label: "Kuis" },
   ];
 
   return (
