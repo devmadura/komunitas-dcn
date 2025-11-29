@@ -46,7 +46,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="w-10 h-10 rounded-lg bg-linear-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
-                <Code2 className="w-6 h-6 text-white" />
+                <Code2 className="w-6 h-6 dark:text-white" />
               </div>
               <span className="text-xl font-bold">DCN Unira</span>
             </div>
@@ -67,7 +67,7 @@ export default function Footer() {
                     aria-label={social.label}
                     className="w-10 h-10 rounded-lg bg-background/10 hover:bg-linear-to-br hover:from-primary hover:to-secondary flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                   >
-                    <Icon className="w-5 h-5 text-background/70 group-hover:text-white transition-colors" />
+                    <Icon className="w-5 h-5 text-background/70 dark:group-hover:text-white transition-colors" />
                   </a>
                 );
               })}

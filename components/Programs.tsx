@@ -86,7 +86,7 @@ export default function Programs() {
           </h2>
           <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
             Kegiatan &
-            <span className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent py-2">
+            <span className="block mt-2 bg-linear-to-r from-blue-400  to-yellow-200 bg-clip-text text-transparent py-2">
               Program Unggulan
             </span>
           </h3>
@@ -115,7 +115,7 @@ export default function Programs() {
                   <div
                     className={`w-14 h-14 rounded-xl bg-linear-to-br ${program.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
                   >
-                    <Icon className="w-7 h-7 text-white" />
+                    <Icon className="w-7 h-7 dark:text-white" />
                   </div>
                   <CardTitle className="text-xl">{program.title}</CardTitle>
                   <CardDescription className="text-base">

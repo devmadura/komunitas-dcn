@@ -71,29 +71,27 @@
   --animate-scale-in: scale-in 0.4s ease-out;
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  @theme {
-    --color-background: 222 47% 11%;
-    --color-foreground: 210 40% 98%;
-    --color-card: 222 47% 11%;
-    --color-card-foreground: 210 40% 98%;
-    --color-popover: 222 47% 11%;
-    --color-popover-foreground: 210 40% 98%;
-    --color-muted: 217 33% 17%;
-    --color-muted-foreground: 215 20% 65%;
-    --color-border: 217 33% 17%;
-    --color-input: 217 33% 17%;
-    --color-destructive: 0 63% 31%;
+/* Dark Mode with .dark class */
+.dark {
+  --color-background: 222 47% 11%;
+  --color-foreground: 210 40% 98%;
+  --color-card: 222 47% 11%;
+  --color-card-foreground: 210 40% 98%;
+  --color-popover: 222 47% 11%;
+  --color-popover-foreground: 210 40% 98%;
+  --color-muted: 217 33% 17%;
+  --color-muted-foreground: 215 20% 65%;
+  --color-border: 217 33% 17%;
+  --color-input: 217 33% 17%;
+  --color-destructive: 0 63% 31%;
 
-    --color-sidebar: 240 5.9% 10%;
-    --color-sidebar-foreground: 240 4.8% 95.9%;
-    --color-sidebar-primary: 224.3 76.3% 48%;
-    --color-sidebar-primary-foreground: 0 0% 100%;
-    --color-sidebar-accent: 240 3.7% 15.9%;
-    --color-sidebar-accent-foreground: 240 4.8% 95.9%;
-    --color-sidebar-border: 240 3.7% 15.9%;
-  }
+  --color-sidebar: 240 5.9% 10%;
+  --color-sidebar-foreground: 240 4.8% 95.9%;
+  --color-sidebar-primary: 224.3 76.3% 48%;
+  --color-sidebar-primary-foreground: 0 0% 100%;
+  --color-sidebar-accent: 240 3.7% 15.9%;
+  --color-sidebar-accent-foreground: 240 4.8% 95.9%;
+  --color-sidebar-border: 240 3.7% 15.9%;
 }
 
 /* Keyframe Animations */
@@ -149,29 +147,6 @@
 }
 
 /* Base Styles */
-/* Manual Dark Mode with .dark class */
-/* .dark {
-  --color-background: 222 47% 11%;
-  --color-foreground: 210 40% 98%;
-  --color-card: 222 47% 11%;
-  --color-card-foreground: 210 40% 98%;
-  --color-popover: 222 47% 11%;
-  --color-popover-foreground: 210 40% 98%;
-  --color-muted: 217 33% 17%;
-  --color-muted-foreground: 215 20% 65%;
-  --color-border: 217 33% 17%;
-  --color-input: 217 33% 17%;
-  --color-destructive: 0 63% 31%;
-
-  --color-sidebar: 240 5.9% 10%;
-  --color-sidebar-foreground: 240 4.8% 95.9%;
-  --color-sidebar-primary: 224.3 76.3% 48%;
-  --color-sidebar-primary-foreground: 0 0% 100%;
-  --color-sidebar-accent: 240 3.7% 15.9%;
-  --color-sidebar-accent-foreground: 240 4.8% 95.9%;
-  --color-sidebar-border: 240 3.7% 15.9%;
-} */
-
 * {
   border-color: hsl(var(--color-border));
 }

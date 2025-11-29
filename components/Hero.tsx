@@ -1,7 +1,10 @@
+"use client";
+
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function Hero() {
   return (
@@ -26,36 +29,56 @@ export default function Hero() {
       <div className="container mx-auto px-4 z-10 relative">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full  mb-6 animate-fade-in">
-            <Sparkles className="w-4 h-4 text-accent" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full mb-6"
+          >
+            <Sparkles className="w-4 h-4 text-yellow-300" />
             <span className="text-sm text-white font-medium">
               DCN Universitas Madura
             </span>
-          </div>
+          </motion.div>
 
           {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 animate-slide-up">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
+          >
             Bergabung dengan
-            <span className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent animate-bounce text-shadow-2xs">
+            <motion.span
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent text-shadow-2xs"
+            >
               DCN UNIRA
-            </span>
-          </h1>
+            </motion.span>
+          </motion.h1>
 
           {/* Tagline */}
-          <p
-            className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-slide-up text-shadow-sm"
-            style={{ animationDelay: "0.1s" }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto text-shadow-sm"
           >
             Belajar, Berbagi, dan Berkembang bersama komunitas developer terbaik
             di Universitas Madura
-          </p>
+          </motion.p>
 
           {/* CTA Buttons */}
-          <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
-            style={{ animationDelay: "0.2s" }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button
+              asChild
               size="lg"
               className="bg-white text-blue-600 hover:bg-white/90 shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all px-8"
             >
@@ -65,24 +88,40 @@ export default function Hero() {
                 rel="noopener noreferrer"
               >
                 Gabung Sekarang
+                <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
-              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button
+              asChild
               size="lg"
               variant="glass"
               className="text-white border-white/30 hover:bg-white/20"
             >
               <Link href="/faq">Pelajari Lebih Lanjut</Link>
             </Button>
-          </div>
+          </motion.div>
         </div>
       </div>
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce mt-4">
-        <div className="w-6 h-10 rounded-full border-2 border-white flex items-start justify-center p-2">
-          <div className="w-1 h-3 bg-white rounded-full animate-pulse" />
-        </div>
-      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        className="absolute bottom-5 left-1/2 transform -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-6 h-10 rounded-full border-2 border-white flex items-start justify-center p-2"
+        >
+          <motion.div
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="w-1 h-3 bg-white rounded-full"
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

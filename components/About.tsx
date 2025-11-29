@@ -35,7 +35,7 @@ export default function About() {
               </h2>
               <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
                 Dicoding Community Network
-                <span className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent py-2">
+                <span className="block mt-2 bg-linear-to-r from-blue-400 to-yellow-200 bg-clip-text text-transparent py-2">
                   Universitas Madura
                 </span>
               </h3>
@@ -59,7 +59,7 @@ export default function About() {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="w-12 h-12 rounded-lg bg-linear-to-br from-primary to-secondary flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-lg">
-                      <Icon className="w-6 h-6 text-white" />
+                      <Icon className="w-6 h-6 dark:text-white" />
                     </div>
                     <div>
                       <h4 className="font-semibold text-foreground mb-1">

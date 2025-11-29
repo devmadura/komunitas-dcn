@@ -48,11 +48,11 @@ export default function Stats() {
 
   if (loading)
     return (
-      <section className="py-20 bg-linear-to-br bg-background">
+      <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-gray-300">Loading data</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading data</p>
           </div>
         </div>
       </section>
@@ -65,25 +65,21 @@ export default function Stats() {
       icon: Users,
       value: `${totalCount.totalKontributor}+`,
       label: "Member Aktif",
-      color: "from-primary to-dcn-blue",
     },
     {
       icon: Calendar,
       value: `${totalCount.totalPertemuan}+`,
       label: "Events Dilaksanakan",
-      color: "from-secondary to-dcn-purple",
     },
     {
       icon: Award,
       value: "11+",
       label: "Sertifikat Diraih",
-      color: "from-accent to-dcn-pink",
     },
     {
       icon: TrendingUp,
       value: "99%",
       label: "Tingkat Partisipasi",
-      color: "from-dcn-blue to-secondary",
     },
   ];
 
@@ -101,14 +97,14 @@ export default function Stats() {
               >
                 {/* Gradient Background */}
                 <div
-                  className={`absolute inset-0 bg-linear-to-br ${stat.color} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}
+                  className={`absolute inset-0 opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-300`}
                 />
 
                 {/* Icon */}
                 <div
-                  className={`w-12 h-12 rounded-xl bg-linear-to-br ${stat.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
                 >
-                  <Icon className="w-6 h-6 text-white" />
+                  <Icon className="w-6 h-6 dark:text-white" />
                 </div>
 
                 {/* Value */}

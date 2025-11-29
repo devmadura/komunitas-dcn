@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Trophy, Star, Award, Medal } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface Kontributor {
   id: string;
@@ -14,6 +15,19 @@ interface Kontributor {
   tier: string;
   rank: number;
 }
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 export default function TierSection() {
   const [leaderboard, setLeaderboard] = useState<Kontributor[]>([]);
@@ -63,11 +77,11 @@ export default function TierSection() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-linear-to-br bg-background">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-gray-300">Loading leaderboard...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading leaderboard...</p>
           </div>
         </div>
       </section>
@@ -75,26 +89,38 @@ export default function TierSection() {
   }
 
   return (
-    <section
-      id="tiercontributor"
-      className="py-20 bg-linear-to-br bg-background"
-    >
+    <section id="tiercontributor" className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold bg-linear-to-r from-blue-400 to-white bg-clip-text">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold text-foreground">
             🏆 Top Contributors
           </h2>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mt-2">
             Kontributor terbaik berdasarkan poin kehadiran dan partisipasi aktif
           </p>
-        </div>
+        </motion.div>
 
         {/* Top 3 Podium */}
-        <div className="max-w-5xl mx-auto mb-12">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto mb-12"
+        >
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
             {/* Second Place */}
             {leaderboard[1] && (
-              <div className="bg-white rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform">
+              <motion.div
+                variants={itemVariants}
+                className="bg-card border border-border rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform"
+              >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-linear-to-br from-gray-300 to-gray-500 rounded-full mx-auto flex items-center justify-center text-white font-bold text-2xl mb-4">
                     2
@@ -102,13 +128,13 @@ export default function TierSection() {
                   <div className="mb-4 flex justify-center">
                     {getTierIcon(leaderboard[1].tier)}
                   </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-1">
+                  <h3 className="font-bold text-lg text-foreground mb-1">
                     {leaderboard[1].nama}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     {leaderboard[1].nim}
                   </p>
-                  <p className="text-sm text-gray-600 mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     prodi {leaderboard[1].prodi} - angkatan{" "}
                     {leaderboard[1].angkatan}
                   </p>
@@ -116,12 +142,15 @@ export default function TierSection() {
                     {leaderboard[1].total_poin} poin
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* First Place */}
             {leaderboard[0] && (
-              <div className="bg-white rounded-2xl shadow-2xl p-8 transform md:scale-110 border-4 border-yellow-400">
+              <motion.div
+                variants={itemVariants}
+                className="bg-card border-4 rounded-2xl shadow-2xl p-8 transform md:scale-110 border-yellow-400"
+              >
                 <div className="text-center">
                   <div className="w-20 h-20 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-full mx-auto flex items-center justify-center text-white font-bold text-3xl mb-4 animate-pulse">
                     1
@@ -129,13 +158,13 @@ export default function TierSection() {
                   <div className="text-5xl mb-4 flex justify-center">
                     {getTierIcon(leaderboard[0].tier)}
                   </div>
-                  <h3 className="font-bold text-xl text-gray-900 mb-1">
+                  <h3 className="font-bold text-xl text-foreground mb-1">
                     {leaderboard[0].nama}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     {leaderboard[0].nim}
                   </p>
-                  <p className="text-sm text-gray-600 mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     prodi {leaderboard[0].prodi} - angkatan{" "}
                     {leaderboard[0].angkatan}
                   </p>
@@ -143,12 +172,15 @@ export default function TierSection() {
                     {leaderboard[0].total_poin} poin
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
 
             {/* Third Place */}
             {leaderboard[2] && (
-              <div className="bg-white rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform">
+              <motion.div
+                variants={itemVariants}
+                className="bg-card border border-border rounded-2xl shadow-xl p-6 transform hover:scale-105 transition-transform"
+              >
                 <div className="text-center">
                   <div className="w-16 h-16 bg-linear-to-br from-amber-600 to-amber-800 rounded-full mx-auto flex items-center justify-center text-white font-bold text-2xl mb-4">
                     3
@@ -156,13 +188,13 @@ export default function TierSection() {
                   <div className="mb-4 flex justify-center">
                     {getTierIcon(leaderboard[2].tier)}
                   </div>
-                  <h3 className="font-bold text-lg text-gray-900 mb-1">
+                  <h3 className="font-bold text-lg text-foreground mb-1">
                     {leaderboard[2].nama}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm text-muted-foreground mb-2">
                     {leaderboard[2].nim}
                   </p>
-                  <p className="text-sm text-gray-600 mb-1">
+                  <p className="text-sm text-muted-foreground mb-1">
                     prodi {leaderboard[2].prodi} - angkatan{" "}
                     {leaderboard[2].angkatan}
                   </p>
@@ -170,23 +202,29 @@ export default function TierSection() {
                     {leaderboard[2].total_poin} poin
                   </div>
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Rest of the list */}
         {leaderboard.length > 3 && (
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-lg p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="bg-card border border-border rounded-2xl shadow-lg p-6">
+              <h3 className="text-xl font-bold text-foreground mb-4">
                 Top 10 Kontributor
               </h3>
               <div className="space-y-3">
                 {leaderboard.slice(3, 10).map((contributor) => (
                   <div
                     key={contributor.id}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="flex items-center justify-between p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
                   >
                     <div className="flex items-center space-x-4">
                       <div
@@ -199,58 +237,66 @@ export default function TierSection() {
                       </div>
                       {getTierIcon(contributor.tier)}
                       <div>
-                        <p className="font-semibold text-gray-900">
+                        <p className="font-semibold text-foreground">
                           {contributor.nama}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-muted-foreground">
                           {contributor.nim} - Angkatan {contributor.angkatan} -
                           prodi {contributor.prodi}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-xl font-bold text-indigo-600">
+                      <p className="text-xl font-bold text-primary">
                         {contributor.total_poin}
                       </p>
-                      <p className="text-xs text-gray-600">poin</p>
+                      <p className="text-xs text-muted-foreground">poin</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Tier System Info */}
-        <div className="max-w-4xl mx-auto mt-12">
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="max-w-4xl mx-auto mt-12"
+        >
+          <div className="bg-card border border-border rounded-2xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
               Sistem Tier
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              <div className="text-center p-4 bg-linear-to-br from-yellow-50 to-yellow-100 rounded-xl">
+              <div className="text-center p-4 bg-yellow-500/10 dark:bg-yellow-500/20 rounded-xl border border-yellow-500/20">
                 <Trophy className="w-12 h-12 text-yellow-500 mx-auto mb-3" />
-                <p className="font-bold text-gray-900 text-lg">Gold</p>
-                <p className="text-sm text-gray-600 mt-1">≥ 300 poin</p>
+                <p className="font-bold text-foreground text-lg">Gold</p>
+                <p className="text-sm text-muted-foreground mt-1">≥ 300 poin</p>
               </div>
-              <div className="text-center p-4 bg-linear-to-br from-gray-50 to-gray-100 rounded-xl">
+              <div className="text-center p-4 bg-gray-500/10 dark:bg-gray-500/20 rounded-xl border border-gray-500/20">
                 <Medal className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                <p className="font-bold text-gray-900 text-lg">Silver</p>
-                <p className="text-sm text-gray-600 mt-1">≥ 200 poin</p>
+                <p className="font-bold text-foreground text-lg">Silver</p>
+                <p className="text-sm text-muted-foreground mt-1">≥ 200 poin</p>
               </div>
-              <div className="text-center p-4 bg-linear-to-br from-amber-50 to-amber-100 rounded-xl">
+              <div className="text-center p-4 bg-amber-500/10 dark:bg-amber-500/20 rounded-xl border border-amber-500/20">
                 <Award className="w-12 h-12 text-amber-700 mx-auto mb-3" />
-                <p className="font-bold text-gray-900 text-lg">Bronze</p>
-                <p className="text-sm text-gray-600 mt-1">≥ 100 poin</p>
+                <p className="font-bold text-foreground text-lg">Bronze</p>
+                <p className="text-sm text-muted-foreground mt-1">≥ 100 poin</p>
               </div>
-              <div className="text-center p-4 bg-linear-to-br from-slate-50 to-slate-100 rounded-xl">
+              <div className="text-center p-4 bg-slate-500/10 dark:bg-slate-500/20 rounded-xl border border-slate-500/20">
                 <Star className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-                <p className="font-bold text-gray-900 text-lg">Member</p>
-                <p className="text-sm text-gray-600 mt-1"> 100 poin</p>
+                <p className="font-bold text-foreground text-lg">Member</p>
+                <p className="text-sm text-muted-foreground mt-1">
+                  &lt; 100 poin
+                </p>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

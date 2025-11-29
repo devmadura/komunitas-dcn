@@ -1,12 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const menuItems = [
     { name: "Beranda", href: "/" },
@@ -15,8 +17,36 @@ export default function Navbar() {
     { name: "Events", href: "#events" },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleSmoothScroll = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      if (href.startsWith("#")) {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        setIsOpen(false);
+      }
+    },
+    []
+  );
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/80 backdrop-blur-lg shadow-lg">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/95 backdrop-blur-lg shadow-lg"
+          : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
@@ -35,16 +65,29 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                className="px-4 py-2 text-foreground/80 hover:text-foreground transition-colors rounded-lg hover:bg-muted"
+                onClick={(e) => handleSmoothScroll(e, item.href)}
+                className={`px-4 py-2 transition-colors rounded-lg ${
+                  isScrolled
+                    ? "text-foreground/80 hover:text-foreground hover:bg-muted"
+                    : "text-white/90 hover:text-white hover:bg-white/10"
+                }`}
               >
                 {item.name}
               </a>
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button variant="glass" size="sm">
+          {/* Right Side: Theme Toggle + CTA */}
+          <div className="hidden md:flex items-center space-x-2">
+            <ThemeToggle isScrolled={isScrolled} />
+            <Button
+              asChild
+              variant={isScrolled ? "glass" : "default"}
+              size="sm"
+              className={
+                isScrolled ? "" : "text-white/90 hover:bg-white/20 border-0"
+              }
+            >
               <Link
                 href="https://pendaftaran.dcnunira.dev"
                 target="_blank"
@@ -55,17 +98,30 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-          >
-            {isOpen ? (
-              <X className="w-6 h-6 text-foreground" />
-            ) : (
-              <Menu className="w-6 h-6 text-foreground" />
-            )}
-          </button>
+          {/* Mobile: Theme Toggle + Menu Button */}
+          <div className="flex md:hidden items-center space-x-1">
+            <ThemeToggle isScrolled={isScrolled} />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={`p-2 rounded-lg transition-colors ${
+                isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
+              }`}
+            >
+              {isOpen ? (
+                <X
+                  className={`w-6 h-6 ${
+                    isScrolled ? "text-foreground" : "text-white"
+                  }`}
+                />
+              ) : (
+                <Menu
+                  className={`w-6 h-6 ${
+                    isScrolled ? "text-foreground" : "text-white"
+                  }`}
+                />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -76,14 +132,14 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => handleSmoothScroll(e, item.href)}
                   className="px-4 py-3 text-foreground/80 hover:text-foreground hover:bg-muted rounded-lg transition-colors"
                 >
                   {item.name}
                 </a>
               ))}
               <div className="px-4 pt-2">
-                <Button variant="glass" className="w-full">
+                <Button asChild variant="glass" className="w-full">
                   <Link
                     href="https://pendaftaran.dcnunira.dev"
                     target="_blank"

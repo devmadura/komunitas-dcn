@@ -54,9 +54,11 @@ export default function Events() {
           <h2 className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">
             Events Mendatang
           </h2>
-          <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-5">
+          <h3 className="text-3xl md:text-5xl font-bold text-foreground mb-5 ">
             Jangan Lewatkan
-            <span className="block mt-2 text-red">Event Seru Kami</span>
+            <span className="block mt-2 bg-linear-to-r from-blue-400 to-yellow-200 bg-clip-text text-transparent py-2">
+              Event Seru Kami
+            </span>
           </h3>
           <p className="text-lg text-muted-foreground">
             Ikuti berbagai event menarik untuk mengembangkan skill dan

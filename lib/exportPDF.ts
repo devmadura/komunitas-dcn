@@ -181,7 +181,7 @@ export const exportAbsensiToPDF = (data: ExportData) => {
       .split("T")[0];
   }
 
-  const fileName = `Laporan_${judulFileName}_${tanggalFileName}.pdf`;
+  const fileName = `Laporan_Event_${judulFileName}_${tanggalFileName}.pdf`;
   doc.save(fileName);
 };
 
