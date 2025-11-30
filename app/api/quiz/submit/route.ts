@@ -35,16 +35,17 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if already submitted
+    // Check if same person already submitted (by name)
     const { data: existingSubmission } = await supabase
       .from("quiz_submissions")
       .select("id")
       .eq("session_id", session_id)
+      .eq("nama_peserta", nama_peserta)
       .single();
 
     if (existingSubmission) {
       return NextResponse.json(
-        { error: "Kuis ini sudah pernah dikerjakan" },
+        { error: "Anda sudah pernah mengerjakan kuis ini" },
         { status: 403 }
       );
     }

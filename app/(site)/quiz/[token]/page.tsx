@@ -39,7 +39,6 @@ export default function QuizPage({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [expired, setExpired] = useState(false);
-  const [alreadySubmitted, setAlreadySubmitted] = useState(false);
   const [quizData, setQuizData] = useState<QuizData | null>(null);
   const [namaPeserta, setNamaPeserta] = useState("");
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -78,8 +77,6 @@ export default function QuizPage({
       if (!response.ok) {
         if (data.expired) {
           setExpired(true);
-        } else if (data.already_submitted) {
-          setAlreadySubmitted(true);
         } else {
           setError(data.error || "Link tidak valid");
         }
@@ -173,22 +170,6 @@ export default function QuizPage({
     );
   }
 
-  if (alreadySubmitted) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-yellow-50 to-orange-100 p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">
-          <AlertCircle className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Sudah Dikerjakan
-          </h1>
-          <p className="text-gray-600">
-            Kuis ini sudah pernah dikerjakan sebelumnya.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-red-50 to-orange-100 p-4">
@@ -232,7 +213,7 @@ export default function QuizPage({
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 to-blue-100 py-8 px-4">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 to-blue-100 py-8 px-4 pt-32">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">

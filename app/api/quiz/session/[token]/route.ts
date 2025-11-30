@@ -46,20 +46,6 @@ export async function GET(
       );
     }
 
-    // Check if already submitted
-    const { data: existingSubmission } = await supabase
-      .from("quiz_submissions")
-      .select("id")
-      .eq("session_id", session.id)
-      .single();
-
-    if (existingSubmission) {
-      return NextResponse.json(
-        { error: "Kuis ini sudah pernah dikerjakan", already_submitted: true },
-        { status: 403 }
-      );
-    }
-
     // Sort questions and remove answer key
     const quiz = session.quiz;
     if (quiz?.quiz_questions) {
