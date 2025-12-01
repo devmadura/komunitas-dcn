@@ -9,7 +9,10 @@ interface QuizLinkGeneratorProps {
   onClose: () => void;
 }
 
-export default function QuizLinkGenerator({ quiz, onClose }: QuizLinkGeneratorProps) {
+export default function QuizLinkGenerator({
+  quiz,
+  onClose,
+}: QuizLinkGeneratorProps) {
   const [generatedUrl, setGeneratedUrl] = useState<string | null>(null);
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -78,8 +81,13 @@ export default function QuizLinkGenerator({ quiz, onClose }: QuizLinkGeneratorPr
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-md">
         <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-xl font-bold text-gray-900">Generate Link Kuis</h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <h2 className="text-xl font-bold text-gray-900">
+            Generate Link Kuis
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700"
+          >
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -113,14 +121,34 @@ export default function QuizLinkGenerator({ quiz, onClose }: QuizLinkGeneratorPr
             </div>
           ) : (
             <div className="space-y-4">
-              <div className={`${isExistingLink ? "bg-blue-50 border-blue-200" : "bg-green-50 border-green-200"} border rounded-lg p-4`}>
-                <div className={`flex items-center gap-2 ${isExistingLink ? "text-blue-700" : "text-green-700"} mb-2`}>
-                  {isExistingLink ? <Link2 className="w-5 h-5" /> : <Check className="w-5 h-5" />}
+              <div
+                className={`${
+                  isExistingLink
+                    ? "bg-blue-50 border-blue-200"
+                    : "bg-green-50 border-green-200"
+                } border rounded-lg p-4`}
+              >
+                <div
+                  className={`flex items-center gap-2 ${
+                    isExistingLink ? "text-blue-700" : "text-green-700"
+                  } mb-2`}
+                >
+                  {isExistingLink ? (
+                    <Link2 className="w-5 h-5" />
+                  ) : (
+                    <Check className="w-5 h-5" />
+                  )}
                   <span className="font-medium">
-                    {isExistingLink ? "Link aktif ditemukan!" : "Link berhasil dibuat!"}
+                    {isExistingLink
+                      ? "Link aktif ditemukan!"
+                      : "Link berhasil dibuat!"}
                   </span>
                 </div>
-                <div className={`flex items-center gap-2 text-sm ${isExistingLink ? "text-blue-600" : "text-green-600"}`}>
+                <div
+                  className={`flex items-center gap-2 text-sm ${
+                    isExistingLink ? "text-blue-600" : "text-green-600"
+                  }`}
+                >
                   <Clock className="w-4 h-4" />
                   <span>
                     Kadaluarsa:{" "}
@@ -138,7 +166,7 @@ export default function QuizLinkGenerator({ quiz, onClose }: QuizLinkGeneratorPr
                   type="text"
                   value={generatedUrl}
                   readOnly
-                  className="w-full px-4 py-3 pr-24 bg-gray-50 border border-gray-300 rounded-lg text-sm"
+                  className="w-full px-4 py-3 pr-24 bg-gray-50 border border-gray-300 rounded-lg text-sm text-black"
                 />
                 <button
                   onClick={copyToClipboard}

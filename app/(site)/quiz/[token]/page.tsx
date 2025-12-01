@@ -101,13 +101,10 @@ export default function QuizPage({
       (q) => !answers[q.id]
     );
     if (unanswered && unanswered.length > 0) {
-      if (
-        !confirm(
-          `Masih ada ${unanswered.length} soal yang belum dijawab. Lanjutkan submit?`
-        )
-      ) {
-        return;
-      }
+      alert(
+        `Masih ada ${unanswered.length} soal yang belum dijawab. Harap jawab semua soal sebelum submit.`
+      );
+      return;
     }
 
     setSubmitting(true);
@@ -144,10 +141,10 @@ export default function QuizPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 to-blue-100">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Memuat kuis...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
+          <p className="mt-4 text-muted-foreground">Memuat kuis...</p>
         </div>
       </div>
     );
@@ -155,13 +152,13 @@ export default function QuizPage({
 
   if (expired) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-red-50 to-orange-100 p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="bg-card rounded-xl shadow-lg p-8 max-w-md text-center border border-border">
           <Clock className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Link Kadaluarsa
+          <h1 className="text-2xl font-bold text-foreground mb-2">
+            Link Kadaluwarsa
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Link kuis ini sudah tidak berlaku. Silakan minta link baru kepada
             penyelenggara.
           </p>
@@ -172,11 +169,11 @@ export default function QuizPage({
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-red-50 to-orange-100 p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="bg-card rounded-xl shadow-lg p-8 max-w-md text-center border border-border">
           <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Error</h1>
-          <p className="text-gray-600">{error}</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Error</h1>
+          <p className="text-muted-foreground">{error}</p>
         </div>
       </div>
     );
@@ -184,13 +181,15 @@ export default function QuizPage({
 
   if (result) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-green-50 to-emerald-100 p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md text-center">
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="bg-card rounded-xl shadow-lg p-8 max-w-md text-center border border-border">
           <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-foreground mb-2">
             Kuis Selesai!
           </h1>
-          <p className="text-gray-600 mb-6">Terima kasih, {namaPeserta}!</p>
+          <p className="text-muted-foreground mb-6">
+            Terima kasih, {namaPeserta}!
+          </p>
 
           <div className="bg-linear-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
             <p className="text-sm opacity-90 mb-1">Nilai Anda</p>
@@ -200,7 +199,7 @@ export default function QuizPage({
             </p>
           </div>
 
-          <div className="mt-6 text-sm text-gray-500">
+          <div className="mt-6 text-sm text-muted-foreground">
             {result.persentase >= 80 && "🎉 Luar biasa! Nilai sempurna!"}
             {result.persentase >= 60 &&
               result.persentase < 80 &&
@@ -213,27 +212,29 @@ export default function QuizPage({
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 to-blue-100 py-8 px-4 pt-32">
+    <div className="min-h-screen bg-background py-8 px-4 pt-32">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <div className="bg-card rounded-xl shadow-lg p-6 mb-6 border border-border">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-2xl font-bold text-foreground">
                 {quizData?.quiz.judul}
               </h1>
               {quizData?.quiz.deskripsi && (
-                <p className="text-gray-600 mt-1">{quizData.quiz.deskripsi}</p>
+                <p className="text-muted-foreground mt-1">
+                  {quizData.quiz.deskripsi}
+                </p>
               )}
-              <p className="text-sm text-gray-500 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 {quizData?.quiz.quiz_questions.length} soal
               </p>
             </div>
             {timeLeft !== null && (
               <div
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg ${
-                  timeLeft < 300
-                    ? "bg-red-100 text-red-700"
+                  timeLeft < 600
+                    ? "bg-red-500/10 text-red-600 dark:text-red-400"
                     : "bg-indigo-100 text-indigo-700"
                 }`}
               >
@@ -246,14 +247,14 @@ export default function QuizPage({
           </div>
 
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-foreground mb-1">
               Nama Peserta *
             </label>
             <input
               type="text"
               value={namaPeserta}
               onChange={(e) => setNamaPeserta(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-input rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-background text-foreground placeholder:text-muted-foreground"
               placeholder="Masukkan nama Anda"
             />
           </div>
@@ -262,12 +263,15 @@ export default function QuizPage({
         {/* Questions */}
         <div className="space-y-4">
           {quizData?.quiz.quiz_questions.map((q, index) => (
-            <div key={q.id} className="bg-white rounded-xl shadow-lg p-6">
+            <div
+              key={q.id}
+              className="bg-card rounded-xl shadow-lg p-6 border border-border"
+            >
               <div className="flex items-start gap-3 mb-4">
-                <span className="shrink-0 w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-sm">
+                <span className="shrink-0 w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-bold text-sm">
                   {index + 1}
                 </span>
-                <p className="text-gray-900 font-medium">{q.pertanyaan}</p>
+                <p className="text-foreground font-medium">{q.pertanyaan}</p>
               </div>
 
               <div className="space-y-2 ml-11">
@@ -281,8 +285,8 @@ export default function QuizPage({
                       key={opt}
                       className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all ${
                         isSelected
-                          ? "border-indigo-500 bg-indigo-50"
-                          : "border-gray-200 hover:border-gray-300"
+                          ? "border-primary bg-primary/10"
+                          : "border-border hover:border-muted-foreground"
                       }`}
                     >
                       <input
@@ -291,10 +295,12 @@ export default function QuizPage({
                         value={opt}
                         checked={isSelected}
                         onChange={() => setAnswers({ ...answers, [q.id]: opt })}
-                        className="text-indigo-600"
+                        className="text-primary"
                       />
-                      <span className="font-medium text-gray-700">{opt}.</span>
-                      <span className="text-gray-800">
+                      <span className="font-medium text-muted-foreground">
+                        {opt}.
+                      </span>
+                      <span className="text-foreground">
                         {q[optionKey] as string}
                       </span>
                     </label>
@@ -307,15 +313,42 @@ export default function QuizPage({
 
         {/* Submit Button */}
         <div className="mt-6">
+          <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
+            <span>Progress pengerjaan</span>
+            <span className="font-medium">
+              {Object.keys(answers).length} /{" "}
+              {quizData?.quiz.quiz_questions.length} soal dijawab
+            </span>
+          </div>
+          <div className="w-full bg-muted rounded-full h-2 mb-4">
+            <div
+              className="bg-primary h-2 rounded-full transition-all duration-300"
+              style={{
+                width: `${
+                  (Object.keys(answers).length /
+                    (quizData?.quiz.quiz_questions.length || 1)) *
+                  100
+                }%`,
+              }}
+            />
+          </div>
           <button
             onClick={handleSubmit}
-            disabled={submitting || !namaPeserta.trim()}
+            disabled={
+              submitting ||
+              !namaPeserta.trim() ||
+              Object.keys(answers).length !==
+                quizData?.quiz.quiz_questions.length
+            }
             className="w-full bg-indigo-600 text-white py-4 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {submitting ? "Mengirim..." : "Kirim Jawaban"}
           </button>
-          <p className="text-center text-sm text-gray-500 mt-2">
-            Jawaban yang sudah dikirim tidak dapat diubah
+          <p className="text-center text-sm text-muted-foreground mt-2">
+            {Object.keys(answers).length !==
+            quizData?.quiz.quiz_questions.length
+              ? "Jawab semua soal untuk melanjutkan"
+              : "Jawaban yang sudah dikirim tidak dapat diubah"}
           </p>
         </div>
       </div>

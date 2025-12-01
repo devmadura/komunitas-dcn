@@ -36,7 +36,9 @@ export default function QuizForm({
   const [activeTab, setActiveTab] = useState<"info" | "questions">(
     manageQuestions ? "questions" : "info"
   );
-  const [currentQuizId, setCurrentQuizId] = useState<string | null>(quiz?.id || null);
+  const [currentQuizId, setCurrentQuizId] = useState<string | null>(
+    quiz?.id || null
+  );
 
   useEffect(() => {
     if (currentQuizId) {
@@ -110,7 +112,11 @@ export default function QuizForm({
     ]);
   };
 
-  const updateQuestion = (index: number, field: keyof QuestionForm, value: string) => {
+  const updateQuestion = (
+    index: number,
+    field: keyof QuestionForm,
+    value: string
+  ) => {
     const updated = [...questions];
     updated[index] = { ...updated[index], [field]: value };
     setQuestions(updated);
@@ -184,7 +190,10 @@ export default function QuizForm({
           <h2 className="text-xl font-bold text-gray-900">
             {quiz ? "Edit Kuis" : "Buat Kuis Baru"}
           </h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700"
+          >
             <X className="w-6 h-6" />
           </button>
         </div>
@@ -225,7 +234,7 @@ export default function QuizForm({
                   type="text"
                   value={judul}
                   onChange={(e) => setJudul(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-black"
                   placeholder="Masukkan judul kuis"
                 />
               </div>
@@ -237,7 +246,7 @@ export default function QuizForm({
                   value={deskripsi}
                   onChange={(e) => setDeskripsi(e.target.value)}
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-black"
                   placeholder="Deskripsi kuis (opsional)"
                 />
               </div>
@@ -246,7 +255,11 @@ export default function QuizForm({
                 disabled={loading}
                 className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
               >
-                {loading ? "Menyimpan..." : currentQuizId ? "Update Kuis" : "Simpan & Lanjut ke Soal"}
+                {loading
+                  ? "Menyimpan..."
+                  : currentQuizId
+                  ? "Update Kuis"
+                  : "Simpan & Lanjut ke Soal"}
               </button>
             </div>
           )}
@@ -254,7 +267,10 @@ export default function QuizForm({
           {activeTab === "questions" && (
             <div className="space-y-6">
               {questions.map((q, index) => (
-                <div key={q.id || index} className="bg-gray-50 rounded-lg p-4 space-y-3">
+                <div
+                  key={q.id || index}
+                  className="bg-gray-50 rounded-lg p-4 space-y-3"
+                >
                   <div className="flex justify-between items-start">
                     <span className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded text-sm font-medium">
                       Soal {index + 1}
@@ -278,10 +294,12 @@ export default function QuizForm({
 
                   <textarea
                     value={q.pertanyaan}
-                    onChange={(e) => updateQuestion(index, "pertanyaan", e.target.value)}
+                    onChange={(e) =>
+                      updateQuestion(index, "pertanyaan", e.target.value)
+                    }
                     placeholder="Tulis pertanyaan..."
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-black"
                   />
 
                   <div className="grid grid-cols-2 gap-3">
@@ -291,18 +309,28 @@ export default function QuizForm({
                           type="radio"
                           name={`answer-${index}`}
                           checked={q.jawaban_benar === opt}
-                          onChange={() => updateQuestion(index, "jawaban_benar", opt)}
+                          onChange={() =>
+                            updateQuestion(index, "jawaban_benar", opt)
+                          }
                           className="text-indigo-600"
                         />
                         <span className="font-medium text-sm">{opt}.</span>
                         <input
                           type="text"
-                          value={q[`opsi_${opt.toLowerCase()}` as keyof QuestionForm] as string}
+                          value={
+                            q[
+                              `opsi_${opt.toLowerCase()}` as keyof QuestionForm
+                            ] as string
+                          }
                           onChange={(e) =>
-                            updateQuestion(index, `opsi_${opt.toLowerCase()}` as keyof QuestionForm, e.target.value)
+                            updateQuestion(
+                              index,
+                              `opsi_${opt.toLowerCase()}` as keyof QuestionForm,
+                              e.target.value
+                            )
                           }
                           placeholder={`Opsi ${opt}`}
-                          className="flex-1 px-3 py-1.5 border border-gray-300 rounded-lg text-sm"
+                          className="flex-1 px-3 py-1.5 border border-gray-300 rounded-lg text-sm text-black"
                         />
                       </div>
                     ))}
