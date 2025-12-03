@@ -33,12 +33,17 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full mb-6"
           >
-            <Sparkles className="w-4 h-4 text-yellow-300" />
-            <span className="text-sm text-white font-medium">
-              DCN Universitas Madura
-            </span>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full mb-6"
+            >
+              <Sparkles className="w-4 h-4 text-yellow-300" />
+              <span className="text-sm text-white font-medium">
+                DCN Universitas Madura
+              </span>
+            </motion.div>
           </motion.div>
 
           {/* Main Heading */}
