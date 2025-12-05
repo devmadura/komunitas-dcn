@@ -7,6 +7,7 @@ import {
   DashboardHeader,
   DashboardTabs,
   DashboardStats,
+  AnalyticsTab,
   AbsensiTab,
   LeaderboardTab,
   QuizTab,
@@ -88,6 +89,8 @@ export default function DashboardPage() {
             absensiCount={absensiCount}
           />
         )}
+
+        {activeTab === "analytics" && <AnalyticsTab />}
 
         {activeTab === "absensi" && (
           <AbsensiTab

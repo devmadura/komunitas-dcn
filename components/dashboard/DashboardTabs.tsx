@@ -11,6 +11,7 @@ export default function DashboardTabs({
 }: DashboardTabsProps) {
   const tabs = [
     { id: "dashboard", label: "Dashboard" },
+    { id: "analytics", label: "Analytics" },
     { id: "absensi", label: "Absensi" },
     { id: "leaderboard", label: "Leaderboard" },
     { id: "quiz", label: "Kuis" },

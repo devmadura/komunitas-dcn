@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Calendar } from "lucide-react";
+import { Plus, Calendar, Award } from "lucide-react";
 import { Kontributor, Pertemuan } from "@/lib/supabase";
 import PertemuanForm from "./PertemuanForm";
 import AbsensiForm from "./AbsensiForm";
@@ -23,6 +23,7 @@ export default function AbsensiTab({
     tanggal: "",
     judul: "",
     berita_acara: "",
+    has_sertifikat: false,
   });
 
   const handleCreatePertemuan = async () => {
@@ -35,7 +36,7 @@ export default function AbsensiTab({
 
       if (response.ok) {
         onDataChanged();
-        setFormPertemuan({ tanggal: "", judul: "", berita_acara: "" });
+        setFormPertemuan({ tanggal: "", judul: "", berita_acara: "", has_sertifikat: false });
         setShowPertemuanForm(false);
         alert("Pertemuan berhasil dibuat!");
       }
@@ -81,7 +82,15 @@ export default function AbsensiTab({
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-bold text-gray-900 text-lg">{p.judul}</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-bold text-gray-900 text-lg">{p.judul}</h3>
+                    {p.has_sertifikat && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">
+                        <Award className="w-3 h-3" />
+                        Sertifikat
+                      </span>
+                    )}
+                  </div>
                   <p className="text-sm text-gray-600 mt-1">
                     {new Date(p.tanggal).toLocaleDateString("id-ID")}
                   </p>

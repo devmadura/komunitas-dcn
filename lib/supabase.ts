@@ -9,6 +9,7 @@ export interface Kontributor {
   id: string;
   nim: string;
   nama: string;
+  email?: string;
   angkatan: string;
   total_poin: number;
   created_at: string;
@@ -19,6 +20,7 @@ export interface Pertemuan {
   tanggal: string;
   judul: string;
   berita_acara: string | null;
+  has_sertifikat: boolean;
   created_at: string;
 }
 
@@ -78,4 +80,20 @@ export interface QuizSubmission {
 
 export interface QuizWithQuestions extends Quiz {
   quiz_questions: QuizQuestion[];
+}
+
+// Sertifikat Types
+export interface Sertifikat {
+  id: string;
+  kontributor_id: string;
+  nomor_sertifikat: string;
+  tipe: "pertemuan" | "quiz";
+  pertemuan_id?: string;
+  tanggal_terbit: string;
+  created_at: string;
+}
+
+export interface SertifikatWithDetails extends Sertifikat {
+  kontributor: Kontributor;
+  pertemuan?: Pertemuan;
 }
