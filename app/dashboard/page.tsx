@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Kontributor, Pertemuan } from "@/lib/supabase";
+import { Admin } from "@/lib/permissions";
 import {
   DashboardHeader,
   DashboardTabs,
@@ -12,6 +13,8 @@ import {
   LeaderboardTab,
   QuizTab,
 } from "@/components/dashboard";
+import ManageAdminTab from "@/components/dashboard/ManageAdminTab";
+import ActivityLogTab from "@/components/dashboard/ActivityLogTab";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -21,10 +24,28 @@ export default function DashboardPage() {
   const [absensiCount, setAbsensiCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [currentAdmin, setCurrentAdmin] = useState<Admin | null>(null);
 
   useEffect(() => {
     fetchData();
+    fetchCurrentAdmin();
   }, []);
+
+  const fetchCurrentAdmin = async () => {
+    try {
+      const response = await fetch("/api/auth/me");
+      if (!response.ok) {
+        // Tidak ada akses, redirect ke login
+        router.push("/login");
+        return;
+      }
+      const data = await response.json();
+      setCurrentAdmin(data.admin);
+    } catch (error) {
+      console.error("Error fetching current admin:", error);
+      router.push("/login");
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -78,8 +99,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
-      <DashboardHeader onLogout={handleLogout} loggingOut={loggingOut} />
-      <DashboardTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      <DashboardHeader onLogout={handleLogout} loggingOut={loggingOut} currentAdmin={currentAdmin} />
+      <DashboardTabs activeTab={activeTab} onTabChange={setActiveTab} currentAdmin={currentAdmin} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {activeTab === "dashboard" && (
@@ -105,6 +126,12 @@ export default function DashboardPage() {
         )}
 
         {activeTab === "quiz" && <QuizTab onDataChanged={fetchData} />}
+
+        {activeTab === "manage-admin" && (
+          <ManageAdminTab currentAdmin={currentAdmin} />
+        )}
+
+        {activeTab === "activity-log" && <ActivityLogTab />}
       </div>
     </div>
   );

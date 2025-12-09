@@ -1,11 +1,18 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { requirePermission } from "@/lib/auth";
+import { logActivity } from "@/lib/axiom";
+import { PERMISSIONS } from "@/lib/permissions";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Cek permission
+    const authResult = await requirePermission(PERMISSIONS.QUIZ);
+    if ("error" in authResult) return authResult.error;
+
     const { id } = await params;
 
     const { data, error } = await supabase
@@ -31,6 +38,11 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Cek permission
+    const authResult = await requirePermission(PERMISSIONS.QUIZ);
+    if ("error" in authResult) return authResult.error;
+    const { admin } = authResult;
+
     const { id } = await params;
     const body = await request.json();
     const { judul, deskripsi } = body;
@@ -43,6 +55,15 @@ export async function PUT(
       .single();
 
     if (error) throw error;
+
+    // Log activity
+    await logActivity(
+      "update_quiz",
+      admin.email,
+      `Mengupdate kuis: ${judul}`,
+      { quiz_id: id },
+      admin.nama
+    );
 
     return NextResponse.json(data);
   } catch (error) {
@@ -59,6 +80,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    // Cek permission
+    const authResult = await requirePermission(PERMISSIONS.QUIZ);
+    if ("error" in authResult) return authResult.error;
+    const { admin } = authResult;
+
     const { id } = await params;
 
     // Get all sessions for this quiz
@@ -101,10 +127,26 @@ export async function DELETE(
       console.error("Error deleting questions:", questionsError);
     }
 
+    // Get quiz info before delete for logging
+    const { data: quizData } = await supabase
+      .from("quiz")
+      .select("judul")
+      .eq("id", id)
+      .single();
+
     // Finally delete the quiz
     const { error } = await supabase.from("quiz").delete().eq("id", id);
 
     if (error) throw error;
+
+    // Log activity
+    await logActivity(
+      "delete_quiz",
+      admin.email,
+      `Menghapus kuis: ${quizData?.judul || id}`,
+      { quiz_id: id },
+      admin.nama
+    );
 
     return NextResponse.json({ message: "Kuis berhasil dihapus" });
   } catch (error) {

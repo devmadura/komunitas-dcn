@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { cookies } from "next/headers";
+import { logActivity } from "@/lib/axiom";
 
 export async function POST(request: Request) {
   try {
@@ -33,6 +34,22 @@ export async function POST(request: Request) {
       maxAge: 60 * 60 * 24 * 7,
       path: "/",
     });
+
+    // Get admin info for logging
+    const { data: admin } = await supabase
+      .from("admins")
+      .select("nama")
+      .eq("email", email)
+      .single();
+
+    // Log login activity
+    await logActivity(
+      "login",
+      email,
+      `Login ke dashboard`,
+      undefined,
+      admin?.nama
+    );
 
     return NextResponse.json({ success: true, user: data.user });
   } catch {

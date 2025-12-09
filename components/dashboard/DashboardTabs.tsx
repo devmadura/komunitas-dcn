@@ -1,21 +1,31 @@
 "use client";
 
+import { Admin, hasPermission, PERMISSIONS } from "@/lib/permissions";
+
 interface DashboardTabsProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  currentAdmin?: Admin | null;
 }
 
 export default function DashboardTabs({
   activeTab,
   onTabChange,
+  currentAdmin,
 }: DashboardTabsProps) {
-  const tabs = [
-    { id: "dashboard", label: "Dashboard" },
-    { id: "analytics", label: "Analytics" },
-    { id: "absensi", label: "Absensi" },
-    { id: "leaderboard", label: "Leaderboard" },
-    { id: "quiz", label: "Kuis" },
+  const allTabs = [
+    { id: "dashboard", label: "Dashboard", permission: PERMISSIONS.DASHBOARD },
+    { id: "analytics", label: "Analytics", permission: PERMISSIONS.ANALYTICS },
+    { id: "absensi", label: "Absensi", permission: PERMISSIONS.ABSENSI },
+    { id: "leaderboard", label: "Leaderboard", permission: PERMISSIONS.LEADERBOARD },
+    { id: "quiz", label: "Kuis", permission: PERMISSIONS.QUIZ },
+    { id: "manage-admin", label: "Kelola Admin", permission: PERMISSIONS.MANAGE_ADMIN },
+    { id: "activity-log", label: "Activity Log", permission: PERMISSIONS.ACTIVITY_LOG },
   ];
+
+  const tabs = currentAdmin
+    ? allTabs.filter((tab) => hasPermission(currentAdmin, tab.permission))
+    : allTabs.slice(0, 5);
 
   return (
     <div className="max-w-7xl mx-auto px-4 mt-6">

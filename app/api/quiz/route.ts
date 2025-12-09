@@ -1,8 +1,15 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { requirePermission } from "@/lib/auth";
+import { logActivity } from "@/lib/axiom";
+import { PERMISSIONS } from "@/lib/permissions";
 
 export async function GET() {
   try {
+    // Cek permission
+    const authResult = await requirePermission(PERMISSIONS.QUIZ);
+    if ("error" in authResult) return authResult.error;
+
     const { data, error } = await supabase
       .from("quiz")
       .select("*, quiz_questions(count)")
@@ -22,6 +29,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    // Cek permission
+    const authResult = await requirePermission(PERMISSIONS.QUIZ);
+    if ("error" in authResult) return authResult.error;
+    const { admin } = authResult;
+
     const body = await request.json();
     const { judul, deskripsi } = body;
 
@@ -39,6 +51,15 @@ export async function POST(request: Request) {
       .single();
 
     if (error) throw error;
+
+    // Log activity
+    await logActivity(
+      "create_quiz",
+      admin.email,
+      `Membuat kuis baru: ${judul}`,
+      { quiz_id: data.id },
+      admin.nama
+    );
 
     return NextResponse.json(data, { status: 201 });
   } catch (error) {

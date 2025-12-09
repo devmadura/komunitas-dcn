@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { requirePermission } from "@/lib/auth";
+import { logActivity } from "@/lib/axiom";
+import { PERMISSIONS } from "@/lib/permissions";
 
 interface AbsensiItem {
   kontributor_id: string;
@@ -9,6 +12,10 @@ interface AbsensiItem {
 }
 
 export async function GET(request: Request) {
+  // Cek permission
+  const authResult = await requirePermission(PERMISSIONS.ABSENSI);
+  if ("error" in authResult) return authResult.error;
+
   const { searchParams } = new URL(request.url);
   const pertemuan_id = searchParams.get("pertemuan_id");
 
@@ -32,6 +39,11 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  // Cek permission
+  const authResult = await requirePermission(PERMISSIONS.ABSENSI);
+  if ("error" in authResult) return authResult.error;
+  const { admin } = authResult;
+
   const body = await request.json();
 
   // body expected format: { pertemuan_id, absensi: [{kontributor_id, status, poin, keterangan}] }
@@ -52,6 +64,22 @@ export async function POST(request: Request) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  // Log activity
+  // Get pertemuan info for logging
+  const { data: pertemuan } = await supabase
+    .from("pertemuan")
+    .select("judul")
+    .eq("id", body.pertemuan_id)
+    .single();
+
+  await logActivity(
+    "create_absensi",
+    admin.email,
+    `Menyimpan absensi untuk pertemuan: ${pertemuan?.judul || body.pertemuan_id} (${absensiRecords.length} orang)`,
+    { pertemuan_id: body.pertemuan_id, total: absensiRecords.length },
+    admin.nama
+  );
 
   return NextResponse.json(data);
 }
