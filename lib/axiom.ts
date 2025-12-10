@@ -24,7 +24,9 @@ export type ActivityAction =
   | "create_admin"
   | "update_admin"
   | "delete_admin"
-  | "generate_sertifikat";
+  | "generate_sertifikat"
+  | "update_profile"
+  | "delete_photo";
 
 export interface ActivityLog {
   action: ActivityAction;

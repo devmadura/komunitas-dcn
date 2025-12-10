@@ -12,6 +12,7 @@ Website komunitas Developer Community Network (DCN) UNIRA - Platform untuk menge
 - **Form:** [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 - **PDF Generation:** [jsPDF](https://github.com/parallax/jsPDF)
 - **Activity Logging:** [Axiom](https://axiom.co/)
+- **UploadCare:** [UploadCare](uploadcare.com)
 
 ## Fitur
 
@@ -82,15 +83,9 @@ cp e.env.example .env.local
 
 4. Isi file `.env.local`:
 
-```env
-NEXT_PUBLIC_SUPABASE_URL=<supabase_url>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<supabase_anon_key>
-NEXT_PUBLIC_MAINTENANCE_MODE=false
-AXIOM_TOKEN=<axiom_api_token>
-AXIOM_DATASET=dcn-activity-log
-```
+e.env.example
 
-5. Jalankan development server
+5.  Jalankan development server
 
 ```bash
 npm run dev

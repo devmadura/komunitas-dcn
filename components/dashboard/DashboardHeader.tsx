@@ -1,7 +1,8 @@
 "use client";
 
-import { Users, LogOut, Shield, User } from "lucide-react";
+import { LogOut, Shield, User } from "lucide-react";
 import { Admin } from "@/lib/permissions";
+import Image from "next/image";
 
 interface DashboardHeaderProps {
   onLogout: () => void;
@@ -19,12 +20,19 @@ export default function DashboardHeader({
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
+            <div className="w-20 h-20 rounded-lg flex items-center justify-center">
+              <Image
+                src={"/logo500x350.png"}
+                alt="logo dcn unira"
+                width={450}
+                height={300}
+              />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Dashboard DCN</h1>
-              <p className="text-sm text-gray-600">Sistem Absensi Kontributor</p>
+              <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+              <p className="text-sm text-gray-600">
+                Dicoding Community Network Universitas Madura
+              </p>
             </div>
           </div>
           <div className="flex items-center space-x-4">
@@ -38,9 +46,13 @@ export default function DashboardHeader({
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium text-gray-900">{currentAdmin.nama}</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    {currentAdmin.nama}
+                  </p>
                   <p className="text-xs text-gray-500">
-                    {currentAdmin.role === "super-admin" ? "Super Admin" : "Co-Admin"}
+                    {currentAdmin.role === "super-admin"
+                      ? "Super Admin"
+                      : "Co-Admin"}
                   </p>
                 </div>
               </div>

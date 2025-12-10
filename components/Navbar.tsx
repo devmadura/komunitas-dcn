@@ -15,6 +15,7 @@ export default function Navbar() {
     { name: "Tentang", href: "#about" },
     { name: "Program", href: "#programs" },
     { name: "Events", href: "#events" },
+    { name: "Team", href: "/team" },
   ];
 
   useEffect(() => {

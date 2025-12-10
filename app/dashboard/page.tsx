@@ -15,6 +15,7 @@ import {
 } from "@/components/dashboard";
 import ManageAdminTab from "@/components/dashboard/ManageAdminTab";
 import ActivityLogTab from "@/components/dashboard/ActivityLogTab";
+import AccountSettingsTab from "@/components/dashboard/AccountSettingsTab";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -132,6 +133,10 @@ export default function DashboardPage() {
         )}
 
         {activeTab === "activity-log" && <ActivityLogTab />}
+
+        {activeTab === "account-settings" && (
+          <AccountSettingsTab currentAdmin={currentAdmin} onAdminUpdated={fetchCurrentAdmin} />
+        )}
       </div>
     </div>
   );

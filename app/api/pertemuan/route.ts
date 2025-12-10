@@ -5,10 +5,6 @@ import { logActivity } from "@/lib/axiom";
 import { PERMISSIONS } from "@/lib/permissions";
 
 export async function GET(request: Request) {
-  // Cek permission
-  const authResult = await requirePermission(PERMISSIONS.ABSENSI);
-  if ("error" in authResult) return authResult.error;
-
   const { searchParams } = new URL(request.url);
   const shouldCount = searchParams.get("count");
   if (shouldCount === "true") {
@@ -21,6 +17,10 @@ export async function GET(request: Request) {
     }
     return NextResponse.json({ total: count });
   }
+
+  // Cek permission
+  const authResult = await requirePermission(PERMISSIONS.ABSENSI);
+  if ("error" in authResult) return authResult.error;
 
   const { data, error } = await supabase
     .from("pertemuan")

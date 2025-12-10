@@ -30,6 +30,7 @@ export interface Admin {
   email: string;
   nama: string;
   role: "super-admin" | "co-admin";
+  label: string;
   permissions: Permission[];
   created_at: string;
   updated_at: string;

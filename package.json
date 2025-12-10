@@ -1,6 +1,6 @@
 {
   "name": "dcn-unira",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -16,6 +16,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@supabase/supabase-js": "^2.84.0",
+    "@uploadcare/react-uploader": "^1.11.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
