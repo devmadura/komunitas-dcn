@@ -97,3 +97,26 @@ export interface SertifikatWithDetails extends Sertifikat {
   kontributor: Kontributor;
   pertemuan?: Pertemuan;
 }
+
+// Code Redeem Types
+export interface CodeRedeem {
+  id: string;
+  code: string;
+  poin: number;
+  max_usage: number;
+  current_usage: number;
+  is_active: boolean;
+  created_at: string;
+  expires_at: string | null;
+}
+
+export interface CodeRedeemUsage {
+  id: string;
+  code_id: string;
+  kontributor_id: string;
+  redeemed_at: string;
+}
+
+export interface CodeRedeemWithUsage extends CodeRedeem {
+  code_redeem_usage: CodeRedeemUsage[];
+}

@@ -102,7 +102,7 @@ export default function Hero() {
               variant="glass"
               className="text-white border-white/30 hover:bg-white/20"
             >
-              <Link href="/faq">Pelajari Lebih Lanjut</Link>
+              <Link href="/redeem">Reedem Code</Link>
             </Button>
           </motion.div>
         </div>
