@@ -8,6 +8,8 @@ import {
   PERMISSIONS,
   PERMISSION_LABELS,
 } from "@/lib/permissions";
+import { toast } from "@/hooks/use-toast";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface ManageAdminTabProps {
   currentAdmin: Admin | null;
@@ -27,6 +29,7 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
   
   const EMAIL_DOMAIN = "@dcnunira.dev";
   const [submitting, setSubmitting] = useState(false);
+  const [deleteAdmin, setDeleteAdmin] = useState<Admin | null>(null);
 
   const isSuperAdmin = currentAdmin?.role === "super-admin";
 
@@ -67,10 +70,10 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
         if (response.ok) {
           await fetchAdmins();
           resetForm();
-          alert("Admin berhasil diupdate!");
+          toast({ title: "Admin berhasil diupdate!" });
         } else {
           const data = await response.json();
-          alert(data.error || "Gagal mengupdate admin");
+          toast({ title: data.error || "Gagal mengupdate admin", variant: "destructive" });
         }
       } else {
         const response = await fetch("/api/admin", {
@@ -87,38 +90,44 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
         if (response.ok) {
           await fetchAdmins();
           resetForm();
-          alert("Admin berhasil ditambahkan!");
+          toast({ title: "Admin berhasil ditambahkan!" });
         } else {
           const data = await response.json();
-          alert(data.error || "Gagal menambahkan admin");
+          toast({ title: data.error || "Gagal menambahkan admin", variant: "destructive" });
         }
       }
     } catch (error) {
       console.error("Error saving admin:", error);
-      alert("Terjadi kesalahan");
+      toast({ title: "Terjadi kesalahan", variant: "destructive" });
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handleDelete = async (admin: Admin) => {
-    if (!confirm(`Yakin ingin menghapus admin "${admin.nama}"?`)) return;
+  const handleDelete = (admin: Admin) => {
+    setDeleteAdmin(admin);
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteAdmin) return;
 
     try {
-      const response = await fetch(`/api/admin?id=${admin.id}`, {
+      const response = await fetch(`/api/admin?id=${deleteAdmin.id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
         await fetchAdmins();
-        alert("Admin berhasil dihapus!");
+        toast({ title: "Admin berhasil dihapus!" });
       } else {
         const data = await response.json();
-        alert(data.error || "Gagal menghapus admin");
+        toast({ title: data.error || "Gagal menghapus admin", variant: "destructive" });
       }
     } catch (error) {
       console.error("Error deleting admin:", error);
-      alert("Terjadi kesalahan");
+      toast({ title: "Terjadi kesalahan", variant: "destructive" });
+    } finally {
+      setDeleteAdmin(null);
     }
   };
 
@@ -403,6 +412,17 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
           </div>
         </div>
       )}
+
+      <ConfirmDialog
+        open={deleteAdmin !== null}
+        onOpenChange={(open) => !open && setDeleteAdmin(null)}
+        title="Hapus Admin"
+        description={`Yakin ingin menghapus admin "${deleteAdmin?.nama}"?`}
+        confirmText="Hapus"
+        cancelText="Batal"
+        onConfirm={confirmDelete}
+        variant="destructive"
+      />
     </div>
   );
 }

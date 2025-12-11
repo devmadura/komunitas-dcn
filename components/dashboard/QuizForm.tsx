@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { X, Plus, Trash2, Save } from "lucide-react";
 import { Quiz, QuizQuestion } from "@/lib/supabase";
+import { toast } from "@/hooks/use-toast";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface QuizFormProps {
   quiz: Quiz | null;
@@ -39,6 +41,9 @@ export default function QuizForm({
   const [currentQuizId, setCurrentQuizId] = useState<string | null>(
     quiz?.id || null
   );
+  const [deleteQuestionIndex, setDeleteQuestionIndex] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     if (currentQuizId) {
@@ -64,7 +69,7 @@ export default function QuizForm({
 
   const handleSaveQuiz = async () => {
     if (!judul.trim()) {
-      alert("Judul kuis wajib diisi");
+      toast({ title: "Judul kuis wajib diisi", variant: "destructive" });
       return;
     }
 
@@ -90,7 +95,7 @@ export default function QuizForm({
       }
     } catch (error) {
       console.error("Error saving quiz:", error);
-      alert("Gagal menyimpan kuis");
+      toast({ title: "Gagal menyimpan kuis", variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -125,7 +130,7 @@ export default function QuizForm({
   const saveQuestion = async (index: number) => {
     const q = questions[index];
     if (!q.pertanyaan || !q.opsi_a || !q.opsi_b || !q.opsi_c || !q.opsi_d) {
-      alert("Semua field soal wajib diisi");
+      toast({ title: "Semua field soal wajib diisi", variant: "destructive" });
       return;
     }
 
@@ -155,20 +160,24 @@ export default function QuizForm({
       }
     } catch (error) {
       console.error("Error saving question:", error);
-      alert("Gagal menyimpan soal");
+      toast({ title: "Gagal menyimpan soal", variant: "destructive" });
     } finally {
       setLoading(false);
     }
   };
 
-  const deleteQuestion = async (index: number) => {
+  const deleteQuestion = (index: number) => {
     const q = questions[index];
     if (q.isNew) {
       setQuestions(questions.filter((_, i) => i !== index));
       return;
     }
+    setDeleteQuestionIndex(index);
+  };
 
-    if (!confirm("Yakin ingin menghapus soal ini?")) return;
+  const confirmDeleteQuestion = async () => {
+    if (deleteQuestionIndex === null) return;
+    const q = questions[deleteQuestionIndex];
 
     try {
       const response = await fetch(
@@ -176,10 +185,12 @@ export default function QuizForm({
         { method: "DELETE" }
       );
       if (response.ok) {
-        setQuestions(questions.filter((_, i) => i !== index));
+        setQuestions(questions.filter((_, i) => i !== deleteQuestionIndex));
       }
     } catch (error) {
       console.error("Error deleting question:", error);
+    } finally {
+      setDeleteQuestionIndex(null);
     }
   };
 
@@ -358,6 +369,17 @@ export default function QuizForm({
           )}
         </div>
       </div>
+
+      <ConfirmDialog
+        open={deleteQuestionIndex !== null}
+        onOpenChange={(open) => !open && setDeleteQuestionIndex(null)}
+        title="Hapus Soal"
+        description="Yakin ingin menghapus soal ini?"
+        confirmText="Hapus"
+        cancelText="Batal"
+        onConfirm={confirmDeleteQuestion}
+        variant="destructive"
+      />
     </div>
   );
 }

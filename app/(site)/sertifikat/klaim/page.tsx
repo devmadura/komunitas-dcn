@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Search, Download, Award, CheckCircle, Clock, FileText, Mail } from "lucide-react";
 import { generateSertifikatPDF } from "@/lib/generateSertifikat";
+import { toast } from "@/hooks/use-toast";
 
 interface Pertemuan {
   id: string;
@@ -87,7 +88,7 @@ export default function KlaimSertifikatPage() {
           });
         } catch (pdfError) {
           console.error("PDF Error:", pdfError);
-          alert("Gagal generate PDF. Silakan coba lagi.");
+          toast({ title: "Gagal generate PDF. Silakan coba lagi.", variant: "destructive" });
         }
         return;
       }
@@ -106,7 +107,7 @@ export default function KlaimSertifikatPage() {
       const result = await res.json();
 
       if (!res.ok) {
-        alert(result.error || "Gagal klaim sertifikat");
+        toast({ title: result.error || "Gagal klaim sertifikat", variant: "destructive" });
         return;
       }
 
@@ -121,7 +122,7 @@ export default function KlaimSertifikatPage() {
         });
       } catch (pdfError) {
         console.error("PDF Error:", pdfError);
-        alert("Sertifikat tersimpan tapi gagal download. Coba download ulang.");
+        toast({ title: "Sertifikat tersimpan tapi gagal download. Coba download ulang.", variant: "destructive" });
       }
 
       // Update state
@@ -141,7 +142,7 @@ export default function KlaimSertifikatPage() {
         ),
       });
     } catch {
-      alert("Gagal mengunduh sertifikat");
+      toast({ title: "Gagal mengunduh sertifikat", variant: "destructive" });
     } finally {
       setLoading(false);
       setClaimingId(null);
@@ -166,7 +167,7 @@ export default function KlaimSertifikatPage() {
           });
         } catch (pdfError) {
           console.error("PDF Error:", pdfError);
-          alert("Gagal generate PDF. Silakan coba lagi.");
+          toast({ title: "Gagal generate PDF. Silakan coba lagi.", variant: "destructive" });
         }
         return;
       }
@@ -184,7 +185,7 @@ export default function KlaimSertifikatPage() {
       const result = await res.json();
 
       if (!res.ok) {
-        alert(result.error || "Gagal klaim sertifikat");
+        toast({ title: result.error || "Gagal klaim sertifikat", variant: "destructive" });
         return;
       }
 
@@ -197,7 +198,7 @@ export default function KlaimSertifikatPage() {
         });
       } catch (pdfError) {
         console.error("PDF Error:", pdfError);
-        alert("Sertifikat tersimpan tapi gagal download. Coba download ulang.");
+        toast({ title: "Sertifikat tersimpan tapi gagal download. Coba download ulang.", variant: "destructive" });
       }
 
       // Update state
@@ -213,7 +214,7 @@ export default function KlaimSertifikatPage() {
         },
       });
     } catch {
-      alert("Gagal mengunduh sertifikat");
+      toast({ title: "Gagal mengunduh sertifikat", variant: "destructive" });
     } finally {
       setLoading(false);
       setClaimingId(null);

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { X, Download, Loader2 } from "lucide-react";
 import { Kontributor, Pertemuan } from "@/lib/supabase";
 import { exportAbsensiToPDF } from "@/lib/exportPDF";
+import { toast } from "@/hooks/use-toast";
 
 export type AbsensiFormData = {
   status?: "hadir" | "izin" | "alpha";
@@ -70,7 +71,7 @@ export default function AbsensiForm({
         }));
 
       if (absensiArray.length === 0) {
-        alert("Tidak ada data absensi yang diisi");
+        toast({ title: "Tidak ada data absensi yang diisi", variant: "destructive" });
         return;
       }
 
@@ -85,14 +86,14 @@ export default function AbsensiForm({
 
       if (response.ok) {
         onSaved();
-        alert("Absensi berhasil disimpan!");
+        toast({ title: "Absensi berhasil disimpan!" });
       } else {
         const error = await response.json();
-        alert(`Gagal menyimpan absensi: ${error.error}`);
+        toast({ title: `Gagal menyimpan absensi: ${error.error}`, variant: "destructive" });
       }
     } catch (error) {
       console.error("Error saving absensi:", error);
-      alert("Gagal menyimpan absensi");
+      toast({ title: "Gagal menyimpan absensi", variant: "destructive" });
     } finally {
       setSaving(false);
     }

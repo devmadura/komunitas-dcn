@@ -5,6 +5,7 @@ import { Plus, Calendar, Award } from "lucide-react";
 import { Kontributor, Pertemuan } from "@/lib/supabase";
 import PertemuanForm from "./PertemuanForm";
 import AbsensiForm from "./AbsensiForm";
+import { toast } from "@/hooks/use-toast";
 
 interface AbsensiTabProps {
   pertemuan: Pertemuan[];
@@ -38,11 +39,11 @@ export default function AbsensiTab({
         onDataChanged();
         setFormPertemuan({ tanggal: "", judul: "", berita_acara: "", has_sertifikat: false });
         setShowPertemuanForm(false);
-        alert("Pertemuan berhasil dibuat!");
+        toast({ title: "Pertemuan berhasil dibuat!" });
       }
     } catch (error) {
       console.error("Error creating pertemuan:", error);
-      alert("Gagal membuat pertemuan");
+      toast({ title: "Gagal membuat pertemuan", variant: "destructive" });
     }
   };
 

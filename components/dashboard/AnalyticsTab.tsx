@@ -24,6 +24,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { exportToPDF, exportToXLSX, exportToCSV } from "@/lib/exportAnalytics";
+import { toast } from "@/hooks/use-toast";
 
 interface AttendanceData {
   month: string;
@@ -84,7 +85,7 @@ export default function AnalyticsTab() {
       else exportToCSV(data);
     } catch (error) {
       console.error("Export error:", error);
-      alert("Gagal export data");
+      toast({ title: "Gagal export data", variant: "destructive" });
     } finally {
       setTimeout(() => setExporting(null), 500);
     }

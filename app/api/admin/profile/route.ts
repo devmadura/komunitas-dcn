@@ -82,8 +82,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { nama, label, photo_url, photo_uuid, social_media } =
-      await request.json();
+    const { nama, photo_url, photo_uuid, social_media } = await request.json();
 
     if (!nama) {
       return NextResponse.json({ error: "Nama harus diisi" }, { status: 400 });
@@ -102,7 +101,6 @@ export async function PUT(request: Request) {
 
     const updateData = {
       nama,
-      label: label || null,
       photo_url: photo_url || null,
       photo_uuid: photo_uuid || null,
       social_media: social_media || null,

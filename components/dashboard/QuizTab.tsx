@@ -6,6 +6,8 @@ import { Quiz } from "@/lib/supabase";
 import QuizForm from "./QuizForm";
 import QuizLinkGenerator from "./QuizLinkGenerator";
 import QuizDetail from "./QuizDetail";
+import { toast } from "@/hooks/use-toast";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface QuizTabProps {
   onDataChanged?: () => void;
@@ -20,6 +22,7 @@ export default function QuizTab({ onDataChanged }: QuizTabProps) {
   const [selectedQuizForDetail, setSelectedQuizForDetail] = useState<Quiz | null>(null);
   const [managingQuestionsFor, setManagingQuestionsFor] = useState<Quiz | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [deleteQuizId, setDeleteQuizId] = useState<string | null>(null);
 
   const fetchQuizList = async () => {
     try {
@@ -38,23 +41,29 @@ export default function QuizTab({ onDataChanged }: QuizTabProps) {
     fetchQuizList();
   }, []);
 
-  const handleDelete = async (id: string) => {
-    if (!confirm("Yakin ingin menghapus kuis ini? Semua data termasuk soal, sesi, dan hasil akan dihapus.")) return;
+  const handleDelete = (id: string) => {
+    setDeleteQuizId(id);
+  };
 
-    setDeleting(id);
+  const confirmDelete = async () => {
+    if (!deleteQuizId) return;
+    
+    setDeleting(deleteQuizId);
+    const idToDelete = deleteQuizId;
+    setDeleteQuizId(null);
     try {
-      const response = await fetch(`/api/quiz/${id}`, { method: "DELETE" });
+      const response = await fetch(`/api/quiz/${idToDelete}`, { method: "DELETE" });
       const data = await response.json();
       
       if (response.ok) {
         fetchQuizList();
         onDataChanged?.();
       } else {
-        alert(data.error || "Gagal menghapus kuis");
+        toast({ title: data.error || "Gagal menghapus kuis", variant: "destructive" });
       }
     } catch (error) {
       console.error("Error deleting quiz:", error);
-      alert("Gagal menghapus kuis");
+      toast({ title: "Gagal menghapus kuis", variant: "destructive" });
     } finally {
       setDeleting(null);
     }
@@ -197,6 +206,17 @@ export default function QuizTab({ onDataChanged }: QuizTabProps) {
           onClose={() => setSelectedQuizForDetail(null)}
         />
       )}
+
+      <ConfirmDialog
+        open={deleteQuizId !== null}
+        onOpenChange={(open) => !open && setDeleteQuizId(null)}
+        title="Hapus Kuis"
+        description="Yakin ingin menghapus kuis ini? Semua data termasuk soal, sesi, dan hasil akan dihapus."
+        confirmText="Hapus"
+        cancelText="Batal"
+        onConfirm={confirmDelete}
+        variant="destructive"
+      />
     </div>
   );
 }

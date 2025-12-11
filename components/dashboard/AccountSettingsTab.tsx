@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 interface SocialMedia {
   instagram?: string;
@@ -38,6 +39,7 @@ export default function AccountSettingsTab({
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [message, setMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -98,9 +100,11 @@ export default function AccountSettingsTab({
 
   const handleRemovePhoto = async () => {
     if (!photoUuid || deleting) return;
+    setShowDeleteConfirm(true);
+  };
 
-    if (!confirm("Apakah Anda yakin ingin menghapus foto profil?")) return;
-
+  const confirmRemovePhoto = async () => {
+    setShowDeleteConfirm(false);
     setDeleting(true);
     setMessage(null);
 
@@ -384,6 +388,17 @@ export default function AccountSettingsTab({
           </div>
         </form>
       </div>
+
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onOpenChange={setShowDeleteConfirm}
+        title="Hapus Foto Profil"
+        description="Apakah Anda yakin ingin menghapus foto profil?"
+        confirmText="Hapus"
+        cancelText="Batal"
+        onConfirm={confirmRemovePhoto}
+        variant="destructive"
+      />
     </div>
   );
 }

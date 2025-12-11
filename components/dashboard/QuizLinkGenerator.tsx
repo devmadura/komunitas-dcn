@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X, Copy, Check, Link2, Clock } from "lucide-react";
 import { Quiz } from "@/lib/supabase";
+import { toast } from "@/hooks/use-toast";
 
 interface QuizLinkGeneratorProps {
   quiz: Quiz;
@@ -56,11 +57,11 @@ export default function QuizLinkGenerator({
         setExpiresAt(data.expires_at);
         setIsExistingLink(false);
       } else {
-        alert(data.error || "Gagal generate link");
+        toast({ title: data.error || "Gagal generate link", variant: "destructive" });
       }
     } catch (error) {
       console.error("Error generating link:", error);
-      alert("Gagal generate link");
+      toast({ title: "Gagal generate link", variant: "destructive" });
     } finally {
       setLoading(false);
     }

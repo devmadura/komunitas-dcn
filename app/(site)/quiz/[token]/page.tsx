@@ -2,6 +2,7 @@
 
 import { useState, useEffect, use } from "react";
 import { Clock, AlertCircle, CheckCircle } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 interface Question {
   id: string;
@@ -93,7 +94,7 @@ export default function QuizPage({
 
   const handleSubmit = async () => {
     if (!namaPeserta.trim()) {
-      alert("Nama peserta wajib diisi");
+      toast({ title: "Nama peserta wajib diisi", variant: "destructive" });
       return;
     }
 
@@ -101,9 +102,11 @@ export default function QuizPage({
       (q) => !answers[q.id]
     );
     if (unanswered && unanswered.length > 0) {
-      alert(
-        `Masih ada ${unanswered.length} soal yang belum dijawab. Harap jawab semua soal sebelum submit.`
-      );
+      toast({
+        title: `Masih ada ${unanswered.length} soal yang belum dijawab`,
+        description: "Harap jawab semua soal sebelum submit.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -124,10 +127,10 @@ export default function QuizPage({
       if (response.ok) {
         setResult(data);
       } else {
-        alert(data.error || "Gagal submit jawaban");
+        toast({ title: data.error || "Gagal submit jawaban", variant: "destructive" });
       }
     } catch {
-      alert("Gagal submit jawaban");
+      toast({ title: "Gagal submit jawaban", variant: "destructive" });
     } finally {
       setSubmitting(false);
     }

@@ -9,7 +9,12 @@ interface PertemuanFormProps {
     berita_acara: string;
     has_sertifikat: boolean;
   };
-  onFormChange: (form: { tanggal: string; judul: string; berita_acara: string; has_sertifikat: boolean }) => void;
+  onFormChange: (form: {
+    tanggal: string;
+    judul: string;
+    berita_acara: string;
+    has_sertifikat: boolean;
+  }) => void;
   onSubmit: () => void;
   onClose: () => void;
 }
@@ -33,6 +38,11 @@ export default function PertemuanForm({
         </div>
 
         <div className="space-y-4">
+          <p className="text-orange-500 italic text-sm">
+            <span className="font-bold text-red-500">Peringatan: </span>
+            harap isi dengan benar karean pertemuan yang di set tidak bisa di
+            hapus
+          </p>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Tanggal
@@ -54,9 +64,7 @@ export default function PertemuanForm({
             <input
               type="text"
               value={form.judul}
-              onChange={(e) =>
-                onFormChange({ ...form, judul: e.target.value })
-              }
+              onChange={(e) => onFormChange({ ...form, judul: e.target.value })}
               placeholder="Misal: Workshop Next.js"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent"
             />
