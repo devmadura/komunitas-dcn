@@ -148,13 +148,13 @@ export default function Footer() {
                 FAQ
               </Link>
               <Link
-                href="#"
+                href="/privacy-policy"
                 className="hover:text-background transition-colors"
               >
                 Privacy Policy
               </Link>
               <Link
-                href="#"
+                href="/terms-of-service"
                 className="hover:text-background transition-colors"
               >
                 Terms of Service

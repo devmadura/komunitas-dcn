@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ToastPrimitives from "@radix-ui/react-toast";
 import { cva, type VariantProps } from "class-variance-authority";
-import { X } from "lucide-react";
+import { X, CheckCircle, XCircle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -27,9 +27,11 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "border bg-background text-foreground",
+        default: "border border-gray-200 bg-white text-gray-900",
         destructive:
-          "destructive group border-destructive bg-destructive text-destructive-foreground",
+          "destructive group border-gray-200 bg-white text-gray-900",
+        success:
+          "border-gray-200 bg-white text-gray-900",
       },
     },
     defaultVariants: {
@@ -37,6 +39,14 @@ const toastVariants = cva(
     },
   }
 );
+
+const ToastIcon = ({ variant }: { variant?: "default" | "destructive" | "success" | null }) => {
+  if (variant === "destructive") {
+    return <XCircle className="h-5 w-5 text-red-500 shrink-0" />;
+  }
+  // default and success show green check icon
+  return <CheckCircle className="h-5 w-5 text-green-500 shrink-0" />;
+};
 
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
@@ -124,4 +134,5 @@ export {
   ToastDescription,
   ToastClose,
   ToastAction,
+  ToastIcon,
 };
