@@ -124,7 +124,7 @@ export default function DashboardPage() {
         )}
 
         {activeTab === "leaderboard" && (
-          <LeaderboardTab kontributor={kontributor} />
+          <LeaderboardTab kontributor={kontributor} onRefresh={fetchData} />
         )}
 
         {activeTab === "quiz" && <QuizTab onDataChanged={fetchData} />}

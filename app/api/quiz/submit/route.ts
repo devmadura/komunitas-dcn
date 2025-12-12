@@ -73,7 +73,30 @@ export async function POST(request: Request) {
       }
     });
 
-    // Save submission
+    // Calculate poin based on wrong answers
+    const salah = totalSoal - skor;
+    let poin = 20; // Default: lebih dari 1 salah
+    if (salah === 0) {
+      poin = 30; // Semua benar
+    } else if (salah === 1) {
+      poin = 25; // 1 salah
+    }
+
+    // Find kontributor by nama_peserta and update total_poin
+    const { data: kontributor } = await supabase
+      .from("kontributor")
+      .select("id, total_poin")
+      .ilike("nama", nama_peserta)
+      .single();
+
+    if (kontributor) {
+      await supabase
+        .from("kontributor")
+        .update({ total_poin: kontributor.total_poin + poin })
+        .eq("id", kontributor.id);
+    }
+
+    // Save submission with poin
     const { error: submitError } = await supabase
       .from("quiz_submissions")
       .insert([
@@ -83,6 +106,7 @@ export async function POST(request: Request) {
           jawaban,
           skor,
           total_soal: totalSoal,
+          poin,
         },
       ])
       .select()
@@ -95,6 +119,8 @@ export async function POST(request: Request) {
       skor,
       total_soal: totalSoal,
       persentase: Math.round((skor / totalSoal) * 100),
+      poin,
+      kontributor_updated: !!kontributor,
     });
   } catch (error) {
     console.error("Error submitting quiz:", error);

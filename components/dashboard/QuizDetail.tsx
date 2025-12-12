@@ -1,14 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Users, Trophy, Clock, FileQuestion } from "lucide-react";
+import { X, Users, Trophy, Clock, FileQuestion, FileDown, Star } from "lucide-react";
 import { Quiz } from "@/lib/supabase";
+import { exportQuizResultToPDF } from "@/lib/exportPDF";
+import { toast } from "@/hooks/use-toast";
 
 interface Submission {
   id: string;
   nama_peserta: string;
   skor: number;
   total_soal: number;
+  poin: number;
   submitted_at: string;
 }
 
@@ -45,6 +48,28 @@ export default function QuizDetail({ quiz, onClose }: QuizDetailProps) {
     return "text-red-600 bg-red-100";
   };
 
+  const handleExportPDF = () => {
+    if (submissions.length === 0) {
+      toast({ title: "Tidak ada data untuk di-export", variant: "destructive" });
+      return;
+    }
+    exportQuizResultToPDF({
+      quiz: {
+        judul: quiz.judul,
+        deskripsi: quiz.deskripsi,
+        created_at: quiz.created_at,
+      },
+      submissions: submissions.map((sub) => ({
+        nama_peserta: sub.nama_peserta,
+        skor: sub.skor,
+        total_soal: sub.total_soal,
+        poin: sub.poin || 0,
+        submitted_at: sub.submitted_at,
+      })),
+    });
+    toast({ title: "PDF berhasil diunduh" });
+  };
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col">
@@ -53,9 +78,20 @@ export default function QuizDetail({ quiz, onClose }: QuizDetailProps) {
             <h2 className="text-xl font-bold text-gray-900">Detail Kuis</h2>
             <p className="text-sm text-gray-500">{quiz.judul}</p>
           </div>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <X className="w-6 h-6" />
-          </button>
+          <div className="flex items-center gap-2">
+            {submissions.length > 0 && (
+              <button
+                onClick={handleExportPDF}
+                className="flex items-center gap-2 px-3 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm"
+              >
+                <FileDown className="w-4 h-4" />
+                Print PDF
+              </button>
+            )}
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
         <div className="p-6 overflow-y-auto flex-1">
@@ -106,6 +142,10 @@ export default function QuizDetail({ quiz, onClose }: QuizDetailProps) {
                         <span className="text-xs">
                           ({Math.round((sub.skor / sub.total_soal) * 100)}%)
                         </span>
+                      </div>
+                      <div className="flex items-center gap-1 px-3 py-1.5 rounded-full font-semibold bg-indigo-100 text-indigo-700">
+                        <Star className="w-4 h-4" />
+                        <span>+{sub.poin || 0}</span>
                       </div>
                     </div>
                   </div>

@@ -29,6 +29,8 @@ interface QuizResult {
   skor: number;
   total_soal: number;
   persentase: number;
+  poin: number;
+  kontributor_updated: boolean;
 }
 
 export default function QuizPage({
@@ -196,14 +198,27 @@ export default function QuizPage({
 
           <div className="bg-linear-to-r from-indigo-500 to-purple-600 rounded-xl p-6 text-white">
             <p className="text-sm opacity-90 mb-1">Nilai Anda</p>
-            <p className="text-5xl font-bold mb-2">{result.persentase}</p>
+            <p className="text-5xl font-bold mb-2">{result.persentase}%</p>
             <p className="text-lg">
               {result.skor} dari {result.total_soal} soal benar
             </p>
           </div>
 
+          <div className="mt-4 bg-green-100 dark:bg-green-900/30 rounded-xl p-4">
+            <p className="text-sm text-green-700 dark:text-green-300 mb-1">Poin yang didapat</p>
+            <p className="text-3xl font-bold text-green-600 dark:text-green-400">+{result.poin} Poin</p>
+            {result.kontributor_updated && (
+              <p className="text-xs text-green-600 dark:text-green-400 mt-1">
+                Poin telah ditambahkan ke akun Anda
+              </p>
+            )}
+          </div>
+
           <div className="mt-6 text-sm text-muted-foreground">
-            {result.persentase >= 80 && "🎉 Luar biasa! Nilai sempurna!"}
+            {result.persentase === 100 && "🎉 Luar biasa! Nilai sempurna!"}
+            {result.persentase >= 80 &&
+              result.persentase < 100 &&
+              "👍 Bagus sekali! Hampir sempurna!"}
             {result.persentase >= 60 &&
               result.persentase < 80 &&
               "👍 Bagus! Terus tingkatkan!"}

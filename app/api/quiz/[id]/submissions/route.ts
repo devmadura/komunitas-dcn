@@ -21,6 +21,7 @@ export async function GET(
           nama_peserta,
           skor,
           total_soal,
+          poin,
           submitted_at
         )
       `)
@@ -36,6 +37,7 @@ export async function GET(
         nama_peserta: string;
         skor: number;
         total_soal: number;
+        poin: number;
         submitted_at: string;
       }) => ({
         ...sub,

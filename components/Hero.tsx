@@ -102,7 +102,7 @@ export default function Hero() {
               variant="glass"
               className="text-white border-white/30 hover:bg-white/20"
             >
-              <Link href="/redeem">Reedem Code</Link>
+              <Link href="/redeem">Code Redeem</Link>
             </Button>
           </motion.div>
         </div>
