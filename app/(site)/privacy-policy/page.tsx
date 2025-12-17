@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import PrivacyPolicyPage from "@/components/screen/privacy-policy";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | DCN UNIRA",
+  title: "Privacy Policy",
   description:
     "Kebijakan Privasi DCN Universitas Madura. Pelajari bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda.",
 };

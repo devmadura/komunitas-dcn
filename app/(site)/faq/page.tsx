@@ -2,7 +2,7 @@ import FAQClient from "@/components/screen/faq/clientfaq";
 import FAQTitle from "@/components/screen/faq/faqtitle";
 
 export const metadata = {
-  title: "FAQ | DCN UNIRA",
+  title: "FAQ",
   description:
     "Pertanyaan yang sering ditanyakan seputar Komunitas DCN Universitas Madura",
 };
