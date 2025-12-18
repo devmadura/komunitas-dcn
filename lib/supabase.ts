@@ -98,6 +98,22 @@ export interface SertifikatWithDetails extends Sertifikat {
   pertemuan?: Pertemuan;
 }
 
+// Event Types
+export interface Event {
+  id: string;
+  slug: string;
+  judul: string;
+  deskripsi: string | null;
+  tanggal: string;
+  waktu: string | null;
+  lokasi: string | null;
+  tipe: string;
+  gambar: string | null;
+  gambar_uuid: string | null;
+  is_published: boolean;
+  created_at: string;
+}
+
 // Code Redeem Types
 export interface CodeRedeem {
   id: string;

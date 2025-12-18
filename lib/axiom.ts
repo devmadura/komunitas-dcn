@@ -29,7 +29,10 @@ export type ActivityAction =
   | "delete_photo"
   | "create_code_redeem"
   | "update_code_redeem"
-  | "delete_code_redeem";
+  | "delete_code_redeem"
+  | "create_event"
+  | "update_event"
+  | "delete_event";
 
 export interface ActivityLog {
   action: ActivityAction;

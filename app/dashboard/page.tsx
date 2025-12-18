@@ -17,6 +17,7 @@ import ManageAdminTab from "@/components/dashboard/ManageAdminTab";
 import ActivityLogTab from "@/components/dashboard/ActivityLogTab";
 import AccountSettingsTab from "@/components/dashboard/AccountSettingsTab";
 import CodeRedeemTab from "@/components/dashboard/CodeRedeemTab";
+import EventsTab from "@/components/dashboard/EventsTab";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -130,6 +131,8 @@ export default function DashboardPage() {
         {activeTab === "quiz" && <QuizTab onDataChanged={fetchData} />}
 
         {activeTab === "code-redeem" && <CodeRedeemTab onDataChanged={fetchData} />}
+
+        {activeTab === "events" && <EventsTab onDataChanged={fetchData} />}
 
         {activeTab === "manage-admin" && (
           <ManageAdminTab currentAdmin={currentAdmin} />
