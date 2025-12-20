@@ -1,5 +1,5 @@
-import { Metadata } from "next";
 import GaleriClient from "@/components/GaleriClient";
+import { Metadata } from "next";
 
 const siteUrl = "https://dcnunira.dev";
 
@@ -13,19 +13,6 @@ export const metadata: Metadata = {
     "dokumentasi event",
     "komunitas developer madura",
   ],
-  openGraph: {
-    title: "Galeri | DCN UNIRA",
-    description:
-      "Galeri foto dokumentasi kegiatan Developer Community Network UNIRA",
-    type: "website",
-    url: `${siteUrl}/galeri`,
-  },
-  twitter: {
-    card: "summary",
-    title: "Galeri | DCN UNIRA",
-    description:
-      "Galeri foto dokumentasi kegiatan Developer Community Network UNIRA",
-  },
   alternates: {
     canonical: `${siteUrl}/galeri`,
   },

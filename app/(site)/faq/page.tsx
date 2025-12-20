@@ -1,24 +1,12 @@
 import FAQClient from "@/components/screen/faq/clientfaq";
 import FAQTitle from "@/components/screen/faq/faqtitle";
+import type { Metadata } from "next";
 
 const siteUrl = "https://dcnunira.dev";
-export const metadata = {
+export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Pertanyaan yang sering ditanyakan seputar Komunitas DCN Universitas Madura",
-  openGraph: {
-    title: "FAQ | DCN UNIRA",
-    description:
-      "Pertanyaan yang sering ditanyakan seputar Komunitas DCN Universitas Madura",
-    type: "website",
-    url: `${siteUrl}/faq`,
-  },
-  twitter: {
-    card: "summary",
-    title: "FAQ | DCN UNIRA",
-    description:
-      "Pertanyaan yang sering ditanyakan seputar Komunitas DCN Universitas Madura",
-  },
   alternates: {
     canonical: `${siteUrl}/faq`,
   },

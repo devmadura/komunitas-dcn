@@ -12,19 +12,6 @@ export const metadata: Metadata = {
     "event developer",
     "komunitas developer madura",
   ],
-  openGraph: {
-    title: "Event DCN UNIRA",
-    description:
-      "Temukan dan ikuti berbagai event menarik dari DCN UNIRA - Workshop, Seminar, Hackathon, dan kegiatan komunitas developer lainnya.",
-    type: "website",
-    images: ["/og-image.png"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Event DCN UNIRA",
-    description:
-      "Temukan dan ikuti berbagai event menarik dari DCN UNIRA - Workshop, Seminar, Hackathon, dan kegiatan komunitas developer lainnya.",
-  },
   alternates: {
     canonical: "https://dcnunira.dev/event",
   },
