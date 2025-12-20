@@ -12,6 +12,7 @@ import {
   Settings,
   Gift,
   Calendar,
+  Images,
   LucideIcon
 } from "lucide-react";
 
@@ -40,6 +41,7 @@ export default function DashboardTabs({
     { id: "leaderboard", label: "Leaderboard", permission: PERMISSIONS.LEADERBOARD, icon: Trophy },
     { id: "quiz", label: "Kuis", permission: PERMISSIONS.QUIZ, icon: HelpCircle },
     { id: "events", label: "Events", permission: PERMISSIONS.EVENTS, icon: Calendar },
+    { id: "galeri", label: "Galeri", permission: PERMISSIONS.GALERI, icon: Images },
     { id: "code-redeem", label: "Code Redeem", permission: PERMISSIONS.CODE_REDEEM, icon: Gift },
     { id: "manage-admin", label: "Kelola Admin", permission: PERMISSIONS.MANAGE_ADMIN, icon: Users },
     { id: "activity-log", label: "Activity Log", permission: PERMISSIONS.ACTIVITY_LOG, icon: Activity },

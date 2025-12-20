@@ -16,6 +16,7 @@ export default function Navbar() {
     { name: "Program", href: "#programs" },
     { name: "Events", href: "#events" },
     { name: "Team", href: "/team" },
+    { name: "Galeri", href: "/galeri" },
   ];
 
   useEffect(() => {

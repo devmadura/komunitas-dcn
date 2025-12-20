@@ -136,3 +136,19 @@ export interface CodeRedeemUsage {
 export interface CodeRedeemWithUsage extends CodeRedeem {
   code_redeem_usage: CodeRedeemUsage[];
 }
+
+// Galeri Types
+export interface GaleriImage {
+  url: string;
+  uuid: string;
+}
+
+export interface Galeri {
+  id: string;
+  title: string;
+  cover_image: string;
+  cover_image_uuid: string | null;
+  images: GaleriImage[];
+  is_published: boolean;
+  created_at: string;
+}

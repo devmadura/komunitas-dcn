@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     description:
       "Temukan dan ikuti berbagai event menarik dari DCN UNIRA - Workshop, Seminar, Hackathon, dan kegiatan komunitas developer lainnya.",
   },
+  alternates: {
+    canonical: "https://dcnunira.dev/event",
+  },
 };
 
 export default function EventLayout({
