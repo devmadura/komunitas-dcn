@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Calendar, MapPin, Clock, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ShareButton } from "@/components/ui/share-button";
@@ -22,7 +23,11 @@ interface EventDetailClientProps {
   slug: string;
 }
 
-export default function EventDetailClient({ initialEvent, slug }: EventDetailClientProps) {
+export default function EventDetailClient({
+  initialEvent,
+  slug,
+}: EventDetailClientProps) {
+  const pathname = usePathname();
   const [event, setEvent] = useState<Event | null>(initialEvent);
   const [loading, setLoading] = useState(!initialEvent);
   const [error, setError] = useState<string | null>(null);
@@ -98,7 +103,7 @@ export default function EventDetailClient({ initialEvent, slug }: EventDetailCli
     );
   }
 
-  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  const currentUrl = `${typeof window !== "undefined" ? window.location.origin : ""}${pathname}`;
 
   return (
     <div className="min-h-screen bg-background py-20">
