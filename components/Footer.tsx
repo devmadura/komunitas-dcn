@@ -138,7 +138,8 @@ export default function Footer() {
         <div className="pt-8 border-t border-background/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-background/70 text-sm">
-              &copy; 2025 Dicoding Community Network Unira. All rights reserved.
+              &copy; {new Date().getFullYear()} Dicoding Community Network
+              Unira. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm text-background/70">
               <Link
