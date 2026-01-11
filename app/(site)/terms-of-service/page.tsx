@@ -5,7 +5,7 @@ const siteUrl = "https://dcnunira.dev";
 export const metadata: Metadata = {
   title: "Terms Of Service",
   description:
-    "Syarat dan Ketentuan penggunaan layanan DCN Universitas Madura. Baca sebelum menggunakan layanan kami.",
+    "Syarat dan Ketentuan penggunaan layanan Dicoding Community Network Universitas Madura. Baca sebelum menggunakan layanan kami.",
   alternates: {
     canonical: `${siteUrl}/terms-of-service`,
   },

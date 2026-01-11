@@ -6,7 +6,7 @@ const siteUrl = "https://dcnunira.dev";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Pertanyaan yang sering ditanyakan seputar Komunitas DCN Universitas Madura",
+    "Pertanyaan yang sering ditanyakan seputar Komunitas Dicoding Community Network Universitas Madura",
   alternates: {
     canonical: `${siteUrl}/faq`,
   },
@@ -19,7 +19,7 @@ const FAQS = [
     a: "Dicoding Community Network merupakan sebuah program kepemimpinan komunitas digital, yang memberi kesempatan bagi mahasiswa untuk mendirikan dan memimpin komunitas pembelajaran teknologi di kampusnya sendiri dengan dukungan dari Dicoding.",
   },
   {
-    id: "gratis",
+    id: "apakah-komunitas-ini-berbayar",
     q: "Apakah komunitas ini berbayar?",
     a: "Tidak. Program ini 100% gratis",
   },
@@ -29,17 +29,17 @@ const FAQS = [
     a: "Community Contributor adalah anggota aktif dalam komunitas yang mengikuti kegiatan, diskusi, dan belajar bersama melalui program Dicoding Community Network.",
   },
   {
-    id: "siapa-saja",
+    id: "siapa-saja-yang-bisa-menjadi-community-contributor",
     q: "Siapa saja yang bisa menjadi Community Contributor?",
     a: "Mahasiswa dari mana saja yang ingin ikut belajar teknologi bersama komunitas dapat bergabung sebagai Community Contributor.",
   },
   {
-    id: "bagaimana",
+    id: "bagaimana-cara-menjadi-community-contributor",
     q: "Bagaimana cara menjadi Community Contributor?",
     a: "Kamu bisa bergabung melalui Community Builder di kampus/sekolahmu, atau mencari komunitas terdekat yang sudah aktif di Dicoding Community Network.",
   },
   {
-    id: "apa-unira",
+    id: "apa-itu-unira",
     q: "Apa itu UNIRA?",
     a: "Universitas Madura (UNIRA) adalah sebuah perguruan tinggi swasta yang terletak di Pamekasan, Madura, Indonesia. Didirikan pada tahun 1967, UNIRA menawarkan berbagai program studi salah satunya di bidang informatika fakultas teknik",
   },

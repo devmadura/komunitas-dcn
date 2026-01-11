@@ -6,12 +6,12 @@ const siteUrl = "https://dcnunira.dev";
 export const metadata: Metadata = {
   title: "Galeri",
   description:
-    "Galeri foto dokumentasi kegiatan Developer Community Network UNIRA - event, workshop, dan kegiatan komunitas.",
+    "Galeri foto dokumentasi kegiatan Dicoding Community Network Universitas Madura - event, workshop,meetup dan kegiatan komunitas lainnya.",
   keywords: [
     "galeri dcn unira",
     "foto kegiatan dcn",
     "dokumentasi event",
-    "komunitas developer madura",
+    "dcnunira",
   ],
   alternates: {
     canonical: `${siteUrl}/galeri`,

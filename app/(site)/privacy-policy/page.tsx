@@ -5,7 +5,7 @@ const siteUrl = "https://dcnunira.dev";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Kebijakan Privasi DCN Universitas Madura. Pelajari bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda.",
+    "Kebijakan Privasi Dicoding Community Network Universitas Madura. Pelajari bagaimana kami mengumpulkan, menggunakan, dan melindungi data pribadi Anda.",
   alternates: {
     canonical: `${siteUrl}/privacy-policy`,
   },

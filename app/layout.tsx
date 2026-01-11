@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       url: "https://linkedin.com/in/moh-abroril-huda",
     },
   ],
-  creator: "DCN UNIRA Team",
+  creator: "DCN UNIRA Team Developer",
   publisher: "Dicoding Community Network Universitas Madura",
   keywords: [
     "dcnunira",
@@ -35,6 +35,8 @@ export const metadata: Metadata = {
     "komunitas teknologi madura",
     "developer indonesia",
     "dicoding indonesia",
+    "unira",
+    "dicoding community network universitas madura",
   ],
   robots: {
     index: true,

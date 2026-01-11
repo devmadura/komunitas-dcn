@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const siteUrl = "https://dcnunira.dev";
 export const metadata: Metadata = {
-  title: "Redeem Code",
+  title: "Code Redeem",
   description:
     "Masukkan kode redeem untuk mendapatkan poin menarik di Komunitas Dicoding Community Network Universitas Madura.",
   alternates: {

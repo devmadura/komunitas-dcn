@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Event",
   description:
-    "Temukan dan ikuti berbagai event menarik dari DCN UNIRA - Workshop, Seminar, Hackathon,MeetUp dan kegiatan komunitas developer lainnya.",
+    "Temukan dan ikuti berbagai event menarik dari Dicoding Community Network Universitas Madura - Workshop, Seminar, Hackathon,MeetUp dan kegiatan komunitas developer lainnya.",
   keywords: [
     "event dcn unira",
     "workshop programming",
