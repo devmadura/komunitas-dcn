@@ -5,8 +5,11 @@ import EventDetailClient from "./EventDetailClient";
 const siteUrl = "https://dcnunira.dev";
 
 async function getEvent(slug: string): Promise<Event | null> {
-  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug);
-  
+  const isUUID =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      slug
+    );
+
   const { data } = await supabase
     .from("events")
     .select("*")
@@ -33,9 +36,11 @@ export async function generateMetadata({
 
   const eventUrl = `${siteUrl}/event/${event.slug}`;
   const eventImage = event.gambar || `${siteUrl}/og-image.png`;
-  const description = event.deskripsi 
-    ? event.deskripsi.substring(0, 160) 
-    : `${event.tipe} - ${event.judul} di DCN UNIRA. Tanggal: ${new Date(event.tanggal).toLocaleDateString("id-ID")}`;
+  const description = event.deskripsi
+    ? event.deskripsi.substring(0, 160)
+    : `${event.tipe} - ${event.judul} di DCN UNIRA. Tanggal: ${new Date(
+        event.tanggal
+      ).toLocaleDateString("id-ID")}`;
 
   return {
     title: event.judul,
@@ -102,19 +107,12 @@ function generateEventJsonLd(event: Event) {
     image: event.gambar || `${siteUrl}/og-image.png`,
     organizer: {
       "@type": "Organization",
-      name: "DCN UNIRA",
+      name: "Dicoding Community Network Universitas Madura (DCN UNIRA)",
       url: siteUrl,
     },
     performer: {
       "@type": "Organization",
-      name: "DCN UNIRA",
-    },
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "IDR",
-      availability: "https://schema.org/InStock",
-      url: `${siteUrl}/event/${event.slug}`,
+      name: "Dicoding Community Network Universitas Madura (DCN UNIRA)",
     },
   };
 }
