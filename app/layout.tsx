@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const siteUrl = "https://dcnunira.dev";
 const siteName = "DCN UNIRA - Dicoding Community Network Universitas Madura";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: siteName,
-    template: "%s | DCN UNIRA",
+    template: "%s - DCN UNIRA",
   },
   description: siteDescription,
   authors: [
@@ -88,6 +89,7 @@ const jsonLd = {
   sameAs: ["https://instagram.com/dcn.unira"],
   contactPoint: {
     "@type": "ContactPoint",
+    email: "info@dcnunira.dev",
     contactType: "customer service",
     availableLanguage: ["Indonesian", "English"],
   },
@@ -113,6 +115,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <GoogleAnalytics />
         <ThemeProvider>
           {children}
           <Toaster />
