@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ChatBubble from "@/components/ChatBubble";
 
 export default function RootLayout({
   children,
@@ -10,6 +11,7 @@ export default function RootLayout({
     <>
       <Navbar />
       {children}
+      <ChatBubble />
       <Footer />
     </>
   );
