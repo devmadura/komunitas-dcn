@@ -14,6 +14,12 @@ DCN UNIRA adalah Dicoding Community Network di Universitas Madura yang menjadi w
 **Misi**: Membangun ekosistem developer yang solid dan saling mendukung di Universitas Madura
 **Nilai**: Kolaborasi, pembelajaran berkelanjutan, dan pertumbuhan bersama
 
+## Builder DCN UNIRA
+- Moh. Abroril Huda
+- https://abrorilhuda.me
+- https://github.com/abrorilhuda
+- https://instagram.com/abrorilhuda
+
 ## Important Pages
 
 - [Home](https://dcnunira.dev): Landing page dengan informasi lengkap komunitas, program, dan cara bergabung
