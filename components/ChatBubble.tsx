@@ -107,7 +107,7 @@ export default function ChatBubble() {
                                     <Bot className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-black">DCN UNIRA Assistant</h3>
+                                    <h3 className="font-bold text-black">GENIRA Assistant</h3>
                                     <p className="text-xs text-green-400 dark:text-green-700">Online</p>
                                 </div>
                             </div>
