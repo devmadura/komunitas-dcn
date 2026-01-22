@@ -20,7 +20,7 @@ export default function ChatBubble() {
         {
             id: "welcome",
             role: "assistant",
-            content: "Halo! 👋 Saya asisten virtual DCN Unira. Ada yang bisa saya bantu tentang komunitas kami?",
+            content: "Halo! 👋 Saya GENIRA😸 asisten virtual DCN Unira. Ada yang bisa saya bantu tentang komunitas kami?",
             timestamp: new Date(),
         },
     ]);
