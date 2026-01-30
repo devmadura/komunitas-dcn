@@ -193,6 +193,14 @@ export async function GET() {
 6. Get certified!
 
 ---
+## Certificate Claim Process
+
+**URL**: 
+- Full: https://dcnunira.dev/sertifikat/klaim
+- Shortcut: https://a.dcnunira.dev/sertifikat
+
+## Social Media DCN UNIRA
+- Instagram: https://instagram.com/dcn.unira
 
 ## Events & Activities
 

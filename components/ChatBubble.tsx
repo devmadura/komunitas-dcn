@@ -14,6 +14,16 @@ interface Message {
     timestamp: Date;
 }
 
+// Suggested questions
+const SUGGESTED_QUESTIONS = [
+    "Apa itu DCN Unira?",
+    "Bagaimana cara bergabung?",
+    "Program apa saja yang tersedia?",
+    "Apa itu sistem tier?",
+    "Kapan event terdekat?",
+    "Syarat untuk mendaftar?",
+];
+
 export default function ChatBubble() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
@@ -88,6 +98,52 @@ export default function ChatBubble() {
         }
     };
 
+    const handleQuickQuestion = (question: string) => {
+        setInput(question);
+        // Trigger send after a short delay to show the question in input
+        setTimeout(() => {
+            const userMessage: Message = {
+                id: Date.now().toString(),
+                role: "user",
+                content: question,
+                timestamp: new Date(),
+            };
+
+            setMessages((prev) => [...prev, userMessage]);
+            setInput("");
+            setIsLoading(true);
+
+            fetch("/api/chat-public", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: question }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    const aiMessage: Message = {
+                        id: (Date.now() + 1).toString(),
+                        role: "assistant",
+                        content: data.response || "Maaf, saya tidak bisa memproses permintaan Anda saat ini.",
+                        timestamp: new Date(),
+                    };
+                    setMessages((prev) => [...prev, aiMessage]);
+                })
+                .catch((error) => {
+                    console.error("Chat error:", error);
+                    const errorMessage: Message = {
+                        id: (Date.now() + 1).toString(),
+                        role: "assistant",
+                        content: "Maaf, terjadi kesalahan. Silakan coba lagi nanti.",
+                        timestamp: new Date(),
+                    };
+                    setMessages((prev) => [...prev, errorMessage]);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
+        }, 100);
+    };
+
     return (
         <>
             {/* Chat Window */}
@@ -138,7 +194,7 @@ export default function ChatBubble() {
                                             : "bg-background text-black shadow-sm "
                                             }`}
                                     >
-                                        <div className="text-sm whitespace-pre-wrap leading-relaxed prose prose-sm max-w-none dark:prose-invert">
+                                        <div className="text-sm whitespace-pre-wrap leading-relaxed prose prose-sm max-w-none dark:prose-invert dark:text-gray-100">
                                             <ReactMarkdown
                                                 remarkPlugins={[remarkGfm]}
                                                 components={{
@@ -178,7 +234,7 @@ export default function ChatBubble() {
                                                 {message.content}
                                             </ReactMarkdown>
                                         </div>
-                                        <p className={`text-xs mt-1.5 ${message.role === "user" ? "text-primary" : "text-primary"}`}>
+                                        <p className={`text-xs mt-1.5 dark:text-gray-100 ${message.role === "user" ? "text-primary" : "text-primary"}`}>
                                             {message.timestamp.toLocaleTimeString("id-ID", {
                                                 hour: "2-digit",
                                                 minute: "2-digit",
@@ -192,6 +248,35 @@ export default function ChatBubble() {
                                     )}
                                 </div>
                             ))}
+
+                            {/* Suggested Questions - Show only when there's just the welcome message */}
+                            {messages.length === 1 && !isLoading && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.3 }}
+                                    className="space-y-2"
+                                >
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Pertanyaan yang sering ditanyakan:</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {SUGGESTED_QUESTIONS.map((question, index) => (
+                                            <motion.button
+                                                key={index}
+                                                initial={{ opacity: 0, scale: 0.9 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                transition={{ delay: 0.4 + index * 0.05 }}
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                onClick={() => handleQuickQuestion(question)}
+                                                className="px-3 py-2 text-xs bg-white dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg hover:bg-primary/10 dark:hover:bg-primary/20 hover:border-primary dark:hover:border-primary transition-all text-gray-700 dark:text-gray-200 cursor-pointer"
+                                            >
+                                                {question}
+                                            </motion.button>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+
                             {isLoading && (
                                 <div className="flex gap-2 justify-start">
                                     <div className="w-8 h-8 bg-linear-to-br from-indigo-500 to-indigo-700 rounded-full flex items-center justify-center">
