@@ -2,9 +2,9 @@
 import { useState, useCallback, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
+import ImageLogo from "./shared/image-logo";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,12 +47,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <Image
-              src="/logo500x350.png"
-              alt="DCN Unira Logo"
-              width={100}
-              height={100}
-            />
+            <ImageLogo />
           </Link>
 
           {/* Desktop Menu */}
