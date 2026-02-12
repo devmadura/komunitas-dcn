@@ -151,7 +151,7 @@ export default function TeamDetail({ slug }: TeamDetailProps) {
                                         className={`w-2 h-2 rounded-full ${member.is_active !== false ? "bg-green-500" : "bg-gray-500"
                                             }`}
                                     ></span>
-                                    {member.is_active !== false ? "Active Member" : "Alumni"}
+                                    {member.is_active !== false ? "Active CoreTeam" : "Alumni CoreTeam"}
                                 </span>
                             </div>
 
