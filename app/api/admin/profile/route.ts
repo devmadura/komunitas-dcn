@@ -82,10 +82,26 @@ export async function PUT(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { nama, photo_url, photo_uuid, social_media } = await request.json();
+    const { nama, photo_url, photo_uuid, social_media, bio, skills } = await request.json();
 
     if (!nama) {
       return NextResponse.json({ error: "Nama harus diisi" }, { status: 400 });
+    }
+
+    // Validate bio length
+    if (bio && bio.length > 1000) {
+      return NextResponse.json(
+        { error: "Bio maksimal 1000 karakter" },
+        { status: 400 }
+      );
+    }
+
+    // Validate skills is array
+    if (skills && !Array.isArray(skills)) {
+      return NextResponse.json(
+        { error: "Skills harus berupa array" },
+        { status: 400 }
+      );
     }
 
     // If photo changed and old photo exists, delete from Uploadcare
@@ -104,6 +120,8 @@ export async function PUT(request: Request) {
       photo_url: photo_url || null,
       photo_uuid: photo_uuid || null,
       social_media: social_media || null,
+      bio: bio || null,
+      skills: skills && skills.length > 0 ? skills : null,
       updated_at: new Date().toISOString(),
     };
 

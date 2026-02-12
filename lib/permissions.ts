@@ -36,7 +36,20 @@ export interface Admin {
   email: string;
   nama: string;
   role: "super-admin" | "co-admin";
-  label: string;
+  label: string | null;
+  slug: string | null;
+  bio: string | null;
+  skills: string[] | null;
+  is_active: boolean;
+  join_date: string | null;
+  photo_url: string | null;
+  photo_uuid: string | null;
+  social_media: {
+    instagram?: string;
+    linkedin?: string;
+    github?: string;
+    twitter?: string;
+  } | null;
   permissions: Permission[];
   created_at: string;
   updated_at: string;

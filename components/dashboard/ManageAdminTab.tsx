@@ -25,8 +25,11 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
     nama: "",
     password: "",
     permissions: [] as Permission[],
+    label: "",
+    is_active: true,
+    join_date: "",
   });
-  
+
   const EMAIL_DOMAIN = "@dcnunira.dev";
   const [submitting, setSubmitting] = useState(false);
   const [deleteAdmin, setDeleteAdmin] = useState<Admin | null>(null);
@@ -64,6 +67,9 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
             id: editingAdmin.id,
             nama: formData.nama,
             permissions: formData.permissions,
+            label: formData.label || null,
+            is_active: formData.is_active,
+            join_date: formData.join_date || null,
           }),
         });
 
@@ -138,12 +144,23 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
       nama: admin.nama,
       password: "",
       permissions: admin.permissions || [],
+      label: admin.label || "",
+      is_active: admin.is_active !== false,
+      join_date: admin.join_date || "",
     });
     setShowForm(true);
   };
 
   const resetForm = () => {
-    setFormData({ emailUsername: "", nama: "", password: "", permissions: [] });
+    setFormData({
+      emailUsername: "",
+      nama: "",
+      password: "",
+      permissions: [],
+      label: "",
+      is_active: true,
+      join_date: "",
+    });
     setEditingAdmin(null);
     setShowForm(false);
   };
@@ -205,73 +222,72 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
                       Aksi
                     </th>
                   )}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {admins.map((admin) => (
-                <tr key={admin.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">
-                    <div>
-                      <p className="font-medium text-gray-900">{admin.nama}</p>
-                      <p className="text-sm text-gray-500">{admin.email}</p>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${
-                        admin.role === "super-admin"
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {admins.map((admin) => (
+                  <tr key={admin.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4">
+                      <div>
+                        <p className="font-medium text-gray-900">{admin.nama}</p>
+                        <p className="text-sm text-gray-500">{admin.email}</p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${admin.role === "super-admin"
                           ? "bg-purple-100 text-purple-700"
                           : "bg-blue-100 text-blue-700"
-                      }`}
-                    >
-                      <Shield className="w-3 h-3" />
-                      {admin.role === "super-admin" ? "Super Admin" : "Co-Admin"}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    {admin.role === "super-admin" ? (
-                      <span className="text-sm text-gray-500">Semua akses</span>
-                    ) : (
-                      <div className="flex flex-wrap gap-1">
-                        {admin.permissions?.length > 0 ? (
-                          admin.permissions.map((perm) => (
-                            <span
-                              key={perm}
-                              className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs"
-                            >
-                              {PERMISSION_LABELS[perm]}
+                          }`}
+                      >
+                        <Shield className="w-3 h-3" />
+                        {admin.role === "super-admin" ? "Super Admin" : "Co-Admin"}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      {admin.role === "super-admin" ? (
+                        <span className="text-sm text-gray-500">Semua akses</span>
+                      ) : (
+                        <div className="flex flex-wrap gap-1">
+                          {admin.permissions?.length > 0 ? (
+                            admin.permissions.map((perm) => (
+                              <span
+                                key={perm}
+                                className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs"
+                              >
+                                {PERMISSION_LABELS[perm]}
+                              </span>
+                            ))
+                          ) : (
+                            <span className="text-sm text-gray-400">
+                              Tidak ada akses
                             </span>
-                          ))
-                        ) : (
-                          <span className="text-sm text-gray-400">
-                            Tidak ada akses
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </td>
-                  {isSuperAdmin && (
-                    <td className="px-6 py-4 text-right">
-                      {admin.role !== "super-admin" && (
-                        <div className="flex justify-end gap-2">
-                          <button
-                            onClick={() => handleEdit(admin)}
-                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
-                          >
-                            <Edit2 className="w-4 h-4" />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(admin)}
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
+                          )}
                         </div>
                       )}
                     </td>
-                  )}
-                </tr>
-              ))}
+                    {isSuperAdmin && (
+                      <td className="px-6 py-4 text-right">
+                        {admin.role !== "super-admin" && (
+                          <div className="flex justify-end gap-2">
+                            <button
+                              onClick={() => handleEdit(admin)}
+                              className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                            >
+                              <Edit2 className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(admin)}
+                              className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        )}
+                      </td>
+                    )}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -341,6 +357,66 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
                 />
               </div>
 
+              {/* Label / Jabatan */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Label / Jabatan
+                </label>
+                <input
+                  type="text"
+                  value={formData.label}
+                  onChange={(e) =>
+                    setFormData({ ...formData, label: e.target.value })
+                  }
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-gray-900"
+                  placeholder="Contoh: Founder, Lead Developer"
+                />
+              </div>
+
+              {/* Status Active/Alumni */}
+              {editingAdmin && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Status
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setFormData({ ...formData, is_active: !formData.is_active })
+                      }
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${formData.is_active ? "bg-green-600" : "bg-gray-300"
+                        }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${formData.is_active ? "translate-x-6" : "translate-x-1"
+                          }`}
+                      />
+                    </button>
+                    <span className="text-sm text-gray-700">
+                      {formData.is_active ? "Active Member" : "Alumni"}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Join Date */}
+              {editingAdmin && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Tanggal Bergabung
+                  </label>
+                  <input
+                    type="date"
+                    value={formData.join_date}
+                    onChange={(e) =>
+                      setFormData({ ...formData, join_date: e.target.value })
+                    }
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent text-gray-900"
+                  />
+                </div>
+              )}
+
               {!editingAdmin && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -404,8 +480,8 @@ export default function ManageAdminTab({ currentAdmin }: ManageAdminTabProps) {
                   {submitting
                     ? "Menyimpan..."
                     : editingAdmin
-                    ? "Update"
-                    : "Tambah"}
+                      ? "Update"
+                      : "Tambah"}
                 </button>
               </div>
             </form>

@@ -16,6 +16,7 @@ import Image from "next/image";
 import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+import { SkillsInput } from "@/components/ui/skills-input";
 
 interface SocialMedia {
   instagram?: string;
@@ -54,6 +55,8 @@ export default function AccountSettingsTab({
     github: "",
     twitter: "",
   });
+  const [bio, setBio] = useState("");
+  const [skills, setSkills] = useState<string[]>([]);
 
   useEffect(() => {
     if (currentAdmin) {
@@ -90,6 +93,8 @@ export default function AccountSettingsTab({
           github: admin.social_media?.github || "",
           twitter: admin.social_media?.twitter || "",
         });
+        setBio(admin.bio || "");
+        setSkills(admin.skills || []);
       }
     } catch (error) {
       console.error("Error fetching account data:", error);
@@ -162,6 +167,8 @@ export default function AccountSettingsTab({
             Object.keys(filteredSocialMedia).length > 0
               ? filteredSocialMedia
               : null,
+          bio: bio.trim() || null,
+          skills: skills.length > 0 ? skills : null,
         }),
       });
 
@@ -199,11 +206,10 @@ export default function AccountSettingsTab({
 
         {message && (
           <div
-            className={`mb-4 p-3 rounded-lg ${
-              message.type === "success"
-                ? "bg-green-50 text-green-700 border border-green-200"
-                : "bg-red-50 text-red-700 border border-red-200"
-            }`}
+            className={`mb-4 p-3 rounded-lg ${message.type === "success"
+              ? "bg-green-50 text-green-700 border border-green-200"
+              : "bg-red-50 text-red-700 border border-red-200"
+              }`}
           >
             {message.text}
           </div>
@@ -277,6 +283,41 @@ export default function AccountSettingsTab({
               onChange={(e) => setNama(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               required
+            />
+          </div>
+
+          {/* Bio */}
+          <div>
+            <label
+              htmlFor="bio"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Bio
+            </label>
+            <textarea
+              id="bio"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              placeholder="Ceritakan tentang diri Anda, pengalaman, dan minat di bidang teknologi..."
+              rows={4}
+              maxLength={1000}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 resize-none"
+            />
+            <p className="mt-1 text-xs text-gray-500 text-right">
+              {bio.length}/1000 karakter
+            </p>
+          </div>
+
+          {/* Skills */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Skills
+            </label>
+            <SkillsInput
+              value={skills}
+              onChange={setSkills}
+              placeholder="Contoh: JavaScript, React, Python..."
+              maxSkills={20}
             />
           </div>
 

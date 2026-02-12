@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { supabase } from "@/lib/supabase";
 import { logActivity } from "@/lib/axiom";
 import { Permission } from "@/lib/permissions";
+import { generateSlug } from "@/lib/teamUtils";
 
 async function getCurrentAdmin() {
   const cookieStore = await cookies();
@@ -139,7 +140,7 @@ export async function PUT(request: Request) {
       );
     }
 
-    const { id, nama, permissions } = await request.json();
+    const { id, nama, permissions, is_active, join_date, label } = await request.json();
 
     if (!id) {
       return NextResponse.json(
@@ -148,12 +149,27 @@ export async function PUT(request: Request) {
       );
     }
 
-    const updateData: { nama?: string; permissions?: Permission[]; updated_at: string } = {
+    const updateData: {
+      nama?: string;
+      permissions?: Permission[];
+      is_active?: boolean;
+      join_date?: string;
+      label?: string;
+      slug?: string;
+      updated_at: string;
+    } = {
       updated_at: new Date().toISOString(),
     };
 
-    if (nama) updateData.nama = nama;
-    if (permissions) updateData.permissions = permissions;
+    if (nama) {
+      updateData.nama = nama;
+      // Auto-generate slug from nama
+      updateData.slug = generateSlug(nama);
+    }
+    if (permissions !== undefined) updateData.permissions = permissions;
+    if (is_active !== undefined) updateData.is_active = is_active;
+    if (join_date) updateData.join_date = join_date;
+    if (label !== undefined) updateData.label = label || null;
 
     const { data, error } = await supabase
       .from("admins")
