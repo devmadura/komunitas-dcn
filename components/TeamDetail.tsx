@@ -107,7 +107,7 @@ export default function TeamDetail({ slug }: TeamDetailProps) {
 
                 {/* Member Profile Card */}
                 <div className="bg-card border border-border rounded-3xl p-8 md:p-12 shadow-xl animate-fade-in">
-                    <div className="flex flex-col md:flex-row gap-8 items-start">
+                    <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
                         {/* Photo */}
                         <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg flex-shrink-0 mx-auto md:mx-0">
                             {member.photo_url ? (
@@ -126,15 +126,17 @@ export default function TeamDetail({ slug }: TeamDetailProps) {
                         </div>
 
                         {/* Info */}
-                        <div className="flex-1 text-center lg:text-left">
-                            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+                        <div className="flex-1 w-full text-center lg:text-left">
+                            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center lg:text-left">
                                 {member.nama}
                             </h1>
 
                             {member.label && (
-                                <span className="inline-block px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary rounded-full mb-3">
-                                    {member.label}
-                                </span>
+                                <div className="flex justify-center lg:justify-start mb-3">
+                                    <span className="inline-block px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary rounded-full">
+                                        {member.label}
+                                    </span>
+                                </div>
                             )}
 
                             {/* Status Badge */}
