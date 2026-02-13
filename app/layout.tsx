@@ -4,6 +4,8 @@ import { Toaster } from "@/components/ui/toaster";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+import PushNotificationPrompt from "@/components/PushNotificationPrompt";
+import KeyboardShortcuts from "@/components/KeyboardShortcuts";
 import "./globals.css";
 
 const siteUrl = "https://dcnunira.dev";
@@ -128,11 +130,13 @@ export default function RootLayout({
       </head>
       <body>
         <ServiceWorkerRegistration />
+        <KeyboardShortcuts />
         <GoogleAnalytics />
         <ThemeProvider>
           {children}
           <Toaster />
           <PWAInstallPrompt />
+          <PushNotificationPrompt />
         </ThemeProvider>
       </body>
     </html>

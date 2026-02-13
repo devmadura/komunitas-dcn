@@ -107,23 +107,44 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// Push notification event (for future push notification feature)
+// Push notification event
 self.addEventListener('push', (event) => {
     console.log('[Service Worker] Push received');
 
-    const options = {
-        body: event.data ? event.data.text() : 'New notification from DCN UNIRA',
+    let data = {
+        title: 'DCN UNIRA',
+        body: 'New notification from DCN UNIRA',
         icon: '/icons/icon-192x192.png',
+        url: '/',
+    };
+
+    // Parse push data if available
+    if (event.data) {
+        try {
+            data = event.data.json();
+        } catch (e) {
+            data.body = event.data.text();
+        }
+    }
+
+    const options = {
+        body: data.body,
+        icon: data.icon || '/icons/icon-192x192.png',
         badge: '/icons/icon-72x72.png',
         vibrate: [200, 100, 200],
         data: {
+            url: data.url || '/',
             dateOfArrival: Date.now(),
-            primaryKey: 1,
         },
+        actions: [
+            { action: 'open', title: 'Lihat' },
+            { action: 'close', title: 'Tutup' }
+        ],
+        requireInteraction: false,
     };
 
     event.waitUntil(
-        self.registration.showNotification('DCN UNIRA', options)
+        self.registration.showNotification(data.title, options)
     );
 });
 
@@ -132,9 +153,26 @@ self.addEventListener('notificationclick', (event) => {
     console.log('[Service Worker] Notification clicked');
     event.notification.close();
 
-    event.waitUntil(
-        clients.openWindow('/')
-    );
+    // Get URL from notification data
+    const url = event.notification.data?.url || '/';
+
+    // Only open window if user clicked "open" or the notification itself
+    if (event.action === 'open' || !event.action) {
+        event.waitUntil(
+            clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+                // Check if there's already a window open
+                for (const client of clientList) {
+                    if (client.url === url && 'focus' in client) {
+                        return client.focus();
+                    }
+                }
+                // Open new window if no matching window found
+                if (clients.openWindow) {
+                    return clients.openWindow(url);
+                }
+            })
+        );
+    }
 });
 
 // Background sync event (for future offline support)

@@ -3,6 +3,7 @@ import { supabase } from "@/lib/supabase";
 import { requirePermission } from "@/lib/auth";
 import { logActivity } from "@/lib/axiom";
 import { PERMISSIONS } from "@/lib/permissions";
+import { sendPushNotification, type PushSubscription } from "@/lib/webpush";
 
 function generateSlug(title: string): string {
   return title
@@ -105,6 +106,57 @@ export async function POST(request: Request) {
       { event_id: data.id, slug: data.slug },
       admin.nama
     );
+
+    // Send push notification if event is published
+    if (is_published) {
+      try {
+        // Fetch all push subscriptions
+        const { data: subscriptions, error: subError } = await supabase
+          .from("push_subscriptions")
+          .select("endpoint, p256dh, auth");
+
+        if (!subError && subscriptions && subscriptions.length > 0) {
+          // Format subscriptions for web-push
+          const pushSubscriptions: PushSubscription[] = subscriptions.map((sub) => ({
+            endpoint: sub.endpoint,
+            keys: {
+              p256dh: sub.p256dh,
+              auth: sub.auth,
+            },
+          }));
+
+          // Format tanggal untuk notifikasi
+          const eventDate = new Date(tanggal).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+
+          // Send notification
+          const result = await sendPushNotification(pushSubscriptions, {
+            title: "Event Baru! 🎉",
+            body: `${judul} - ${eventDate}`,
+            icon: gambar || "/icons/icon-192x192.png",
+            url: `/event/${slug}`,
+          });
+
+          console.log(`Push notification sent: ${result.sent} success, ${result.failed} failed`);
+
+          // Clean up invalid subscriptions
+          if (result.invalidSubscriptions.length > 0) {
+            await supabase
+              .from("push_subscriptions")
+              .delete()
+              .in("endpoint", result.invalidSubscriptions);
+
+            console.log(`Removed ${result.invalidSubscriptions.length} invalid subscriptions`);
+          }
+        }
+      } catch (notifError) {
+        // Don't fail the request if notification fails
+        console.error("Error sending push notification:", notifError);
+      }
+    }
 
     return NextResponse.json(data, { status: 201 });
   } catch (error) {
