@@ -60,7 +60,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="block mt-2 bg-linear-to-r from-blue-400 to-white bg-clip-text text-transparent text-shadow-2xs"
             >
-              DCN UNIRA
+              Dicoding Community Network UNIRA
             </motion.span>
           </motion.h1>
 

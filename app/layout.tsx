@@ -11,7 +11,7 @@ import "./globals.css";
 const siteUrl = "https://dcnunira.dev";
 const siteName = "DCN UNIRA - Dicoding Community Network Universitas Madura";
 const siteDescription =
-  "Komunitas developer resmi Dicoding di Universitas Madura. Bergabung untuk belajar, berbagi, dan berkembang bersama dalam dunia teknologi dan pemrograman.";
+  "Komunitas developer resmi Dicoding Community Network di Universitas Madura. Bergabung untuk belajar, berbagi, dan berkembang bersama dalam dunia teknologi dan pemrograman.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -121,8 +121,15 @@ export default function RootLayout({
         <meta name="theme-color" content="#6366f1" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
