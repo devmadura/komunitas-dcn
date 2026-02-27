@@ -1,4 +1,3 @@
-// Service Worker for DCN UNIRA PWA
 const CACHE_NAME = 'dcn-unira-v1';
 const OFFLINE_URL = '/offline';
 
@@ -69,11 +68,13 @@ self.addEventListener('fetch', (event) => {
         event.respondWith(
             fetch(event.request)
                 .then((response) => {
-                    // Cache successful responses
-                    const responseClone = response.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, responseClone);
-                    });
+                    // Cache successful responses (GET only)
+                    if (event.request.method === 'GET') {
+                        const responseClone = response.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseClone);
+                        });
+                    }
                     return response;
                 })
                 .catch(() => {
@@ -94,8 +95,8 @@ self.addEventListener('fetch', (event) => {
             }
 
             return fetch(event.request).then((response) => {
-                // Cache successful responses
-                if (response.status === 200) {
+                // Cache successful GET responses only
+                if (response.status === 200 && event.request.method === 'GET') {
                     const responseClone = response.clone();
                     caches.open(CACHE_NAME).then((cache) => {
                         cache.put(event.request, responseClone);

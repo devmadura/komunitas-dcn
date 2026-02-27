@@ -11,11 +11,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .eq("is_published", true)
     .order("tanggal", { ascending: false });
 
+  // Fetch all published blog posts
+  const { data: blogPosts } = await supabase
+    .from("blog_posts")
+    .select("slug, updated_at")
+    .eq("status", "published")
+    .order("created_at", { ascending: false });
+
   // Generate event URLs
   const eventUrls: MetadataRoute.Sitemap = (events || []).map((event) => ({
     url: `${baseUrl}/event/${event.slug}`,
     lastModified: new Date(event.created_at),
     changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
+  // Generate blog URLs
+  const blogUrls: MetadataRoute.Sitemap = (blogPosts || []).map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updated_at),
+    changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
@@ -74,7 +89,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     // All event detail pages
     ...eventUrls,
+    // All blog post pages
+    ...blogUrls,
   ];
 }

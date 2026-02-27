@@ -152,3 +152,34 @@ export interface Galeri {
   is_published: boolean;
   created_at: string;
 }
+
+// Blog Types
+export type BlogStatus = "draft" | "pending" | "revision" | "published";
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  judul: string;
+  konten: string;
+  excerpt: string | null;
+  cover_image: string | null;
+  cover_image_uuid: string | null;
+  penulis_id: string;
+  kategori: string | null;
+  tags: string[] | null;
+  status: BlogStatus;
+  catatan_revisi: string | null;
+  views: number;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BlogPostWithAuthor extends BlogPost {
+  penulis: {
+    nama: string;
+    photo_url: string | null;
+    label: string | null;
+  };
+}

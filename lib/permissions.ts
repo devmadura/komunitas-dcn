@@ -10,6 +10,7 @@ export const PERMISSIONS = {
   CODE_REDEEM: "code_redeem",
   EVENTS: "events",
   GALERI: "galeri",
+  BLOG: "blog",
 } as const;
 
 export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
@@ -26,6 +27,7 @@ export const PERMISSION_LABELS: Record<Permission, string> = {
   code_redeem: "Code Redeem",
   events: "Events",
   galeri: "Galeri",
+  blog: "Blog",
 };
 
 export const ALL_PERMISSIONS: Permission[] = Object.values(PERMISSIONS);

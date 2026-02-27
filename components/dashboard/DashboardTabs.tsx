@@ -1,18 +1,19 @@
 "use client";
 
 import { Admin, hasPermission, PERMISSIONS, Permission } from "@/lib/permissions";
-import { 
-  LayoutDashboard, 
-  BarChart3, 
-  ClipboardCheck, 
-  Trophy, 
-  HelpCircle, 
-  Users, 
-  Activity, 
+import {
+  LayoutDashboard,
+  BarChart3,
+  ClipboardCheck,
+  Trophy,
+  HelpCircle,
+  Users,
+  Activity,
   Settings,
   Gift,
   Calendar,
   Images,
+  FileText,
   LucideIcon
 } from "lucide-react";
 
@@ -42,6 +43,7 @@ export default function DashboardTabs({
     { id: "quiz", label: "Kuis", permission: PERMISSIONS.QUIZ, icon: HelpCircle },
     { id: "events", label: "Events", permission: PERMISSIONS.EVENTS, icon: Calendar },
     { id: "galeri", label: "Galeri", permission: PERMISSIONS.GALERI, icon: Images },
+    { id: "blog", label: "Blog", permission: PERMISSIONS.BLOG, icon: FileText },
     { id: "code-redeem", label: "Code Redeem", permission: PERMISSIONS.CODE_REDEEM, icon: Gift },
     { id: "manage-admin", label: "Kelola Admin", permission: PERMISSIONS.MANAGE_ADMIN, icon: Users },
     { id: "activity-log", label: "Activity Log", permission: PERMISSIONS.ACTIVITY_LOG, icon: Activity },
@@ -59,7 +61,7 @@ export default function DashboardTabs({
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
-            
+
             return (
               <button
                 key={tab.id}

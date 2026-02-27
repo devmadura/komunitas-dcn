@@ -35,7 +35,13 @@ export type ActivityAction =
   | "delete_event"
   | "create_galeri"
   | "update_galeri"
-  | "delete_galeri";
+  | "delete_galeri"
+  | "create_blog"
+  | "update_blog"
+  | "delete_blog"
+  | "publish_blog"
+  | "revision_blog"
+  | "reject_blog";
 
 export interface ActivityLog {
   action: ActivityAction;

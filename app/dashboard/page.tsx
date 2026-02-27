@@ -19,6 +19,17 @@ import AccountSettingsTab from "@/components/dashboard/AccountSettingsTab";
 import CodeRedeemTab from "@/components/dashboard/CodeRedeemTab";
 import EventsTab from "@/components/dashboard/EventsTab";
 import GaleriTab from "@/components/dashboard/GaleriTab";
+import dynamic from "next/dynamic";
+
+const BlogTab = dynamic(() => import("@/components/dashboard/BlogTab"), {
+  ssr: false,
+  loading: () => (
+    <div className="flex justify-center py-12">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+    </div>
+  ),
+});
+
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -31,8 +42,11 @@ export default function DashboardPage() {
   const [currentAdmin, setCurrentAdmin] = useState<Admin | null>(null);
 
   useEffect(() => {
-    fetchData();
-    fetchCurrentAdmin();
+    const init = async () => {
+      await Promise.all([fetchData(), fetchCurrentAdmin()]);
+      setLoading(false);
+    };
+    init();
   }, []);
 
   const fetchCurrentAdmin = async () => {
@@ -53,7 +67,6 @@ export default function DashboardPage() {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
       const [kontributorRes, pertemuanRes, absensiRes] = await Promise.all([
         fetch("/api/kontributor"),
         fetch("/api/pertemuan"),
@@ -72,8 +85,6 @@ export default function DashboardPage() {
       setKontributor([]);
       setPertemuan([]);
       setAbsensiCount(0);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -136,6 +147,10 @@ export default function DashboardPage() {
         {activeTab === "events" && <EventsTab onDataChanged={fetchData} />}
 
         {activeTab === "galeri" && <GaleriTab onDataChanged={fetchData} />}
+
+        {activeTab === "blog" && currentAdmin && (
+          <BlogTab currentAdmin={currentAdmin} onDataChanged={fetchData} />
+        )}
 
         {activeTab === "manage-admin" && (
           <ManageAdminTab currentAdmin={currentAdmin} />
