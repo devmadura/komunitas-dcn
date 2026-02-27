@@ -29,7 +29,7 @@ interface BlogTabProps {
 
 const UPLOADCARE_PUBLIC_KEY = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY || "demopublickey";
 
-const KATEGORI_OPTIONS = ["Tutorial", "Tips & Tricks", "Berita", "Opini", "Proyek", "Lainnya"];
+const KATEGORI_OPTIONS = ["Tutorial", "Tips & Tricks", "Berita", "Opini", "Proyek", "Lainnya", "Update DCN"];
 
 const STATUS_CONFIG: Record<BlogStatus, { label: string; color: string; icon: React.ReactNode }> = {
     draft: { label: "Draft", color: "bg-gray-100 text-gray-600", icon: <FileText className="w-3 h-3" /> },

@@ -68,16 +68,14 @@ export default async function BlogDetailPage({
     return (
         <main className="min-h-screen bg-background py-20 mt-9 md:mt-12">
             <div className="max-w-4xl mx-auto px-4">
-                {/* Back */}
                 <Link href="/blog" className="inline-block mb-8">
-                    <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground">
+                    <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground hover:text-foreground cursor-pointer">
                         <ChevronLeft className="w-4 h-4" />
                         Kembali ke Blog
                     </Button>
                 </Link>
 
                 <article className="animate-fade-in">
-                    {/* Cover */}
                     {typedPost.cover_image && (
                         <div className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden mb-10 shadow-lg">
                             <Image
