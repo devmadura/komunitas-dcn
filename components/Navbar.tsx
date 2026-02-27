@@ -15,6 +15,7 @@ export default function Navbar() {
     { name: "Tentang", href: "#about" },
     { name: "Program", href: "#programs" },
     { name: "Events", href: "#events" },
+    { name: "Blogs", href: "/blog" },
     { name: "Team", href: "/team" },
     { name: "Galeri", href: "/galeri" },
   ];
@@ -57,11 +58,10 @@ export default function Navbar() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleSmoothScroll(e, item.href)}
-                className={`px-4 py-2 transition-colors rounded-lg ${
-                  isScrolled
-                    ? "text-foreground/80 hover:text-foreground hover:bg-muted"
-                    : "text-white/90 hover:text-white hover:bg-white/10"
-                }`}
+                className={`px-4 py-2 transition-colors rounded-lg ${isScrolled
+                  ? "text-foreground/80 hover:text-foreground hover:bg-muted"
+                  : "text-white/90 hover:text-white hover:bg-white/10"
+                  }`}
               >
                 {item.name}
               </a>
@@ -94,21 +94,18 @@ export default function Navbar() {
             <ThemeToggle isScrolled={isScrolled} />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-lg transition-colors ${
-                isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
-              }`}
+              className={`p-2 rounded-lg transition-colors ${isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
+                }`}
             >
               {isOpen ? (
                 <X
-                  className={`w-6 h-6 ${
-                    isScrolled ? "text-foreground" : "text-white"
-                  }`}
+                  className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-white"
+                    }`}
                 />
               ) : (
                 <Menu
-                  className={`w-6 h-6 ${
-                    isScrolled ? "text-foreground" : "text-white"
-                  }`}
+                  className={`w-6 h-6 ${isScrolled ? "text-foreground" : "text-white"
+                    }`}
                 />
               )}
             </button>
