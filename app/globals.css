@@ -266,39 +266,53 @@ body {
 }
 
 /* Lists — ini yang paling penting */
-.ProseMirror ul {
+.ProseMirror ul,
+.tiptap-content ul:not([data-type="taskList"]) {
   list-style-type: disc !important;
   padding-left: 1.75rem !important;
   margin: 0.5rem 0;
 }
 
-.ProseMirror ol {
+.ProseMirror ol,
+.tiptap-content ol {
   list-style-type: decimal !important;
   padding-left: 1.75rem !important;
   margin: 0.5rem 0;
 }
 
 .ProseMirror ul li,
-.ProseMirror ol li {
+.ProseMirror ol li,
+.tiptap-content ul li,
+.tiptap-content ol li {
   display: list-item !important;
   margin: 0.25rem 0;
 }
 
-.ProseMirror ul ul {
+.ProseMirror ul ul,
+.tiptap-content ul ul {
   list-style-type: circle !important;
 }
 
-.ProseMirror ul ul ul {
+.ProseMirror ul ul ul,
+.tiptap-content ul ul ul {
   list-style-type: square !important;
 }
 
 /* Blockquote */
-.ProseMirror blockquote {
+.ProseMirror blockquote,
+.tiptap-content blockquote {
   border-left: 4px solid #e5e7eb;
   padding-left: 1rem;
   margin: 1rem 0;
   color: #6b7280;
   font-style: italic;
+  background-color: transparent !important;
+}
+
+.dark .ProseMirror blockquote,
+.dark .tiptap-content blockquote {
+  border-left-color: #4b5563;
+  color: #9ca3af;
 }
 
 /* Inline code */

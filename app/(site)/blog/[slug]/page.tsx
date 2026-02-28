@@ -57,7 +57,7 @@ export async function generateMetadata({
             title: post.judul,
             description: cleanExcerpt,
             images: post.cover_image ? [post.cover_image] : [],
-            creator: "@dcn_unira",
+            creator: "@dcn.unira",
         },
         robots: {
             index: true,
@@ -142,7 +142,7 @@ export default async function BlogDetailPage({
                         </h1>
 
                         {/* Meta */}
-                        <div className="flex flex-wrap items-center gap-y-4 gap-x-8 text-sm text-muted-foreground mb-12 pb-8 border-b border-border/50">
+                        <div className="flex flex-wrap items-center gap-y-4 gap-x-8 text-sm text-muted-foreground mb-8 pb-8 border-b border-border/50">
                             <div className="flex items-center gap-3">
                                 {typedPost.penulis?.photo_url ? (
                                     <Image
@@ -173,7 +173,7 @@ export default async function BlogDetailPage({
                                 </span>
                                 <span className="flex items-center gap-1.5">
                                     <Eye className="w-4 h-4 text-secondary" />
-                                    {typedPost.views} views
+                                    {typedPost.views}jt views
                                 </span>
                             </div>
                         </div>
@@ -183,11 +183,11 @@ export default async function BlogDetailPage({
 
                         {/* Tags */}
                         {typedPost.tags && typedPost.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-12 pt-8 border-t border-border/50">
+                            <div className="flex flex-wrap gap-2 mt-7 pt-7 ">
                                 {typedPost.tags.map((tag) => (
                                     <span
                                         key={tag}
-                                        className="px-3.5 py-1.5 text-xs font-semibold bg-muted text-muted-foreground rounded-full hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer"
+                                        className="px-3.5 py-1 text-xs font-semibold bg-muted text-muted-foreground rounded-full hover:bg-muted/80 hover:text-foreground transition-colors cursor-pointer"
                                     >
                                         #{tag}
                                     </span>
@@ -204,7 +204,7 @@ export default async function BlogDetailPage({
 
                 {/* Artikel Terkait */}
                 {related && related.length > 0 && (
-                    <section className="mt-20 pt-10 border-t border-border/50">
+                    <section className="mt-20 pt-10">
                         <h2 className="text-2xl font-bold text-foreground mb-8">Baca Juga</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                             {related.map((r) => (

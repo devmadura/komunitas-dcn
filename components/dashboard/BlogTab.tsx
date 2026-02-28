@@ -473,7 +473,7 @@ export default function BlogTab({ currentAdmin, onDataChanged }: BlogTabProps) {
 
                     {/* Actions */}
                     <div className="flex justify-end gap-3 pt-4 border-t">
-                        <button type="button" onClick={handleCloseForm} disabled={savingType !== null} className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50">
+                        <button type="button" onClick={handleCloseForm} disabled={savingType !== null} className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 cursor-pointer">
                             Batal
                         </button>
                         <button
@@ -665,67 +665,118 @@ export default function BlogTab({ currentAdmin, onDataChanged }: BlogTabProps) {
             )}
 
             {/* Review Modal (super-admin) */}
-            {reviewPostId && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
-                        <div className="p-6 border-b">
-                            <h3 className="text-lg font-bold text-gray-900">Review Artikel</h3>
-                        </div>
-                        <div className="p-6 space-y-4">
-                            <p className="text-sm text-gray-600">Pilih tindakan untuk artikel ini:</p>
-                            <div className="space-y-2">
-                                {(["publish", "revision", "reject"] as const).map((act) => (
-                                    <label key={act} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
-                                        <input
-                                            type="radio"
-                                            name="reviewAction"
-                                            value={act}
-                                            checked={reviewAction === act}
-                                            onChange={() => setReviewAction(act)}
-                                            className="text-indigo-600"
-                                        />
-                                        <span className="text-sm font-medium text-black">
-                                            {act === "publish" && "✅ Publish — Artikel langsung live"}
-                                            {act === "revision" && "⚠️ Revisi — Kembalikan dengan catatan"}
-                                            {act === "reject" && "❌ Tolak — Kembalikan ke draft"}
-                                        </span>
-                                    </label>
-                                ))}
+            {reviewPostId && (() => {
+                const post = posts.find(p => p.id === reviewPostId);
+                if (!post) return null;
+
+                return (
+                    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-[100] p-4 backdrop-blur-sm">
+                        <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+                            {/* Header */}
+                            <div className="px-6 py-4 border-b flex justify-between items-center bg-gray-50/80">
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900">Review Artikel</h3>
+                                    <p className="text-xs text-gray-500">Melihat pratinjau utuh sebelum di-publish</p>
+                                </div>
+                                <button onClick={() => setReviewPostId(null)} className="text-gray-400 hover:text-gray-600">
+                                    <Trash2 className="w-5 h-5 hidden" /> {/* spacer icon semu atau bisa diganti 'X' */}
+                                    <span className="text-2xl leading-none">&times;</span>
+                                </button>
                             </div>
 
-                            {reviewAction === "revision" && (
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Catatan Revisi *</label>
-                                    <textarea
-                                        value={catatanRevisi}
-                                        onChange={(e) => setCatatanRevisi(e.target.value)}
-                                        rows={3}
-                                        placeholder="Jelaskan apa yang perlu diperbaiki..."
-                                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-gray-900 text-sm"
-                                    />
-                                </div>
-                            )}
+                            {/* Body: Terbagi 2 Kolom di Desktop (Kiri Preview, Kanan Action) */}
+                            <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
 
-                            <div className="flex justify-end gap-3 pt-2">
-                                <button
-                                    onClick={() => { setReviewPostId(null); setCatatanRevisi(""); setReviewAction(null); }}
-                                    className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-                                >
-                                    Batal
-                                </button>
-                                <button
-                                    onClick={handleReview}
-                                    disabled={reviewing || !reviewAction}
-                                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
-                                >
-                                    {reviewing && <Loader2 className="w-4 h-4 animate-spin" />}
-                                    Konfirmasi
-                                </button>
+                                {/* Kiri: Preview Artikel */}
+                                <div className="flex-1 overflow-y-auto p-6 border-b md:border-b-0 md:border-r border-gray-100 bg-gray-50/30">
+                                    <div className="max-w-2xl mx-auto bg-white border rounded-xl shadow-sm overflow-hidden">
+                                        {post.cover_image && (
+                                            <div className="w-full aspect-video relative">
+                                                <NextImage src={post.cover_image} alt={post.judul} fill className="object-cover" />
+                                            </div>
+                                        )}
+                                        <div className="p-6">
+                                            <h1 className="text-2xl font-bold text-gray-900 mb-2">{post.judul}</h1>
+                                            {post.kategori && (
+                                                <span className="inline-block px-2.5 py-1 bg-indigo-50 text-indigo-600 text-xs font-semibold rounded-md mb-4">
+                                                    {post.kategori}
+                                                </span>
+                                            )}
+                                            {post.excerpt && (
+                                                <p className="text-gray-500 italic border-l-4 border-gray-200 pl-4 mb-6">{post.excerpt}</p>
+                                            )}
+                                            <div
+                                                className="tiptap-content prose prose-slate prose-sm max-w-none 
+                                                prose-img:rounded-xl prose-img:border prose-a:text-indigo-600 text-black"
+                                                dangerouslySetInnerHTML={{ __html: post.konten }}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Kanan: Form Action Review */}
+                                <div className="w-full md:w-80 min-w-80 p-6 overflow-y-auto bg-white flex flex-col">
+                                    <h4 className="font-semibold text-gray-900 mb-4">Keputusan Review</h4>
+
+                                    <div className="space-y-3 flex-1">
+                                        {(["publish", "revision", "reject"] as const).map((act) => (
+                                            <label
+                                                key={act}
+                                                className={`flex items-start gap-3 p-3 border rounded-xl cursor-pointer transition-all ${reviewAction === act ? "border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600" : "hover:bg-gray-50"
+                                                    }`}
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="reviewAction"
+                                                    value={act}
+                                                    checked={reviewAction === act}
+                                                    onChange={() => setReviewAction(act)}
+                                                    className="text-indigo-600"
+                                                />
+                                                <span className="text-sm font-medium text-black">
+                                                    {act === "publish" && "✅ Publish — Artikel langsung live"}
+                                                    {act === "revision" && "⚠️ Revisi — Kembalikan dengan catatan"}
+                                                    {act === "reject" && "❌ Tolak — Kembalikan ke draft"}
+                                                </span>
+                                            </label>
+                                        ))}
+                                    </div>
+
+                                    {reviewAction === "revision" && (
+                                        <div className="mt-4 flex-1">
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Catatan Revisi *</label>
+                                            <textarea
+                                                value={catatanRevisi}
+                                                onChange={(e) => setCatatanRevisi(e.target.value)}
+                                                rows={4}
+                                                placeholder="Jelaskan apa yang perlu diperbaiki oleh penulis..."
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 text-gray-900 text-sm resize-none"
+                                            />
+                                        </div>
+                                    )}
+
+                                    <div className="flex justify-end gap-3 pt-6 mt-auto border-t border-gray-100">
+                                        <button
+                                            onClick={() => { setReviewPostId(null); setCatatanRevisi(""); setReviewAction(null); }}
+                                            className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer"
+                                        >
+                                            Batal
+                                        </button>
+                                        <button
+                                            onClick={handleReview}
+                                            disabled={reviewing || !reviewAction}
+                                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 cursor-pointer"
+                                        >
+                                            {reviewing ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
+                                            Konfirmasi Keputusan
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
+                );
+            })()}
 
             <ConfirmDialog
                 open={deletePostId !== null}
