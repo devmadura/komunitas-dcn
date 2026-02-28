@@ -12,9 +12,9 @@ export default function Navbar() {
 
   const menuItems = [
     { name: "Beranda", href: "/" },
-    { name: "Tentang", href: "#about" },
-    { name: "Program", href: "#programs" },
-    { name: "Events", href: "#events" },
+    { name: "Tentang", href: "/#about" },
+    { name: "Program", href: "/#programs" },
+    { name: "Events", href: "/event" },
     { name: "Blogs", href: "/blog" },
     { name: "Team", href: "/team" },
     { name: "Galeri", href: "/galeri" },

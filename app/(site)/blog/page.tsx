@@ -9,7 +9,24 @@ import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
     title: "Blog",
-    description: "Artikel, tutorial, dan tips seputar dunia developer dari komunitas DCN UNIRA.",
+    description: "Kumpulan artikel, tutorial pemrograman, dan tips seputar dunia IT dari Developer Community of Network UNIRA.",
+    keywords: ["Blog DCN", "Tutorial Pemrograman", "Tips IT", "Berita Teknologi", "Mahasiswa IT Unira"],
+    authors: [{ name: "DCN Unira" }],
+    creator: "DCN Unira",
+    publisher: "Developer Community of Network UNIRA",
+    openGraph: {
+        title: "Blog",
+        description: "Baca artikel terbaru, tutorial programming mendalam, dan berita seputar dunia teknologi dari Developer Community of Network Universitas Madura.",
+        url: "https://dcn-unira.com/blog",
+        siteName: "DCN Unira",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Blog",
+        description: "Kumpulan artikel, tutorial pemrograman, dan berita dari Developer Community of Network Universitas Madura.",
+        creator: "@dcn_unira",
+    },
 };
 
 export const revalidate = 60;
@@ -118,7 +135,7 @@ export default async function BlogPage({
                                         <div className="absolute inset-0 bg-linear-to-t from-background/80 to-transparent" />
 
                                         {post.kategori && (
-                                            <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/90 backdrop-blur text-primary-foreground text-xs font-semibold shadow-lg">
+                                            <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/90 backdrop-blur text-black text-xs font-semibold shadow-lg">
                                                 {post.kategori}
                                             </div>
                                         )}

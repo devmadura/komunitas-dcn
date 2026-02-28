@@ -7,6 +7,8 @@ import { Calendar, Eye, Tag, ChevronLeft, User } from "lucide-react";
 import type { BlogPostWithAuthor } from "@/lib/supabase";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ShareButtons } from "@/components/ShareButtons";
+import { BlogContentView } from "@/components/BlogContentView";
 
 export const revalidate = 60;
 
@@ -18,21 +20,56 @@ export async function generateMetadata({
     const { slug } = await params;
     const { data: post } = await supabase
         .from("blog_posts")
-        .select("judul, excerpt, cover_image")
+        .select("judul, excerpt, cover_image, tags")
         .eq("slug", slug)
         .eq("status", "published")
         .single();
 
     if (!post) return { title: "Artikel tidak ditemukan" };
 
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dcn-unira.com";
+    const postUrl = `${siteUrl}/blog/${slug}`;
+    const cleanExcerpt = post.excerpt ? post.excerpt.substring(0, 160) : "Membaca artikel menarik seputar teknologi, tutorial, dan update DCN Unira.";
+
     return {
-        title: `${post.judul}`,
-        description: post.excerpt || undefined,
+        title: post.judul,
+        description: cleanExcerpt,
+        keywords: post.tags?.length ? post.tags : ["Dicoding community network", "universitas madura", "Blog", "Teknologi", "Tutorial", "Mahasiswa", "DCN UNIRA"],
+        authors: [{ name: "Team DCN Unira" }],
+        creator: "DCN Unira",
+        publisher: "DCN Unira",
+        metadataBase: new URL(siteUrl),
         openGraph: {
             title: post.judul,
-            description: post.excerpt || undefined,
-            images: post.cover_image ? [post.cover_image] : undefined,
+            description: cleanExcerpt,
+            url: postUrl,
+            siteName: "DCN Unira Blog",
+            type: "article",
+            images: post.cover_image ? [{
+                url: post.cover_image,
+                width: 1200,
+                height: 630,
+                alt: post.judul
+            }] : [],
         },
+        twitter: {
+            card: "summary_large_image",
+            title: post.judul,
+            description: cleanExcerpt,
+            images: post.cover_image ? [post.cover_image] : [],
+            creator: "@dcn_unira",
+        },
+        robots: {
+            index: true,
+            follow: true,
+            googleBot: {
+                index: true,
+                follow: true,
+                'max-video-preview': -1,
+                'max-image-preview': 'large',
+                'max-snippet': -1,
+            },
+        }
     };
 }
 
@@ -54,7 +91,6 @@ export default async function BlogDetailPage({
 
     const typedPost = post as unknown as BlogPostWithAuthor;
 
-    // Artikel terkait (sama kategori)
     const { data: related } = typedPost.kategori
         ? await supabase
             .from("blog_posts")
@@ -143,10 +179,7 @@ export default async function BlogDetailPage({
                         </div>
 
                         {/* Konten */}
-                        <div
-                            className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-bold prose-headings:text-foreground prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-xl prose-img:shadow-md prose-code:bg-muted prose-code:text-foreground prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-pre:bg-zinc-950 prose-pre:text-zinc-50 marker:text-primary"
-                            dangerouslySetInnerHTML={{ __html: typedPost.konten }}
-                        />
+                        <BlogContentView html={typedPost.konten} />
 
                         {/* Tags */}
                         {typedPost.tags && typedPost.tags.length > 0 && (
@@ -161,6 +194,11 @@ export default async function BlogDetailPage({
                                 ))}
                             </div>
                         )}
+
+                        {/* Share & Actions */}
+                        <div className="mt-12 pt-8 border-t border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                            <ShareButtons url={`/blog/${typedPost.slug}`} title={typedPost.judul} />
+                        </div>
                     </div>
                 </article>
 

@@ -10,11 +10,9 @@ function generateSlug(judul: string): string {
         .replace(/[^a-z0-9\s-]/g, "")
         .replace(/\s+/g, "-")
         .replace(/-+/g, "-")
-        .trim()
-        + "-" + Date.now().toString(36);
+        .trim();
 }
 
-// GET — public list, filter by status & kategori
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
@@ -77,7 +75,6 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Judul dan konten wajib diisi" }, { status: 400 });
         }
 
-        // Validasi status: co-admin hanya bisa draft/pending, tidak bisa langsung published
         const allowedStatuses = ["draft", "pending"];
         let finalStatus: string = "draft";
         if (status && allowedStatuses.includes(status)) {
@@ -86,7 +83,6 @@ export async function POST(request: Request) {
             finalStatus = "published";
         }
 
-        // Generate unique slug dari judul
         let slug = generateSlug(judul);
 
         const { data, error } = await supabase

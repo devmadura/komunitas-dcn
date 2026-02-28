@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 export default function ServiceWorkerRegistration() {
     useEffect(() => {
-        // Only run in browser
         if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return;
 
         navigator.serviceWorker
@@ -12,10 +11,9 @@ export default function ServiceWorkerRegistration() {
             .then((registration) => {
                 console.log("Service Worker registered:", registration);
 
-                // Check for updates periodically
                 setInterval(() => {
                     registration.update();
-                }, 60000); // Check every minute
+                }, 60000);
             })
             .catch((error) => {
                 console.error("Service Worker registration failed:", error);

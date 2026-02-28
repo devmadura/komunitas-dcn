@@ -11,7 +11,8 @@ import {
     Plus, FileText, Trash2, Edit, Loader2, ImageIcon,
     ChevronLeft, Bold, Italic, List, ListOrdered, Heading2, Heading3,
     Quote, Code, Link as LinkIcon, Send, Clock, AlertCircle, CheckCircle,
-    Strikethrough
+    Strikethrough, Underline as UnderlineIcon, AlignLeft, AlignCenter,
+    AlignRight, AlignJustify, Table as TableIcon, CheckSquare
 } from "lucide-react";
 import { BlogPost, BlogStatus } from "@/lib/supabase";
 import { Admin } from "@/lib/permissions";
@@ -21,6 +22,15 @@ import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import "@uploadcare/react-uploader/core.css";
 import NextImage from "next/image";
 import { Markdown } from "tiptap-markdown";
+import Underline from "@tiptap/extension-underline";
+import TextAlign from "@tiptap/extension-text-align";
+import Typography from "@tiptap/extension-typography";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TaskItem } from "@tiptap/extension-task-item";
+import { TaskList } from "@tiptap/extension-task-list";
 
 interface BlogTabProps {
     currentAdmin: Admin;
@@ -48,11 +58,14 @@ function NotionBubbleMenu({ editor }: { editor: Editor }) {
     const items = [
         { icon: <Bold className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleBold().run(), active: editor.isActive("bold"), title: "Bold (Ctrl+B)" },
         { icon: <Italic className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleItalic().run(), active: editor.isActive("italic"), title: "Italic (Ctrl+I)" },
+        { icon: <UnderlineIcon className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleUnderline().run(), active: editor.isActive("underline"), title: "Underline (Ctrl+U)" },
         { icon: <Strikethrough className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleStrike().run(), active: editor.isActive("strike"), title: "Strikethrough" },
         { icon: <Code className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleCode().run(), active: editor.isActive("code"), title: "Inline Code" },
-        { icon: <Heading2 className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(), active: editor.isActive("heading", { level: 2 }), title: "Heading 2" },
-        { icon: <Heading3 className="w-3.5 h-3.5" />, action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(), active: editor.isActive("heading", { level: 3 }), title: "Heading 3" },
         { icon: <LinkIcon className="w-3.5 h-3.5" />, action: handleLink, active: editor.isActive("link"), title: "Link" },
+        { icon: <AlignLeft className="w-3.5 h-3.5" />, action: () => editor.chain().focus().setTextAlign('left').run(), active: editor.isActive({ textAlign: 'left' }), title: "Align Left" },
+        { icon: <AlignCenter className="w-3.5 h-3.5" />, action: () => editor.chain().focus().setTextAlign('center').run(), active: editor.isActive({ textAlign: 'center' }), title: "Align Center" },
+        { icon: <AlignRight className="w-3.5 h-3.5" />, action: () => editor.chain().focus().setTextAlign('right').run(), active: editor.isActive({ textAlign: 'right' }), title: "Align Right" },
+        { icon: <AlignJustify className="w-3.5 h-3.5" />, action: () => editor.chain().focus().setTextAlign('justify').run(), active: editor.isActive({ textAlign: 'justify' }), title: "Justify" },
     ];
 
     return (
@@ -83,8 +96,10 @@ function NotionFloatingMenu({ editor }: { editor: Editor }) {
         { icon: <Heading3 className="w-4 h-4" />, label: "H3", action: () => editor.chain().focus().toggleHeading({ level: 3 }).run() },
         { icon: <List className="w-4 h-4" />, label: "List", action: () => editor.chain().focus().toggleBulletList().run() },
         { icon: <ListOrdered className="w-4 h-4" />, label: "OL", action: () => editor.chain().focus().toggleOrderedList().run() },
+        { icon: <CheckSquare className="w-4 h-4" />, label: "Task", action: () => editor.chain().focus().toggleTaskList().run() },
         { icon: <Quote className="w-4 h-4" />, label: "Quote", action: () => editor.chain().focus().toggleBlockquote().run() },
         { icon: <Code className="w-4 h-4" />, label: "Code", action: () => editor.chain().focus().toggleCodeBlock().run() },
+        { icon: <TableIcon className="w-4 h-4" />, label: "Table", action: () => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run() },
     ];
 
     return (
@@ -140,6 +155,18 @@ export default function BlogTab({ currentAdmin, onDataChanged }: BlogTabProps) {
             Image,
             Link.configure({ openOnClick: false }),
             Placeholder.configure({ placeholder: "Tulis konten artikel di sini..." }),
+            Underline,
+            Typography,
+            TextAlign.configure({
+                types: ['heading', 'paragraph'],
+                alignments: ['left', 'center', 'right', 'justify']
+            }),
+            Table.configure({ resizable: true }),
+            TableRow,
+            TableHeader,
+            TableCell,
+            TaskList,
+            TaskItem.configure({ nested: true }),
             Markdown.configure({
                 html: true,
                 transformPastedText: true,   // ← otomatis parse markdown saat paste
