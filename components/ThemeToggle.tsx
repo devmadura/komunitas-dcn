@@ -18,24 +18,22 @@ export function ThemeToggle({ isScrolled = true }: ThemeToggleProps) {
       <Button
         variant="ghost"
         size="icon"
-        className={`h-9 w-9 ${
-          isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
-        }`}
+        className={`h-9 w-9 ${isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
+          }`}
       >
         <span className="sr-only">Toggle theme</span>
       </Button>
     );
   }
 
-  const iconColor = isScrolled ? "text-foreground" : "text-white";
+  const iconColor = "text-foreground";
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      className={`h-9 w-9 ${
-        isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
-      }`}
+      className={`h-9 w-9 ${isScrolled ? "hover:bg-muted" : "hover:bg-white/10"
+        }`}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >
       {theme === "dark" ? (

@@ -1,7 +1,7 @@
 import NotFoundContent from "@/components/screen/not-found/content";
 
 export const metadata = {
-  title: "404 Not Found - DCN Unira",
+  title: "404 Not Found",
   description: "Halaman yang Anda cari tidak ditemukan.",
 };
 

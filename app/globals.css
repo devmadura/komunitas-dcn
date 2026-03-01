@@ -201,6 +201,19 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Mobile Full-Screen Menu Overlay */
+.mobile-nav-overlay {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.dark .mobile-nav-overlay {
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
 .elegant-shadow {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
