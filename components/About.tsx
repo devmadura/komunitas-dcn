@@ -82,7 +82,7 @@ export default function About() {
                 src={"/about.jpg"}
                 width={500}
                 height={500}
-                alt="DCN Unira Community"
+                alt="Foto DCN Unira"
                 className="w-full h-auto"
               />
               <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-transparent" />
