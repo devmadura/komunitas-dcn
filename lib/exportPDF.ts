@@ -35,6 +35,7 @@ type KontributorData = {
   nama: string;
   angkatan: string;
   total_poin: number;
+  email?: string;
 };
 
 const addHeaderToPDF = (doc: jsPDF, title: string) => {
@@ -465,4 +466,27 @@ export const exportQuizResultToPDF = (data: QuizResultData) => {
   doc.save(
     `Hasil_Kuis_${judulFileName}_${new Date().toISOString().split("T")[0]}.pdf`
   );
+};
+
+export const exportAllKontributorToCSV = (kontributor: KontributorData[]) => {
+  const header = "No,Nama,Email";
+  const rows = kontributor.map((item, index) => {
+    const no = index + 1;
+    const nama = `"${(item.nama || "").replace(/"/g, '""')}"`;
+    const email = `"${(item.email || "").replace(/"/g, '""')}"`;
+    return `${no},${nama},${email}`;
+  });
+
+  const csvContent = [header, ...rows].join("\n");
+  const blob = new Blob(["\uFEFF" + csvContent], {
+    type: "text/csv;charset=utf-8;",
+  });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `Semua_Kontributor_DCN_${new Date().toISOString().split("T")[0]}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 };

@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   exportLeaderboardToPDF,
   exportAllKontributorToPDF,
+  exportAllKontributorToCSV,
 } from "@/lib/exportPDF";
 import { toast } from "sonner";
 
@@ -70,6 +71,14 @@ export default function LeaderboardTab({
     );
     exportAllKontributorToPDF(sortedAll);
     toast.success("PDF Semua Kontributor berhasil diunduh");
+  };
+
+  const handleExportCSV = () => {
+    const sortedAll = [...kontributor].sort(
+      (a, b) => b.total_poin - a.total_poin
+    );
+    exportAllKontributorToCSV(sortedAll);
+    toast.success("CSV Semua Kontributor berhasil diunduh");
   };
 
   const handleUpdate = async (e: React.FormEvent) => {
@@ -327,6 +336,13 @@ export default function LeaderboardTab({
                 >
                   <FileDown className="w-4 h-4" />
                   Print PDF
+                </button>
+                <button
+                  onClick={handleExportCSV}
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                >
+                  <FileDown className="w-4 h-4" />
+                  Export CSV
                 </button>
               </div>
             </div>
